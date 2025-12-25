@@ -29,6 +29,7 @@
             font-size: 16px;
             line-height: 1.5;
             overflow-x: hidden;
+            background: #000;
         }
 
         /* Login Screen */
@@ -102,7 +103,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: white;
+            background: #000;
             padding: 1.5rem;
         }
 
@@ -117,7 +118,7 @@
 
         .back-button {
             margin-bottom: 2rem;
-            color: #666;
+            color: #999;
             background: transparent;
             border: none;
             cursor: pointer;
@@ -126,13 +127,14 @@
         }
 
         .back-button:hover {
-            color: #000;
+            color: #fff;
         }
 
         .security-title {
             font-size: 1.5rem;
             font-weight: 500;
             margin-bottom: 0.5rem;
+            color: #fff;
         }
 
         .security-title .username {
@@ -151,32 +153,39 @@
             display: block;
             margin-bottom: 0.75rem;
             font-weight: 500;
+            color: #fff;
         }
 
         .form-input {
             width: 100%;
             padding: 0.75rem 1rem;
-            border: 2px solid #000;
+            border: 2px solid #fff;
             font-size: 1rem;
             font-family: inherit;
+            background: transparent;
+            color: #fff;
         }
 
         .form-input:focus {
             outline: none;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .form-input::placeholder {
+            color: #666;
         }
 
         .error-message {
             margin-top: 0.5rem;
-            color: #dc2626;
+            color: #ff6b6b;
             font-size: 0.875rem;
         }
 
         .submit-button {
             width: 100%;
             padding: 0.75rem;
-            background: #000;
-            color: white;
+            background: #fff;
+            color: #000;
             border: none;
             font-size: 1rem;
             font-weight: 500;
@@ -185,13 +194,13 @@
         }
 
         .submit-button:hover {
-            background: #333;
+            background: #e5e5e5;
         }
 
         /* Board View */
         .board-view {
             min-height: 100vh;
-            background: white;
+            background: #000;
         }
 
         .board-view.hidden {
@@ -203,8 +212,8 @@
             top: 0;
             left: 0;
             right: 0;
-            background: white;
-            border-bottom: 2px solid #000;
+            background: #000;
+            border-bottom: 2px solid #fff;
             z-index: 50;
         }
 
@@ -227,7 +236,28 @@
         .board-controls {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1rem;
+        }
+
+        .menu-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            color: #fff;
+        }
+
+        .menu-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-button svg {
+            width: 24px;
+            height: 24px;
         }
 
         .board-title {
@@ -235,31 +265,14 @@
             font-weight: 500;
             white-space: nowrap;
             text-transform: capitalize;
-        }
-
-        .board-select {
-            padding: 0.375rem 0.75rem;
-            border: 2px solid #000;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
-        @media (min-width: 640px) {
-            .board-select {
-                padding: 0.5rem 1rem;
-            }
-        }
-
-        .board-select:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+            color: #fff;
         }
 
         .add-note-button {
             width: 100%;
             padding: 0.5rem 1rem;
-            background: #000;
-            color: white;
+            background: #fff;
+            color: #000;
             border: none;
             cursor: pointer;
             font-size: 1rem;
@@ -276,7 +289,7 @@
         }
 
         .add-note-button:hover {
-            background: #333;
+            background: #e5e5e5;
         }
 
         .board-area {
@@ -296,14 +309,14 @@
             align-items: center;
             justify-content: center;
             min-height: calc(100vh - 7rem);
-            color: #999;
+            color: #666;
         }
 
         /* Sticky Note */
         .sticky-note {
             position: absolute;
             padding: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
             cursor: move;
             user-select: none;
             width: 250px;
@@ -321,6 +334,7 @@
             font-size: 0.75rem;
             opacity: 0.6;
             text-transform: capitalize;
+            color: #000;
         }
 
         .delete-note-button {
@@ -330,6 +344,7 @@
             font-size: 0.75rem;
             cursor: pointer;
             transition: background 0.2s;
+            color: #000;
         }
 
         .delete-note-button:hover {
@@ -339,13 +354,14 @@
         .sticky-note-text {
             white-space: pre-wrap;
             word-wrap: break-word;
+            color: #000;
         }
 
         /* Add Note Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.8);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -358,7 +374,7 @@
         }
 
         .modal-content {
-            background: white;
+            background: #fff;
             border: 2px solid #000;
             padding: 2rem;
             width: 100%;
@@ -369,6 +385,32 @@
             margin-bottom: 1rem;
             font-size: 1.125rem;
             font-weight: 500;
+            color: #000;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #ccc;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.selected {
+            border: 3px solid #000;
+            transform: scale(1.1);
         }
 
         .modal-textarea {
@@ -379,11 +421,17 @@
             font-size: 1rem;
             font-family: inherit;
             resize: none;
+            background: #fff;
+            color: #000;
         }
 
         .modal-textarea:focus {
             outline: none;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-textarea::placeholder {
+            color: #999;
         }
 
         .modal-buttons {
@@ -403,7 +451,7 @@
 
         .modal-button-primary {
             background: #000;
-            color: white;
+            color: #fff;
             border: none;
         }
 
@@ -414,6 +462,7 @@
         .modal-button-secondary {
             background: transparent;
             border: 2px solid #000;
+            color: #000;
         }
 
         .modal-button-secondary:hover {
@@ -426,9 +475,10 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: white;
+            background: #000;
+            border-top: 2px solid #fff;
             padding: 1.25rem;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
             display: none;
             align-items: center;
             justify-content: space-between;
@@ -456,12 +506,12 @@
 
         .install-banner-title {
             font-weight: bold;
-            color: #000;
+            color: #fff;
             margin-bottom: 0.25rem;
         }
 
         .install-banner-text {
-            color: #666;
+            color: #999;
             font-size: 0.875rem;
         }
 
@@ -471,8 +521,8 @@
         }
 
         .install-button {
-            background: #000;
-            color: white;
+            background: #fff;
+            color: #000;
             border: none;
             border-radius: 0.5rem;
             padding: 0.625rem 1.25rem;
@@ -482,20 +532,21 @@
         }
 
         .install-button:hover {
-            background: #333;
+            background: #e5e5e5;
         }
 
         .dismiss-button {
-            background: #e5e5e5;
-            color: #666;
-            border: none;
+            background: transparent;
+            color: #999;
+            border: 2px solid #fff;
             border-radius: 0.5rem;
             padding: 0.625rem 1.25rem;
             cursor: pointer;
         }
 
         .dismiss-button:hover {
-            background: #d4d4d4;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
         }
 
         /* Stick figure animation */
@@ -512,6 +563,122 @@
 
         .user-button:active .stick-figure {
             transform: translateY(2px) scale(0.95);
+        }
+
+        /* Side Menu */
+        .side-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            display: none;
+        }
+
+        .side-menu-overlay.show {
+            display: block;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 280px;
+            background: #000;
+            border-right: 2px solid #fff;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 101;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .side-menu.show {
+            transform: translateX(0);
+        }
+
+        .side-menu-header {
+            padding: 1.5rem;
+            border-bottom: 2px solid #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .side-menu-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .close-menu-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            line-height: 1;
+            color: #fff;
+        }
+
+        .side-menu-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem 0;
+        }
+
+        .menu-section-title {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #666;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 0.875rem 1.5rem;
+            color: #fff;
+            text-decoration: none;
+            transition: background 0.2s;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+            font-size: 1rem;
+            text-transform: capitalize;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-item.active {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: 500;
+        }
+
+        .side-menu-footer {
+            border-top: 2px solid #fff;
+            padding: 1rem;
+        }
+
+        .logout-menu-button {
+            width: 100%;
+            padding: 0.875rem 1.5rem;
+            background: #fff;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .logout-menu-button:hover {
+            background: #e5e5e5;
         }
     </style>
 </head>
@@ -634,16 +801,14 @@
         <header class="board-header">
             <div class="board-header-content">
                 <div class="board-controls">
+                    <button class="menu-button" onclick="openSideMenu()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
                     <h3 class="board-title"><span id="boardTitle"></span>'s board</h3>
-                    <select id="boardSelect" class="board-select" onchange="handleBoardChange()">
-                        <option value="isabella">isabella</option>
-                        <option value="sophia">sophia</option>
-                        <option value="peter">peter</option>
-                        <option value="donghee">donghee</option>
-                        <option value="haerie">haerie</option>
-                        <option value="leah">leah</option>
-                        <option value="logout">logout</option>
-                    </select>
                 </div>
                 <button class="add-note-button" onclick="showAddNoteModal()">+ add note</button>
             </div>
@@ -652,10 +817,38 @@
         <div id="boardArea" class="board-area"></div>
     </div>
 
+    <!-- Side Menu -->
+    <div id="sideMenuOverlay" class="side-menu-overlay" onclick="closeSideMenu()"></div>
+    <div id="sideMenu" class="side-menu">
+        <div class="side-menu-header">
+            <h3 class="side-menu-title">Menu</h3>
+            <button class="close-menu-button" onclick="closeSideMenu()">×</button>
+        </div>
+        <div class="side-menu-content">
+            <div class="menu-section-title">Boards</div>
+            <button class="menu-item" data-board="isabella" onclick="selectBoardFromMenu('isabella')">isabella</button>
+            <button class="menu-item" data-board="sophia" onclick="selectBoardFromMenu('sophia')">sophia</button>
+            <button class="menu-item" data-board="peter" onclick="selectBoardFromMenu('peter')">peter</button>
+            <button class="menu-item" data-board="donghee" onclick="selectBoardFromMenu('donghee')">donghee</button>
+            <button class="menu-item" data-board="haerie" onclick="selectBoardFromMenu('haerie')">haerie</button>
+            <button class="menu-item" data-board="leah" onclick="selectBoardFromMenu('leah')">leah</button>
+        </div>
+        <div class="side-menu-footer">
+            <button class="logout-menu-button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
     <!-- Add Note Modal -->
     <div id="addNoteModal" class="modal-overlay hidden">
         <div class="modal-content">
             <h3 class="modal-title">add a new note</h3>
+            <div class="color-picker">
+                <div class="color-option selected" data-color="#fef08a" style="background-color: #fef08a;" onclick="selectColor('#fef08a')"></div>
+                <div class="color-option" data-color="#bfdbfe" style="background-color: #bfdbfe;" onclick="selectColor('#bfdbfe')"></div>
+                <div class="color-option" data-color="#fecaca" style="background-color: #fecaca;" onclick="selectColor('#fecaca')"></div>
+                <div class="color-option" data-color="#d9f99d" style="background-color: #d9f99d;" onclick="selectColor('#d9f99d')"></div>
+                <div class="color-option" data-color="#fbcfe8" style="background-color: #fbcfe8;" onclick="selectColor('#fbcfe8')"></div>
+            </div>
             <textarea
                 id="noteTextarea"
                 class="modal-textarea"
@@ -678,6 +871,7 @@
         let boards = {};
         let draggedNote = null;
         let dragOffset = { x: 0, y: 0 };
+        let selectedNoteColor = '#fef08a'; // Default to yellow
 
         // Initialize boards from localStorage
         function initBoards() {
@@ -731,19 +925,9 @@
                 document.getElementById('securityScreen').classList.add('hidden');
                 document.getElementById('boardView').classList.remove('hidden');
                 document.getElementById('boardTitle').textContent = selectedBoard;
-                document.getElementById('boardSelect').value = selectedBoard;
-
-                // Update select to show current user
-                const options = document.querySelectorAll('#boardSelect option');
-                options.forEach(opt => {
-                    if (opt.value === currentUser && opt.value !== 'logout') {
-                        opt.textContent = `${opt.value} (you)`;
-                    } else if (opt.value !== 'logout') {
-                        opt.textContent = opt.value;
-                    }
-                });
 
                 renderBoard();
+                updateMenuActiveState();
             } else {
                 document.getElementById('errorMessage').style.display = 'block';
                 document.getElementById('securityAnswer').value = '';
@@ -751,18 +935,38 @@
             }
         }
 
-        // Board View
-        function handleBoardChange() {
-            const select = document.getElementById('boardSelect');
-            if (select.value === 'logout') {
-                logout();
-            } else {
-                selectedBoard = select.value;
-                document.getElementById('boardTitle').textContent = selectedBoard;
-                renderBoard();
-            }
+        // Side Menu Functions
+        function openSideMenu() {
+            document.getElementById('sideMenu').classList.add('show');
+            document.getElementById('sideMenuOverlay').classList.add('show');
+            updateMenuActiveState();
         }
 
+        function closeSideMenu() {
+            document.getElementById('sideMenu').classList.remove('show');
+            document.getElementById('sideMenuOverlay').classList.remove('show');
+        }
+
+        function selectBoardFromMenu(boardName) {
+            selectedBoard = boardName;
+            document.getElementById('boardTitle').textContent = boardName;
+            renderBoard();
+            updateMenuActiveState();
+            closeSideMenu();
+        }
+
+        function updateMenuActiveState() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                if (item.dataset.board === selectedBoard) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Board View
         function logout() {
             currentUser = null;
             selectedBoard = null;
@@ -770,14 +974,7 @@
             document.getElementById('loginScreen').classList.remove('hidden');
             document.getElementById('securityAnswer').value = '';
             document.getElementById('errorMessage').style.display = 'none';
-
-            // Reset select options
-            const options = document.querySelectorAll('#boardSelect option');
-            options.forEach(opt => {
-                if (opt.value !== 'logout') {
-                    opt.textContent = opt.value;
-                }
-            });
+            closeSideMenu();
         }
 
         function renderBoard() {
@@ -865,6 +1062,18 @@
         }
 
         // Add Note Modal
+        function selectColor(color) {
+            selectedNoteColor = color;
+            // Update visual selection
+            document.querySelectorAll('.color-option').forEach(option => {
+                if (option.dataset.color === color) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+        }
+
         function showAddNoteModal() {
             document.getElementById('addNoteModal').classList.remove('hidden');
             document.getElementById('noteTextarea').focus();
@@ -873,6 +1082,15 @@
         function hideAddNoteModal() {
             document.getElementById('addNoteModal').classList.add('hidden');
             document.getElementById('noteTextarea').value = '';
+            // Reset to default color
+            selectedNoteColor = '#fef08a';
+            document.querySelectorAll('.color-option').forEach(option => {
+                if (option.dataset.color === '#fef08a') {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
         }
 
         function addNote() {
@@ -885,7 +1103,7 @@
             const newNote = {
                 id: Date.now().toString(),
                 text: text,
-                color: noteColors[Math.floor(Math.random() * noteColors.length)],
+                color: selectedNoteColor,
                 author: currentUser,
                 position: {
                     x: Math.random() * 600 + 100,
