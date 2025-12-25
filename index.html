@@ -9,7 +9,7 @@
     <link rel="manifest" href="manifest.json">
 
     <!-- Theme Color -->
-    <meta name="theme-color" content="#667eea">
+    <meta name="theme-color" content="#000000">
 
     <!-- iOS Support -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,285 +25,399 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Login Screen */
+        .login-screen {
             min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Login Page */
-        .login-container {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 90vh;
+            background: #000;
+            padding: 1.5rem;
         }
 
-        .login-title {
-            color: white;
-            font-size: 3em;
-            margin-bottom: 20px;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .login-subtitle {
-            color: rgba(255,255,255,0.9);
-            font-size: 1.2em;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-
-        .user-buttons {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .user-button {
-            background: white;
-            border: none;
-            border-radius: 20px;
-            padding: 40px 50px;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #667eea;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .user-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-            background: #f8f9fa;
-        }
-
-        /* Main Board Page */
-        .board-container {
+        .login-screen.hidden {
             display: none;
         }
 
-        .board-container.active {
+        .login-container {
+            width: 100%;
+            max-width: 42rem;
+        }
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+            font-size: 2rem;
+            font-weight: 500;
+        }
+
+        .users-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .users-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .user-button {
+            padding: 2rem;
+            border: 2px solid white;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .user-button:active {
+            transform: scale(0.98);
+        }
+
+        .user-name {
+            color: white;
             display: block;
+            margin-top: 1rem;
+            text-transform: capitalize;
+            font-weight: 500;
         }
 
-        .header {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        /* Security Question Screen */
+        .security-screen {
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            justify-content: center;
+            background: white;
+            padding: 1.5rem;
         }
 
-        .welcome-text {
-            color: #667eea;
-            font-size: 2em;
-            font-weight: bold;
+        .security-screen.hidden {
+            display: none;
         }
 
-        .logout-button {
-            background: #764ba2;
+        .security-container {
+            width: 100%;
+            max-width: 28rem;
+        }
+
+        .back-button {
+            margin-bottom: 2rem;
+            color: #666;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        .back-button:hover {
+            color: #000;
+        }
+
+        .security-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .security-title .username {
+            text-transform: capitalize;
+        }
+
+        .security-form {
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #000;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+
+        .error-message {
+            margin-top: 0.5rem;
+            color: #dc2626;
+            font-size: 0.875rem;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: #000;
             color: white;
             border: none;
-            border-radius: 10px;
-            padding: 12px 30px;
-            font-size: 1em;
+            font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.2s;
         }
 
-        .logout-button:hover {
-            background: #667eea;
-            transform: scale(1.05);
+        .submit-button:hover {
+            background: #333;
         }
 
-        .boards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .board {
+        /* Board View */
+        .board-view {
+            min-height: 100vh;
             background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .board-view.hidden {
+            display: none;
         }
 
         .board-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 2px solid #000;
+            z-index: 50;
+        }
+
+        .board-header-content {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 0.75rem;
+        }
+
+        @media (min-width: 640px) {
+            .board-header-content {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1rem;
+            }
+        }
+
+        .board-controls {
+            display: flex;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
+            gap: 1.5rem;
         }
 
         .board-title {
-            font-size: 1.8em;
-            color: #667eea;
-            font-weight: bold;
+            font-size: 1rem;
+            font-weight: 500;
+            white-space: nowrap;
+            text-transform: capitalize;
         }
 
-        .board.isabella .board-title,
-        .board.isabella .board-header {
-            color: #e74c3c;
-            border-color: #e74c3c;
+        .board-select {
+            padding: 0.375rem 0.75rem;
+            border: 2px solid #000;
+            font-size: 1rem;
+            cursor: pointer;
         }
 
-        .board.peter .board-title,
-        .board.peter .board-header {
-            color: #3498db;
-            border-color: #3498db;
+        @media (min-width: 640px) {
+            .board-select {
+                padding: 0.5rem 1rem;
+            }
         }
 
-        .board.donghee .board-title,
-        .board.donghee .board-header {
-            color: #2ecc71;
-            border-color: #2ecc71;
-        }
-
-        .message-input-container {
-            margin-bottom: 20px;
-        }
-
-        .message-input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1em;
-            font-family: inherit;
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .message-input:focus {
+        .board-select:focus {
             outline: none;
-            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
         }
 
-        .add-message-button {
+        .add-note-button {
             width: 100%;
-            background: #667eea;
+            padding: 0.5rem 1rem;
+            background: #000;
             color: white;
             border: none;
-            border-radius: 10px;
-            padding: 12px;
-            font-size: 1em;
-            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.2s;
+            white-space: nowrap;
         }
 
-        .add-message-button:hover {
-            background: #764ba2;
-            transform: scale(1.02);
+        @media (min-width: 640px) {
+            .add-note-button {
+                width: auto;
+                padding: 0.5rem 1.5rem;
+            }
         }
 
-        .board.isabella .add-message-button {
-            background: #e74c3c;
+        .add-note-button:hover {
+            background: #333;
         }
 
-        .board.isabella .add-message-button:hover {
-            background: #c0392b;
+        .board-area {
+            padding-top: 7rem;
+            position: relative;
+            min-height: 100vh;
         }
 
-        .board.peter .add-message-button {
-            background: #3498db;
+        @media (min-width: 640px) {
+            .board-area {
+                padding-top: 5rem;
+            }
         }
 
-        .board.peter .add-message-button:hover {
-            background: #2980b9;
-        }
-
-        .board.donghee .add-message-button {
-            background: #2ecc71;
-        }
-
-        .board.donghee .add-message-button:hover {
-            background: #27ae60;
-        }
-
-        .messages {
+        .empty-state {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        .message {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            border-left: 4px solid #667eea;
-        }
-
-        .board.isabella .message {
-            border-left-color: #e74c3c;
-        }
-
-        .board.peter .message {
-            border-left-color: #3498db;
-        }
-
-        .board.donghee .message {
-            border-left-color: #2ecc71;
-        }
-
-        .message-author {
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 5px;
-            font-size: 0.9em;
-        }
-
-        .message-text {
-            color: #333;
-            line-height: 1.5;
-        }
-
-        .message-time {
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 7rem);
             color: #999;
-            font-size: 0.8em;
-            margin-top: 8px;
         }
 
-        .no-messages {
-            text-align: center;
-            color: #999;
-            padding: 40px;
-            font-style: italic;
+        /* Sticky Note */
+        .sticky-note {
+            position: absolute;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            cursor: move;
+            user-select: none;
+            width: 250px;
+            min-height: 200px;
         }
 
-        @media (max-width: 768px) {
-            .boards-grid {
-                grid-template-columns: 1fr;
-            }
+        .sticky-note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
 
-            .login-title {
-                font-size: 2em;
-            }
+        .sticky-note-author {
+            font-size: 0.75rem;
+            opacity: 0.6;
+            text-transform: capitalize;
+        }
 
-            .user-button {
-                padding: 30px 40px;
-                font-size: 1.2em;
-            }
+        .delete-note-button {
+            background: rgba(0, 0, 0, 0.1);
+            border: none;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .delete-note-button:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .sticky-note-text {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Add Note Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.hidden {
+            display: none;
+        }
+
+        .modal-content {
+            background: white;
+            border: 2px solid #000;
+            padding: 2rem;
+            width: 100%;
+            max-width: 28rem;
+        }
+
+        .modal-title {
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        .modal-textarea {
+            width: 100%;
+            height: 8rem;
+            padding: 0.75rem 1rem;
+            border: 2px solid #000;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: none;
+        }
+
+        .modal-textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .modal-button {
+            flex: 1;
+            padding: 0.75rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-button-primary {
+            background: #000;
+            color: white;
+            border: none;
+        }
+
+        .modal-button-primary:hover {
+            background: #333;
+        }
+
+        .modal-button-secondary {
+            background: transparent;
+            border: 2px solid #000;
+        }
+
+        .modal-button-secondary:hover {
+            background: #f3f4f6;
         }
 
         /* Install Banner */
@@ -313,12 +427,12 @@
             left: 0;
             right: 0;
             background: white;
-            padding: 20px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+            padding: 1.25rem;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
             display: none;
             align-items: center;
             justify-content: space-between;
-            gap: 15px;
+            gap: 1rem;
             z-index: 1000;
             animation: slideUp 0.3s ease;
         }
@@ -342,46 +456,62 @@
 
         .install-banner-title {
             font-weight: bold;
-            color: #667eea;
-            margin-bottom: 5px;
+            color: #000;
+            margin-bottom: 0.25rem;
         }
 
         .install-banner-text {
             color: #666;
-            font-size: 0.9em;
+            font-size: 0.875rem;
         }
 
         .install-banner-buttons {
             display: flex;
-            gap: 10px;
+            gap: 0.625rem;
         }
 
         .install-button {
-            background: #667eea;
+            background: #000;
             color: white;
             border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
+            border-radius: 0.5rem;
+            padding: 0.625rem 1.25rem;
             font-weight: bold;
             cursor: pointer;
             white-space: nowrap;
         }
 
         .install-button:hover {
-            background: #764ba2;
+            background: #333;
         }
 
         .dismiss-button {
-            background: #e0e0e0;
+            background: #e5e5e5;
             color: #666;
             border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
+            border-radius: 0.5rem;
+            padding: 0.625rem 1.25rem;
             cursor: pointer;
         }
 
         .dismiss-button:hover {
-            background: #d0d0d0;
+            background: #d4d4d4;
+        }
+
+        /* Stick figure animation */
+        .stick-figure {
+            width: 80px;
+            height: 120px;
+            margin: 0 auto;
+            transition: transform 0.2s;
+        }
+
+        .user-button:hover .stick-figure {
+            transform: translateY(-5px);
+        }
+
+        .user-button:active .stick-figure {
+            transform: translateY(2px) scale(0.95);
         }
     </style>
 </head>
@@ -398,151 +528,385 @@
         </div>
     </div>
 
-    <div class="container">
-        <!-- Login Page -->
-        <div id="loginPage" class="login-container">
-            <h1 class="login-title">🎄 <3 🎄</h1>
-            <p class="login-subtitle">Who are you?</p>
-            <div class="user-buttons">
-                <button class="user-button" onclick="login('Isabella')">Isabella</button>
-                <button class="user-button" onclick="login('Peter')">Peter</button>
-                <button class="user-button" onclick="login('Donghee')">Donghee</button>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <h1 class="login-title">who are you?</h1>
+            <div class="users-grid">
+                <button class="user-button" onclick="selectUser('isabella')">
+                    <svg class="stick-figure" viewBox="0 0 80 120">
+                        <circle cx="40" cy="25" r="15" fill="white"/>
+                        <rect x="30" y="42" width="20" height="35" rx="10" fill="white"/>
+                        <line x1="30" y1="50" x2="15" y2="65" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="50" y1="50" x2="65" y2="65" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="35" y1="77" x2="30" y2="105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="45" y1="77" x2="50" y2="105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    <span class="user-name">isabella</span>
+                </button>
+                <button class="user-button" onclick="selectUser('sophia')">
+                    <svg class="stick-figure" viewBox="0 0 80 120">
+                        <circle cx="40" cy="25" r="15" fill="white"/>
+                        <rect x="30" y="42" width="20" height="35" rx="10" fill="white"/>
+                        <line x1="30" y1="50" x2="15" y2="65" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="50" y1="50" x2="65" y2="65" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="35" y1="77" x2="30" y2="105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="45" y1="77" x2="50" y2="105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    <span class="user-name">sophia</span>
+                </button>
+                <button class="user-button" onclick="selectUser('peter')">
+                    <svg class="stick-figure" viewBox="0 0 80 120">
+                        <circle cx="40" cy="25" r="15" fill="white"/>
+                        <rect x="30" y="42" width="20" height="35" rx="10" fill="white"/>
+                        <line x1="30" y1="50" x2="15" y2="65" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="50" y1="50" x2="65" y2="65" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="35" y1="77" x2="30" y2="105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="45" y1="77" x2="50" y2="105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    <span class="user-name">peter</span>
+                </button>
+                <button class="user-button" onclick="selectUser('donghee')">
+                    <svg class="stick-figure" viewBox="0 0 80 120">
+                        <circle cx="40" cy="25" r="15" fill="white"/>
+                        <rect x="30" y="42" width="20" height="35" rx="10" fill="white"/>
+                        <line x1="30" y1="50" x2="15" y2="65" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="50" y1="50" x2="65" y2="65" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="35" y1="77" x2="30" y2="105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="45" y1="77" x2="50" y2="105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    <span class="user-name">donghee</span>
+                </button>
+                <button class="user-button" onclick="selectUser('haerie')">
+                    <svg class="stick-figure" viewBox="0 0 80 120">
+                        <circle cx="40" cy="25" r="15" fill="white"/>
+                        <rect x="30" y="42" width="20" height="35" rx="10" fill="white"/>
+                        <line x1="30" y1="50" x2="15" y2="65" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="50" y1="50" x2="65" y2="65" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="35" y1="77" x2="30" y2="105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="45" y1="77" x2="50" y2="105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    <span class="user-name">haerie</span>
+                </button>
+                <button class="user-button" onclick="selectUser('leah')">
+                    <svg class="stick-figure" viewBox="0 0 80 120">
+                        <circle cx="40" cy="25" r="15" fill="white"/>
+                        <rect x="30" y="42" width="20" height="35" rx="10" fill="white"/>
+                        <line x1="30" y1="50" x2="15" y2="65" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="50" y1="50" x2="65" y2="65" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="35" y1="77" x2="30" y2="105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="45" y1="77" x2="50" y2="105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    <span class="user-name">leah</span>
+                </button>
             </div>
         </div>
+    </div>
 
-        <!-- Board Page -->
-        <div id="boardPage" class="board-container">
-            <div class="header">
-                <div class="welcome-text">Welcome, <span id="currentUser"></span>! 👋</div>
-                <button class="logout-button" onclick="logout()">Logout</button>
+    <!-- Security Question Screen -->
+    <div id="securityScreen" class="security-screen hidden">
+        <div class="security-container">
+            <button class="back-button" onclick="goBackToLogin()">← back</button>
+            <h2 class="security-title">
+                hello, <span class="username" id="securityUsername"></span>
+            </h2>
+            <form class="security-form" onsubmit="handleSecuritySubmit(event)">
+                <div class="form-group">
+                    <label for="securityAnswer" class="form-label">what's your last name?</label>
+                    <input
+                        id="securityAnswer"
+                        type="text"
+                        class="form-input"
+                        placeholder="enter your answer"
+                        autocomplete="off"
+                    />
+                    <div id="errorMessage" class="error-message" style="display: none;">
+                        incorrect answer. try again.
+                    </div>
+                </div>
+                <button type="submit" class="submit-button">continue</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Board View -->
+    <div id="boardView" class="board-view hidden">
+        <header class="board-header">
+            <div class="board-header-content">
+                <div class="board-controls">
+                    <h3 class="board-title"><span id="boardTitle"></span>'s board</h3>
+                    <select id="boardSelect" class="board-select" onchange="handleBoardChange()">
+                        <option value="isabella">isabella</option>
+                        <option value="sophia">sophia</option>
+                        <option value="peter">peter</option>
+                        <option value="donghee">donghee</option>
+                        <option value="haerie">haerie</option>
+                        <option value="leah">leah</option>
+                        <option value="logout">logout</option>
+                    </select>
+                </div>
+                <button class="add-note-button" onclick="showAddNoteModal()">+ add note</button>
             </div>
+        </header>
 
-            <div class="boards-grid">
-                <!-- Isabella's Board -->
-                <div class="board isabella">
-                    <div class="board-header">
-                        <h2 class="board-title">Isabella's Board</h2>
-                    </div>
-                    <div class="message-input-container">
-                        <textarea class="message-input" id="isabellaInput" placeholder="Write a message for Isabella..."></textarea>
-                        <button class="add-message-button" onclick="addMessage('Isabella')">Post Message</button>
-                    </div>
-                    <div class="messages" id="isabellaMessages">
-                        <div class="no-messages">No messages yet. Be the first to write!</div>
-                    </div>
-                </div>
+        <div id="boardArea" class="board-area"></div>
+    </div>
 
-                <!-- Peter's Board -->
-                <div class="board peter">
-                    <div class="board-header">
-                        <h2 class="board-title">Peter's Board</h2>
-                    </div>
-                    <div class="message-input-container">
-                        <textarea class="message-input" id="peterInput" placeholder="Write a message for Peter..."></textarea>
-                        <button class="add-message-button" onclick="addMessage('Peter')">Post Message</button>
-                    </div>
-                    <div class="messages" id="peterMessages">
-                        <div class="no-messages">No messages yet. Be the first to write!</div>
-                    </div>
-                </div>
-
-                <!-- Donghee's Board -->
-                <div class="board donghee">
-                    <div class="board-header">
-                        <h2 class="board-title">Donghee's Board</h2>
-                    </div>
-                    <div class="message-input-container">
-                        <textarea class="message-input" id="dongheeInput" placeholder="Write a message for Donghee..."></textarea>
-                        <button class="add-message-button" onclick="addMessage('Donghee')">Post Message</button>
-                    </div>
-                    <div class="messages" id="dongheeMessages">
-                        <div class="no-messages">No messages yet. Be the first to write!</div>
-                    </div>
-                </div>
+    <!-- Add Note Modal -->
+    <div id="addNoteModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 class="modal-title">add a new note</h3>
+            <textarea
+                id="noteTextarea"
+                class="modal-textarea"
+                placeholder="write something..."
+            ></textarea>
+            <div class="modal-buttons">
+                <button class="modal-button modal-button-primary" onclick="addNote()">add</button>
+                <button class="modal-button modal-button-secondary" onclick="hideAddNoteModal()">cancel</button>
             </div>
         </div>
     </div>
 
     <script>
+        const STORAGE_KEY = 'sticky-notes-boards';
+        const users = ['isabella', 'sophia', 'peter', 'donghee', 'haerie', 'leah'];
+        const noteColors = ['#fef08a', '#bfdbfe', '#fecaca', '#d9f99d', '#fbcfe8'];
+
         let currentUser = null;
+        let selectedBoard = null;
+        let boards = {};
+        let draggedNote = null;
+        let dragOffset = { x: 0, y: 0 };
 
-        // Initialize on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            loadMessages();
-        });
+        // Initialize boards from localStorage
+        function initBoards() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    boards = JSON.parse(saved);
+                } catch (e) {
+                    console.error('Failed to parse saved boards:', e);
+                    boards = {};
+                }
+            }
 
-        function login(username) {
+            // Ensure all user boards exist
+            users.forEach(user => {
+                if (!boards[user]) {
+                    boards[user] = [];
+                }
+            });
+        }
+
+        function saveBoards() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(boards));
+        }
+
+        // Login Screen
+        function selectUser(username) {
             currentUser = username;
-            document.getElementById('currentUser').textContent = username;
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('boardPage').classList.add('active');
-            loadMessages();
+            document.getElementById('securityUsername').textContent = username;
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('securityScreen').classList.remove('hidden');
+            document.getElementById('securityAnswer').focus();
+        }
+
+        function goBackToLogin() {
+            currentUser = null;
+            document.getElementById('securityScreen').classList.add('hidden');
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('securityAnswer').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // Security Question
+        function handleSecuritySubmit(event) {
+            event.preventDefault();
+            const answer = document.getElementById('securityAnswer').value;
+
+            if (answer.toLowerCase() === 'cho') {
+                // Authenticated
+                selectedBoard = currentUser;
+                document.getElementById('securityScreen').classList.add('hidden');
+                document.getElementById('boardView').classList.remove('hidden');
+                document.getElementById('boardTitle').textContent = selectedBoard;
+                document.getElementById('boardSelect').value = selectedBoard;
+
+                // Update select to show current user
+                const options = document.querySelectorAll('#boardSelect option');
+                options.forEach(opt => {
+                    if (opt.value === currentUser && opt.value !== 'logout') {
+                        opt.textContent = `${opt.value} (you)`;
+                    } else if (opt.value !== 'logout') {
+                        opt.textContent = opt.value;
+                    }
+                });
+
+                renderBoard();
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('securityAnswer').value = '';
+                document.getElementById('securityAnswer').focus();
+            }
+        }
+
+        // Board View
+        function handleBoardChange() {
+            const select = document.getElementById('boardSelect');
+            if (select.value === 'logout') {
+                logout();
+            } else {
+                selectedBoard = select.value;
+                document.getElementById('boardTitle').textContent = selectedBoard;
+                renderBoard();
+            }
         }
 
         function logout() {
             currentUser = null;
-            document.getElementById('loginPage').style.display = 'flex';
-            document.getElementById('boardPage').classList.remove('active');
+            selectedBoard = null;
+            document.getElementById('boardView').classList.add('hidden');
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('securityAnswer').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+
+            // Reset select options
+            const options = document.querySelectorAll('#boardSelect option');
+            options.forEach(opt => {
+                if (opt.value !== 'logout') {
+                    opt.textContent = opt.value;
+                }
+            });
         }
 
-        function addMessage(boardOwner) {
-            const inputId = boardOwner.toLowerCase() + 'Input';
-            const input = document.getElementById(inputId);
-            const messageText = input.value.trim();
+        function renderBoard() {
+            const boardArea = document.getElementById('boardArea');
+            const notes = boards[selectedBoard] || [];
 
-            if (!messageText) {
-                alert('Please write a message first!');
+            if (notes.length === 0) {
+                const message = selectedBoard === currentUser
+                    ? 'add your first note!'
+                    : 'be the first to write on this board!';
+                boardArea.innerHTML = `<div class="empty-state"><p>no notes yet. ${message}</p></div>`;
+            } else {
+                boardArea.innerHTML = '';
+                notes.forEach(note => {
+                    const noteEl = createNoteElement(note);
+                    boardArea.appendChild(noteEl);
+                });
+            }
+        }
+
+        function createNoteElement(note) {
+            const div = document.createElement('div');
+            div.className = 'sticky-note';
+            div.style.backgroundColor = note.color;
+            div.style.left = note.position.x + 'px';
+            div.style.top = note.position.y + 'px';
+            div.dataset.noteId = note.id;
+
+            const canDelete = note.author === currentUser;
+
+            div.innerHTML = `
+                <div class="sticky-note-header">
+                    <span class="sticky-note-author">by ${note.author}</span>
+                    ${canDelete ? '<button class="delete-note-button" onclick="deleteNote(\'' + note.id + '\')">×</button>' : ''}
+                </div>
+                <p class="sticky-note-text">${escapeHtml(note.text)}</p>
+            `;
+
+            div.addEventListener('mousedown', startDrag);
+
+            return div;
+        }
+
+        function startDrag(e) {
+            if (e.target.classList.contains('delete-note-button')) {
                 return;
             }
 
-            const message = {
+            draggedNote = e.currentTarget;
+            const rect = draggedNote.getBoundingClientRect();
+            dragOffset.x = e.clientX - rect.left;
+            dragOffset.y = e.clientY - rect.top;
+
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDrag);
+        }
+
+        function drag(e) {
+            if (!draggedNote) return;
+
+            const newX = e.clientX - dragOffset.x;
+            const newY = e.clientY - dragOffset.y;
+
+            draggedNote.style.left = newX + 'px';
+            draggedNote.style.top = newY + 'px';
+        }
+
+        function stopDrag(e) {
+            if (!draggedNote) return;
+
+            const noteId = draggedNote.dataset.noteId;
+            const newX = parseInt(draggedNote.style.left);
+            const newY = parseInt(draggedNote.style.top);
+
+            // Update position in boards
+            const noteIndex = boards[selectedBoard].findIndex(n => n.id === noteId);
+            if (noteIndex !== -1) {
+                boards[selectedBoard][noteIndex].position = { x: newX, y: newY };
+                saveBoards();
+            }
+
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('mouseup', stopDrag);
+            draggedNote = null;
+        }
+
+        // Add Note Modal
+        function showAddNoteModal() {
+            document.getElementById('addNoteModal').classList.remove('hidden');
+            document.getElementById('noteTextarea').focus();
+        }
+
+        function hideAddNoteModal() {
+            document.getElementById('addNoteModal').classList.add('hidden');
+            document.getElementById('noteTextarea').value = '';
+        }
+
+        function addNote() {
+            const text = document.getElementById('noteTextarea').value.trim();
+
+            if (!text) {
+                return;
+            }
+
+            const newNote = {
+                id: Date.now().toString(),
+                text: text,
+                color: noteColors[Math.floor(Math.random() * noteColors.length)],
                 author: currentUser,
-                text: messageText,
-                timestamp: new Date().toISOString(),
-                boardOwner: boardOwner
+                position: {
+                    x: Math.random() * 600 + 100,
+                    y: Math.random() * 400 + 150
+                }
             };
 
-            // Get existing messages
-            const messages = getMessages(boardOwner);
-            messages.push(message);
-
-            // Save to localStorage
-            localStorage.setItem(`messages_${boardOwner}`, JSON.stringify(messages));
-
-            // Clear input
-            input.value = '';
-
-            // Reload messages
-            loadMessages();
+            boards[selectedBoard].push(newNote);
+            saveBoards();
+            renderBoard();
+            hideAddNoteModal();
         }
 
-        function getMessages(boardOwner) {
-            const stored = localStorage.getItem(`messages_${boardOwner}`);
-            return stored ? JSON.parse(stored) : [];
-        }
+        function deleteNote(noteId) {
+            if (!confirm('Delete this note?')) {
+                return;
+            }
 
-        function loadMessages() {
-            ['Isabella', 'Peter', 'Donghee'].forEach(boardOwner => {
-                const messages = getMessages(boardOwner);
-                const messagesContainer = document.getElementById(boardOwner.toLowerCase() + 'Messages');
-
-                if (messages.length === 0) {
-                    messagesContainer.innerHTML = '<div class="no-messages">No messages yet. Be the first to write!</div>';
-                } else {
-                    messagesContainer.innerHTML = messages.map(msg => {
-                        const date = new Date(msg.timestamp);
-                        const timeStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-                        return `
-                            <div class="message">
-                                <div class="message-author">From: ${msg.author}</div>
-                                <div class="message-text">${escapeHtml(msg.text)}</div>
-                                <div class="message-time">${timeStr}</div>
-                            </div>
-                        `;
-                    }).reverse().join('');
-                }
-            });
+            boards[selectedBoard] = boards[selectedBoard].filter(note => note.id !== noteId);
+            saveBoards();
+            renderBoard();
         }
 
         function escapeHtml(text) {
@@ -557,49 +921,34 @@
         const installButton = document.getElementById('installButton');
         const dismissButton = document.getElementById('dismissButton');
 
-        // Listen for the beforeinstallprompt event
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent the default prompt
             e.preventDefault();
-            // Store the event for later use
             deferredPrompt = e;
 
-            // Check if user has already dismissed the banner
             const dismissed = localStorage.getItem('installBannerDismissed');
             if (!dismissed) {
-                // Show the install banner
                 installBanner.classList.add('show');
             }
         });
 
-        // Handle install button click
         installButton.addEventListener('click', async () => {
             if (!deferredPrompt) {
                 return;
             }
 
-            // Show the install prompt
             deferredPrompt.prompt();
-
-            // Wait for the user's response
             const { outcome } = await deferredPrompt.userChoice;
             console.log(`User response to the install prompt: ${outcome}`);
 
-            // Clear the deferredPrompt
             deferredPrompt = null;
-
-            // Hide the banner
             installBanner.classList.remove('show');
         });
 
-        // Handle dismiss button click
         dismissButton.addEventListener('click', () => {
             installBanner.classList.remove('show');
-            // Remember that user dismissed it (for this session)
             localStorage.setItem('installBannerDismissed', 'true');
         });
 
-        // Detect if app is already installed
         window.addEventListener('appinstalled', () => {
             console.log('App was installed');
             installBanner.classList.remove('show');
@@ -614,28 +963,24 @@
             return window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
         }
 
-        // Show install banner for iOS users
         if (isIOS() && !isInStandaloneMode()) {
             const dismissed = localStorage.getItem('installBannerDismissed');
             if (!dismissed) {
-                // Update banner text for iOS
                 document.querySelector('.install-banner-title').textContent = 'Install App';
                 document.querySelector('.install-banner-text').textContent = 'Tap the Share button, then "Add to Home Screen"';
 
-                // Change Install button to "Got It" for iOS
                 installButton.textContent = 'Show Me';
                 installButton.addEventListener('click', () => {
                     alert('To install:\n\n1. Tap the Share button (⬆️) at the bottom of Safari\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add"\n\nThe app icon will appear on your home screen!');
                 });
 
-                // Show banner after a short delay
                 setTimeout(() => {
                     installBanner.classList.add('show');
                 }, 1000);
             }
         }
 
-        // Register Service Worker for PWA
+        // Register Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
@@ -647,7 +992,9 @@
                     });
             });
         }
+
+        // Initialize app
+        initBoards();
     </script>
 </body>
 </html>
-
