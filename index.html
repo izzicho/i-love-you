@@ -305,9 +305,99 @@
                 font-size: 1.2em;
             }
         }
+
+        /* Install Banner */
+        .install-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .install-banner.show {
+            display: flex;
+        }
+
+        .install-banner-content {
+            flex: 1;
+        }
+
+        .install-banner-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .install-banner-text {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .install-banner-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .install-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .install-button:hover {
+            background: #764ba2;
+        }
+
+        .dismiss-button {
+            background: #e0e0e0;
+            color: #666;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .dismiss-button:hover {
+            background: #d0d0d0;
+        }
     </style>
 </head>
 <body>
+    <!-- Install Banner -->
+    <div id="installBanner" class="install-banner">
+        <div class="install-banner-content">
+            <div class="install-banner-title">Install App</div>
+            <div class="install-banner-text">Add to your home screen for quick access</div>
+        </div>
+        <div class="install-banner-buttons">
+            <button class="install-button" id="installButton">Install</button>
+            <button class="dismiss-button" id="dismissButton">Not Now</button>
+        </div>
+    </div>
+
     <div class="container">
         <!-- Login Page -->
         <div id="loginPage" class="login-container">
@@ -461,6 +551,60 @@
             return div.innerHTML;
         }
 
+        // PWA Install Prompt
+        let deferredPrompt;
+        const installBanner = document.getElementById('installBanner');
+        const installButton = document.getElementById('installButton');
+        const dismissButton = document.getElementById('dismissButton');
+
+        // Listen for the beforeinstallprompt event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the default prompt
+            e.preventDefault();
+            // Store the event for later use
+            deferredPrompt = e;
+
+            // Check if user has already dismissed the banner
+            const dismissed = localStorage.getItem('installBannerDismissed');
+            if (!dismissed) {
+                // Show the install banner
+                installBanner.classList.add('show');
+            }
+        });
+
+        // Handle install button click
+        installButton.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                return;
+            }
+
+            // Show the install prompt
+            deferredPrompt.prompt();
+
+            // Wait for the user's response
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to the install prompt: ${outcome}`);
+
+            // Clear the deferredPrompt
+            deferredPrompt = null;
+
+            // Hide the banner
+            installBanner.classList.remove('show');
+        });
+
+        // Handle dismiss button click
+        dismissButton.addEventListener('click', () => {
+            installBanner.classList.remove('show');
+            // Remember that user dismissed it (for this session)
+            localStorage.setItem('installBannerDismissed', 'true');
+        });
+
+        // Detect if app is already installed
+        window.addEventListener('appinstalled', () => {
+            console.log('App was installed');
+            installBanner.classList.remove('show');
+        });
+
         // Register Service Worker for PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -476,3 +620,4 @@
     </script>
 </body>
 </html>
+
