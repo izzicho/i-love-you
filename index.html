@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Family Message Board</title>
+    <title><3</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#667eea">
+
+    <!-- iOS Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="i love you">
+    <link rel="apple-touch-icon" href="icon-192.svg">
+
     <style>
         * {
             margin: 0;
@@ -298,7 +311,7 @@
     <div class="container">
         <!-- Login Page -->
         <div id="loginPage" class="login-container">
-            <h1 class="login-title">🎄 Family Message Board 🎄</h1>
+            <h1 class="login-title">🎄 <3 🎄</h1>
             <p class="login-subtitle">Who are you?</p>
             <div class="user-buttons">
                 <button class="user-button" onclick="login('Isabella')">Isabella</button>
@@ -446,6 +459,19 @@
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
+        }
+
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered successfully:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
         }
     </script>
 </body>
