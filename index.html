@@ -2299,12 +2299,11 @@
             </h2>
             <form class="security-form" onsubmit="handleSecuritySubmit(event)">
                 <div class="form-group">
-                    <label for="securityAnswer" class="form-label">what's your last name?</label>
                     <input
                         id="securityAnswer"
                         type="text"
                         class="form-input"
-                        placeholder="enter your answer"
+                        placeholder="enter your password"
                         autocomplete="off"
                     />
                     <div id="errorMessage" class="error-message" style="display: none;">
@@ -2868,11 +2867,22 @@
         }
 
         // Security Question
+        // User passwords
+        const userPasswords = {
+            'isabella': 'Cho',
+            'sophia': 'peaceileavewithyoumypeaceigivetoyounotastheworldgivesdoigivetoyouletnotyourheartsbetroubledneitherletthembeafraid',
+            'peter': 'WONDERFULCOUNSELORMIGHTYGODEVERLASTINGFATHERPRINCEOFPEACE',
+            'donghee': 'donotbeafraid',
+            'haerie': 'cho',
+            'leah': 'andthatiswhatweare'
+        };
+
         function handleSecuritySubmit(event) {
             event.preventDefault();
             const answer = document.getElementById('securityAnswer').value;
+            const correctPassword = userPasswords[currentUser.toLowerCase()];
 
-            if (answer.toLowerCase() === 'cho') {
+            if (answer === correctPassword) {
                 // Authenticated
                 selectedBoard = currentUser;
                 document.getElementById('securityScreen').classList.add('hidden');
