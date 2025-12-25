@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Message Board</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Login Page */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+        }
+
+        .login-title {
+            color: white;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .login-subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2em;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .user-buttons {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .user-button {
+            background: white;
+            border: none;
+            border-radius: 20px;
+            padding: 40px 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .user-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            background: #f8f9fa;
+        }
+
+        /* Main Board Page */
+        .board-container {
+            display: none;
+        }
+
+        .board-container.active {
+            display: block;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .welcome-text {
+            color: #667eea;
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .logout-button {
+            background: #764ba2;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 30px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background: #667eea;
+            transform: scale(1.05);
+        }
+
+        .boards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .board {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .board-title {
+            font-size: 1.8em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .board.isabella .board-title,
+        .board.isabella .board-header {
+            color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        .board.peter .board-title,
+        .board.peter .board-header {
+            color: #3498db;
+            border-color: #3498db;
+        }
+
+        .board.donghee .board-title,
+        .board.donghee .board-header {
+            color: #2ecc71;
+            border-color: #2ecc71;
+        }
+
+        .message-input-container {
+            margin-bottom: 20px;
+        }
+
+        .message-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .add-message-button {
+            width: 100%;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .add-message-button:hover {
+            background: #764ba2;
+            transform: scale(1.02);
+        }
+
+        .board.isabella .add-message-button {
+            background: #e74c3c;
+        }
+
+        .board.isabella .add-message-button:hover {
+            background: #c0392b;
+        }
+
+        .board.peter .add-message-button {
+            background: #3498db;
+        }
+
+        .board.peter .add-message-button:hover {
+            background: #2980b9;
+        }
+
+        .board.donghee .add-message-button {
+            background: #2ecc71;
+        }
+
+        .board.donghee .add-message-button:hover {
+            background: #27ae60;
+        }
+
+        .messages {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .message {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .board.isabella .message {
+            border-left-color: #e74c3c;
+        }
+
+        .board.peter .message {
+            border-left-color: #3498db;
+        }
+
+        .board.donghee .message {
+            border-left-color: #2ecc71;
+        }
+
+        .message-author {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .message-text {
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .message-time {
+            color: #999;
+            font-size: 0.8em;
+            margin-top: 8px;
+        }
+
+        .no-messages {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .boards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .login-title {
+                font-size: 2em;
+            }
+
+            .user-button {
+                padding: 30px 40px;
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Page -->
+        <div id="loginPage" class="login-container">
+            <h1 class="login-title">🎄 Family Message Board 🎄</h1>
+            <p class="login-subtitle">Who are you?</p>
+            <div class="user-buttons">
+                <button class="user-button" onclick="login('Isabella')">Isabella</button>
+                <button class="user-button" onclick="login('Peter')">Peter</button>
+                <button class="user-button" onclick="login('Donghee')">Donghee</button>
+            </div>
+        </div>
+
+        <!-- Board Page -->
+        <div id="boardPage" class="board-container">
+            <div class="header">
+                <div class="welcome-text">Welcome, <span id="currentUser"></span>! 👋</div>
+                <button class="logout-button" onclick="logout()">Logout</button>
+            </div>
+
+            <div class="boards-grid">
+                <!-- Isabella's Board -->
+                <div class="board isabella">
+                    <div class="board-header">
+                        <h2 class="board-title">Isabella's Board</h2>
+                    </div>
+                    <div class="message-input-container">
+                        <textarea class="message-input" id="isabellaInput" placeholder="Write a message for Isabella..."></textarea>
+                        <button class="add-message-button" onclick="addMessage('Isabella')">Post Message</button>
+                    </div>
+                    <div class="messages" id="isabellaMessages">
+                        <div class="no-messages">No messages yet. Be the first to write!</div>
+                    </div>
+                </div>
+
+                <!-- Peter's Board -->
+                <div class="board peter">
+                    <div class="board-header">
+                        <h2 class="board-title">Peter's Board</h2>
+                    </div>
+                    <div class="message-input-container">
+                        <textarea class="message-input" id="peterInput" placeholder="Write a message for Peter..."></textarea>
+                        <button class="add-message-button" onclick="addMessage('Peter')">Post Message</button>
+                    </div>
+                    <div class="messages" id="peterMessages">
+                        <div class="no-messages">No messages yet. Be the first to write!</div>
+                    </div>
+                </div>
+
+                <!-- Donghee's Board -->
+                <div class="board donghee">
+                    <div class="board-header">
+                        <h2 class="board-title">Donghee's Board</h2>
+                    </div>
+                    <div class="message-input-container">
+                        <textarea class="message-input" id="dongheeInput" placeholder="Write a message for Donghee..."></textarea>
+                        <button class="add-message-button" onclick="addMessage('Donghee')">Post Message</button>
+                    </div>
+                    <div class="messages" id="dongheeMessages">
+                        <div class="no-messages">No messages yet. Be the first to write!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadMessages();
+        });
+
+        function login(username) {
+            currentUser = username;
+            document.getElementById('currentUser').textContent = username;
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('boardPage').classList.add('active');
+            loadMessages();
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('boardPage').classList.remove('active');
+        }
+
+        function addMessage(boardOwner) {
+            const inputId = boardOwner.toLowerCase() + 'Input';
+            const input = document.getElementById(inputId);
+            const messageText = input.value.trim();
+
+            if (!messageText) {
+                alert('Please write a message first!');
+                return;
+            }
+
+            const message = {
+                author: currentUser,
+                text: messageText,
+                timestamp: new Date().toISOString(),
+                boardOwner: boardOwner
+            };
+
+            // Get existing messages
+            const messages = getMessages(boardOwner);
+            messages.push(message);
+
+            // Save to localStorage
+            localStorage.setItem(`messages_${boardOwner}`, JSON.stringify(messages));
+
+            // Clear input
+            input.value = '';
+
+            // Reload messages
+            loadMessages();
+        }
+
+        function getMessages(boardOwner) {
+            const stored = localStorage.getItem(`messages_${boardOwner}`);
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function loadMessages() {
+            ['Isabella', 'Peter', 'Donghee'].forEach(boardOwner => {
+                const messages = getMessages(boardOwner);
+                const messagesContainer = document.getElementById(boardOwner.toLowerCase() + 'Messages');
+
+                if (messages.length === 0) {
+                    messagesContainer.innerHTML = '<div class="no-messages">No messages yet. Be the first to write!</div>';
+                } else {
+                    messagesContainer.innerHTML = messages.map(msg => {
+                        const date = new Date(msg.timestamp);
+                        const timeStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                        return `
+                            <div class="message">
+                                <div class="message-author">From: ${msg.author}</div>
+                                <div class="message-text">${escapeHtml(msg.text)}</div>
+                                <div class="message-time">${timeStr}</div>
+                            </div>
+                        `;
+                    }).reverse().join('');
+                }
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
