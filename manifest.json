@@ -2,7 +2,7 @@
   "name": "i love you",
   "short_name": "i love you",
   "description": "for my family <3",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#667eea",
   "theme_color": "#667eea",
