@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title><3</title>
 
     <!-- PWA Manifest -->
@@ -24,11 +24,19 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-size: 16px;
             line-height: 1.5;
-            overflow-x: hidden;
             background: #000;
         }
 
@@ -199,8 +207,14 @@
 
         /* Board View */
         .board-view {
-            min-height: 100vh;
+            width: 100%;
+            height: 100%;
             background: #000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
 
         .board-view.hidden {
@@ -220,7 +234,7 @@
         .board-header-content {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.5rem;
             padding: 0.75rem;
         }
 
@@ -236,19 +250,20 @@
         .board-controls {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.5rem;
         }
 
         .menu-button {
             background: transparent;
             border: none;
             cursor: pointer;
-            padding: 0.5rem;
+            padding: 0.25rem;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background 0.2s;
             color: #fff;
+            flex-shrink: 0;
         }
 
         .menu-button:hover {
@@ -256,26 +271,38 @@
         }
 
         .menu-button svg {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
         }
 
         .board-title {
-            font-size: 1rem;
+            font-size: 0.875rem;
             font-weight: 500;
             white-space: nowrap;
             text-transform: capitalize;
             color: #fff;
         }
 
-        .add-note-button {
+        .board-buttons {
+            display: flex;
+            gap: 0.375rem;
             width: 100%;
-            padding: 0.5rem 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .board-buttons {
+                width: auto;
+            }
+        }
+
+        .add-note-button {
+            flex: 1;
+            padding: 0.5rem 0.5rem;
             background: #fff;
             color: #000;
             border: none;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.75rem;
             font-weight: 500;
             transition: background 0.2s;
             white-space: nowrap;
@@ -283,8 +310,9 @@
 
         @media (min-width: 640px) {
             .add-note-button {
-                width: auto;
-                padding: 0.5rem 1.5rem;
+                flex: none;
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
             }
         }
 
@@ -294,8 +322,14 @@
 
         .board-area {
             padding-top: 7rem;
-            position: relative;
-            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
 
         @media (min-width: 640px) {
@@ -308,43 +342,65 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: calc(100vh - 7rem);
+            padding: 2rem;
             color: #666;
         }
 
         /* Sticky Note */
         .sticky-note {
             position: absolute;
-            padding: 1.5rem;
+            padding: 0.75rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
             cursor: move;
             user-select: none;
-            width: 250px;
-            min-height: 200px;
+            width: 200px;
+            height: 150px;
+            overflow: hidden;
+            touch-action: none;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .sticky-note.flipped {
+            transform: rotateY(180deg) translateY(-10px);
+        }
+
+        .sticky-note-front,
+        .sticky-note-back {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            padding: 0.75rem;
+        }
+
+        .sticky-note-back {
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 500;
+            font-style: italic;
+            color: #000;
         }
 
         .sticky-note-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: start;
-            margin-bottom: 0.5rem;
-        }
-
-        .sticky-note-author {
-            font-size: 0.75rem;
-            opacity: 0.6;
-            text-transform: capitalize;
-            color: #000;
+            margin-bottom: 0.25rem;
         }
 
         .delete-note-button {
             background: rgba(0, 0, 0, 0.1);
             border: none;
-            padding: 0.25rem 0.5rem;
-            font-size: 0.75rem;
+            padding: 0.125rem 0.375rem;
+            font-size: 0.875rem;
             cursor: pointer;
             transition: background 0.2s;
             color: #000;
+            z-index: 10;
+            line-height: 1;
         }
 
         .delete-note-button:hover {
@@ -352,9 +408,44 @@
         }
 
         .sticky-note-text {
-            white-space: pre-wrap;
-            word-wrap: break-word;
             color: #000;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical;
+            line-height: 1.3;
+            font-size: 0.875rem;
+        }
+
+        .sticky-note-text[contenteditable="true"] {
+            outline: 2px dashed rgba(0, 0, 0, 0.3);
+            outline-offset: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 2px;
+            border-radius: 2px;
+        }
+
+        .resize-handle {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            cursor: nwse-resize;
+            z-index: 10;
+        }
+
+        .resize-handle::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 10px 10px;
+            border-color: transparent transparent rgba(0, 0, 0, 0.3) transparent;
         }
 
         /* Add Note Modal */
@@ -363,10 +454,12 @@
             inset: 0;
             background: rgba(0, 0, 0, 0.8);
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             z-index: 50;
-            padding: 1.5rem;
+            padding: 1rem;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .modal-overlay.hidden {
@@ -376,16 +469,34 @@
         .modal-content {
             background: #fff;
             border: 2px solid #000;
-            padding: 2rem;
+            padding: 1.5rem;
             width: 100%;
             max-width: 28rem;
+            margin: auto;
+            max-height: none;
+        }
+
+        @media (min-width: 640px) {
+            .modal-content {
+                padding: 2rem;
+            }
+
+            .modal-overlay {
+                align-items: center;
+            }
         }
 
         .modal-title {
             margin-bottom: 1rem;
-            font-size: 1.125rem;
+            font-size: 1rem;
             font-weight: 500;
             color: #000;
+        }
+
+        @media (min-width: 640px) {
+            .modal-title {
+                font-size: 1.125rem;
+            }
         }
 
         .color-picker {
@@ -730,13 +841,23 @@
 
         /* Schedule Component */
         .schedule-container {
-            position: absolute;
-            top: 100px;
-            right: 50px;
-            width: 350px;
+            position: relative;
+            width: calc(100% - 2rem);
+            max-width: 350px;
+            margin: 1rem;
             background: #fff;
             border: 2px solid #000;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (min-width: 768px) {
+            .schedule-container {
+                position: absolute;
+                top: 100px;
+                right: 50px;
+                margin: 0;
+                width: 350px;
+            }
         }
 
         .schedule-header {
@@ -778,7 +899,8 @@
             border-bottom: 1px solid #e5e5e5;
             display: flex;
             gap: 1rem;
-            align-items: flex-start;
+            align-items: stretch;
+            position: relative;
         }
 
         .time-slot:last-child {
@@ -790,54 +912,79 @@
             font-weight: 500;
             color: #666;
             min-width: 60px;
+            padding-top: 0.5rem;
         }
 
         .time-events {
             flex: 1;
+            position: relative;
         }
 
         .event-item {
-            background: #f3f4f6;
+            background: #667eea;
+            color: #fff;
             padding: 0.5rem;
             margin-bottom: 0.5rem;
             font-size: 0.875rem;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .event-item:hover {
+            background: #5568d3;
+        }
+
+        .event-item.event-block {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        .event-item.event-block-start {
+            border-radius: 4px 4px 0 0;
+        }
+
+        .event-item.event-block-end {
+            border-radius: 0 0 4px 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-item.event-block-single {
+            border-radius: 4px;
         }
 
         .event-item:last-child {
             margin-bottom: 0;
         }
 
+        .event-text {
+            flex: 1;
+        }
+
         .delete-event-button {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.2);
             border: none;
-            color: #666;
+            color: #fff;
             cursor: pointer;
             font-size: 0.875rem;
-            padding: 0 0.25rem;
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+            transition: background 0.2s;
+            margin-left: 0.5rem;
         }
 
         .delete-event-button:hover {
-            color: #000;
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .empty-time {
             color: #ccc;
             font-size: 0.75rem;
             font-style: italic;
-        }
-
-        @media (max-width: 768px) {
-            .schedule-container {
-                position: relative;
-                top: auto;
-                right: auto;
-                width: 100%;
-                margin: 1rem auto;
-                max-width: 350px;
-            }
         }
 
         /* Add Event Modal */
@@ -858,6 +1005,154 @@
         .event-time-select:focus {
             outline: none;
             box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Number Pad */
+        .time-input-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            align-items: center;
+        }
+
+        .time-input-box {
+            flex: 1;
+            text-align: center;
+        }
+
+        .time-input-label {
+            font-size: 0.625rem;
+            color: #666;
+            margin-bottom: 0.375rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .time-display {
+            background: #f5f5f5;
+            border: 2px solid #000;
+            border-radius: 6px;
+            padding: 0.625rem;
+            font-size: 1.125rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            color: #000;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            gap: 0.25rem;
+        }
+
+        .time-display:hover {
+            background: #e5e5e5;
+        }
+
+        .time-display:active {
+            transform: scale(0.98);
+        }
+
+        .time-part {
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: background 0.2s;
+        }
+
+        .time-part:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .time-part.editing {
+            animation: blink 1s infinite;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes blink {
+            0%, 49% {
+                opacity: 1;
+            }
+            50%, 100% {
+                opacity: 0.3;
+            }
+        }
+
+        .time-separator {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .number-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .number-pad-button {
+            background: #f5f5f5;
+            border: 2px solid #000;
+            border-radius: 6px;
+            padding: 0.875rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.15s;
+            color: #000;
+        }
+
+        .number-pad-button:hover {
+            background: #e5e5e5;
+            transform: scale(1.05);
+        }
+
+        .number-pad-button:active {
+            transform: scale(0.95);
+            background: #d5d5d5;
+        }
+
+        .number-pad-button.clear {
+            background: #fff;
+            color: #dc2626;
+            font-size: 0.875rem;
+        }
+
+        .number-pad-button.clear:hover {
+            background: #fee;
+        }
+
+        .number-pad-button.ampm {
+            background: #000;
+            color: #fff;
+            font-size: 0.875rem;
+        }
+
+        .number-pad-button.ampm:hover {
+            background: #333;
+        }
+
+        .active-input-indicator {
+            display: flex;
+            gap: 0.375rem;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+
+        .input-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ccc;
+            transition: all 0.2s;
+        }
+
+        .input-dot.active {
+            background: #000;
+            transform: scale(1.5);
         }
 
         /* Stick figure animation */
@@ -1165,10 +1460,10 @@
                     </button>
                     <h3 class="board-title"><span id="boardTitle"></span>'s board</h3>
                 </div>
-                <div style="display: flex; gap: 0.5rem;">
-                    <button class="add-note-button" onclick="showAddNoteModal()">+ add note</button>
-                    <button id="addScheduleButton" class="add-note-button" onclick="createSchedule()" style="display: none;">+ add schedule</button>
-                    <button id="addTodoButton" class="add-note-button" onclick="showAddEventModal()" style="display: none;">+ add todo</button>
+                <div class="board-buttons">
+                    <button class="add-note-button" onclick="showAddNoteModal()">+ note</button>
+                    <button id="addScheduleButton" class="add-note-button" onclick="createSchedule()" style="display: none;">+ schedule</button>
+                    <button id="addTodoButton" class="add-note-button" onclick="showAddEventModal()" style="display: none;">+ todo</button>
                 </div>
             </div>
         </header>
@@ -1226,43 +1521,58 @@
     <div id="addEventModal" class="modal-overlay hidden">
         <div class="modal-content">
             <h3 class="modal-title">add event</h3>
-            <div class="event-form-group">
-                <label for="eventTime" class="form-label">time</label>
-                <select id="eventTime" class="event-time-select">
-                    <option value="12am">12am</option>
-                    <option value="1am">1am</option>
-                    <option value="2am">2am</option>
-                    <option value="3am">3am</option>
-                    <option value="4am">4am</option>
-                    <option value="5am">5am</option>
-                    <option value="6am">6am</option>
-                    <option value="7am">7am</option>
-                    <option value="8am">8am</option>
-                    <option value="9am">9am</option>
-                    <option value="10am">10am</option>
-                    <option value="11am">11am</option>
-                    <option value="12pm">12pm</option>
-                    <option value="1pm">1pm</option>
-                    <option value="2pm">2pm</option>
-                    <option value="3pm">3pm</option>
-                    <option value="4pm">4pm</option>
-                    <option value="5pm">5pm</option>
-                    <option value="6pm">6pm</option>
-                    <option value="7pm">7pm</option>
-                    <option value="8pm">8pm</option>
-                    <option value="9pm">9pm</option>
-                    <option value="10pm">10pm</option>
-                    <option value="11pm">11pm</option>
-                </select>
+
+            <div class="time-input-container">
+                <div class="time-input-box">
+                    <div class="time-input-label">start</div>
+                    <div id="startTimeDisplay" class="time-display">
+                        <span class="time-part" data-input="start" data-part="hour">--</span>
+                        <span>:</span>
+                        <span class="time-part" data-input="start" data-part="minute">--</span>
+                        <span class="time-part" data-input="start" data-part="period">--</span>
+                    </div>
+                </div>
+                <div class="time-separator">→</div>
+                <div class="time-input-box">
+                    <div class="time-input-label">end</div>
+                    <div id="endTimeDisplay" class="time-display">
+                        <span class="time-part" data-input="end" data-part="hour">--</span>
+                        <span>:</span>
+                        <span class="time-part" data-input="end" data-part="minute">--</span>
+                        <span class="time-part" data-input="end" data-part="period">--</span>
+                    </div>
+                </div>
             </div>
-            <div class="event-form-group">
-                <label for="eventText" class="form-label">event</label>
+
+            <div class="active-input-indicator">
+                <div class="input-dot active" id="startDot"></div>
+                <div class="input-dot" id="endDot"></div>
+            </div>
+
+            <div class="number-pad">
+                <button class="number-pad-button" onclick="numberPadInput('1')">1</button>
+                <button class="number-pad-button" onclick="numberPadInput('2')">2</button>
+                <button class="number-pad-button" onclick="numberPadInput('3')">3</button>
+                <button class="number-pad-button" onclick="numberPadInput('4')">4</button>
+                <button class="number-pad-button" onclick="numberPadInput('5')">5</button>
+                <button class="number-pad-button" onclick="numberPadInput('6')">6</button>
+                <button class="number-pad-button" onclick="numberPadInput('7')">7</button>
+                <button class="number-pad-button" onclick="numberPadInput('8')">8</button>
+                <button class="number-pad-button" onclick="numberPadInput('9')">9</button>
+                <button class="number-pad-button ampm" onclick="toggleAMPM()">AM/PM</button>
+                <button class="number-pad-button" onclick="numberPadInput('0')">0</button>
+                <button class="number-pad-button clear" onclick="clearCurrentTime()">CLR</button>
+            </div>
+
+            <div class="event-form-group" style="margin-top: 1rem;">
+                <label for="eventText" class="form-label">what's happening?</label>
                 <input
                     id="eventText"
                     type="text"
                     class="form-input"
-                    placeholder="what's happening?"
+                    placeholder="e.g., team meeting, lunch..."
                     autocomplete="off"
+                    style="color: #000;"
                 />
             </div>
             <div class="modal-buttons">
@@ -1286,6 +1596,13 @@
         let dragOffset = { x: 0, y: 0 };
         let selectedNoteColor = '#fef08a'; // Default to yellow
 
+        // Number pad state
+        let activeTimeInput = 'start'; // 'start' or 'end'
+        let activeTimePart = 'hour'; // 'hour' or 'minute'
+        let startTimeInput = { hour: '', minute: '', period: 'AM' };
+        let endTimeInput = { hour: '', minute: '', period: 'AM' };
+        let editingEventIndex = null;  // Track if we're editing an existing event
+
         // Initialize boards from localStorage
         function initBoards() {
             const saved = localStorage.getItem(STORAGE_KEY);
@@ -1307,6 +1624,11 @@
                     boards[user] = { notes: boards[user], schedule: null };
                 } else if (!boards[user].schedule) {
                     boards[user].schedule = null;
+                } else if (boards[user].schedule) {
+                    // Migrate old schedule format from object to array
+                    if (boards[user].schedule.events && !Array.isArray(boards[user].schedule.events)) {
+                        boards[user].schedule.events = [];
+                    }
                 }
             });
         }
@@ -1454,42 +1776,190 @@
             div.style.backgroundColor = note.color;
             div.style.left = note.position.x + 'px';
             div.style.top = note.position.y + 'px';
+
+            // Set size if stored, otherwise use defaults
+            if (note.width) div.style.width = note.width + 'px';
+            if (note.height) div.style.height = note.height + 'px';
+
             div.dataset.noteId = note.id;
+            div.dataset.author = note.author;
 
             const canDelete = note.author === currentUser;
+            const capitalizedAuthor = note.author.charAt(0).toUpperCase() + note.author.slice(1);
 
             div.innerHTML = `
-                <div class="sticky-note-header">
-                    <span class="sticky-note-author">by ${note.author}</span>
-                    ${canDelete ? '<button class="delete-note-button" onclick="deleteNote(\'' + note.id + '\')">×</button>' : ''}
+                <div class="sticky-note-front" style="background-color: ${note.color};">
+                    <div class="sticky-note-header">
+                        ${canDelete ? '<button class="delete-note-button" onclick="deleteNote(\'' + note.id + '\')">×</button>' : ''}
+                    </div>
+                    <p class="sticky-note-text">${escapeHtml(note.text)}</p>
+                    <div class="resize-handle"></div>
                 </div>
-                <p class="sticky-note-text">${escapeHtml(note.text)}</p>
+                <div class="sticky-note-back" style="background-color: ${note.color};">
+                    Love, ${capitalizedAuthor}
+                </div>
             `;
 
+            // Add drag listeners
             div.addEventListener('mousedown', startDrag);
+            div.addEventListener('touchstart', startDrag, { passive: false });
+
+            // Add double-tap listener for flip
+            let lastTap = 0;
+            const doubleTapHandler = (e) => {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTap;
+                if (tapLength < 300 && tapLength > 0) {
+                    // Double tap detected
+                    e.preventDefault();
+                    flipNote(div);
+                }
+                lastTap = currentTime;
+            };
+
+            div.addEventListener('touchend', doubleTapHandler);
+            div.addEventListener('dblclick', () => flipNote(div));
+
+            // Add resize listener
+            const resizeHandle = div.querySelector('.resize-handle');
+            resizeHandle.addEventListener('mousedown', (e) => startResize(e, div));
+            resizeHandle.addEventListener('touchstart', (e) => startResize(e, div), { passive: false });
 
             return div;
         }
 
+        function flipNote(noteElement) {
+            noteElement.classList.add('flipped');
+            setTimeout(() => {
+                noteElement.classList.remove('flipped');
+            }, 2500);
+        }
+
+        function enableNoteEditing(noteElement, textElement, noteId) {
+            // Store original text in case we need to revert
+            const originalText = textElement.textContent;
+
+            // Remove line clamp to show full text while editing
+            textElement.style.webkitLineClamp = 'unset';
+            textElement.style.display = 'block';
+
+            // Make editable
+            textElement.setAttribute('contenteditable', 'true');
+            textElement.focus();
+
+            // Select all text
+            const range = document.createRange();
+            range.selectNodeContents(textElement);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            // Save on blur or Enter key
+            function saveEdit() {
+                const newText = textElement.textContent.trim();
+
+                // Disable editing
+                textElement.removeAttribute('contenteditable');
+                textElement.style.webkitLineClamp = '6';
+                textElement.style.display = '-webkit-box';
+
+                if (newText && newText !== originalText) {
+                    // Update in boards
+                    const noteIndex = boards[selectedBoard].notes.findIndex(n => n.id === noteId);
+                    if (noteIndex !== -1) {
+                        boards[selectedBoard].notes[noteIndex].text = newText;
+                        saveBoards();
+                    }
+                } else if (!newText) {
+                    // Revert to original if empty
+                    textElement.textContent = originalText;
+                }
+            }
+
+            function handleKeyDown(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    textElement.blur();
+                } else if (e.key === 'Escape') {
+                    textElement.textContent = originalText;
+                    textElement.blur();
+                }
+            }
+
+            textElement.addEventListener('blur', saveEdit, { once: true });
+            textElement.addEventListener('keydown', handleKeyDown);
+
+            // Clean up keydown listener after blur
+            textElement.addEventListener('blur', () => {
+                textElement.removeEventListener('keydown', handleKeyDown);
+            }, { once: true });
+        }
+
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let hasMoved = false;
+
         function startDrag(e) {
-            if (e.target.classList.contains('delete-note-button')) {
+            if (e.target.classList.contains('delete-note-button') ||
+                e.target.classList.contains('resize-handle') ||
+                e.target.getAttribute('contenteditable') === 'true') {
                 return;
+            }
+
+            // Only prevent default for touch events
+            if (e.type === 'touchstart') {
+                e.preventDefault();
             }
 
             draggedNote = e.currentTarget;
             const rect = draggedNote.getBoundingClientRect();
-            dragOffset.x = e.clientX - rect.left;
-            dragOffset.y = e.clientY - rect.top;
+
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            dragStartX = clientX;
+            dragStartY = clientY;
+            hasMoved = false;
+
+            dragOffset.x = clientX - rect.left;
+            dragOffset.y = clientY - rect.top;
 
             document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag, { passive: false });
             document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
         }
 
         function drag(e) {
             if (!draggedNote) return;
 
-            const newX = e.clientX - dragOffset.x;
-            const newY = e.clientY - dragOffset.y;
+            // Prevent default for touch events
+            if (e.type === 'touchmove') {
+                e.preventDefault();
+            }
+
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            // Check if moved more than 5px (threshold for click vs drag)
+            const deltaX = Math.abs(clientX - dragStartX);
+            const deltaY = Math.abs(clientY - dragStartY);
+            if (deltaX > 5 || deltaY > 5) {
+                hasMoved = true;
+            }
+
+            let newX = clientX - dragOffset.x;
+            let newY = clientY - dragOffset.y;
+
+            // Constrain to viewport
+            const noteWidth = draggedNote.offsetWidth;
+            const noteHeight = draggedNote.offsetHeight;
+            const boardArea = document.getElementById('boardArea');
+            const maxX = window.innerWidth - noteWidth - 20;
+            const maxY = window.innerHeight - noteHeight - 20;
+
+            newX = Math.max(0, Math.min(newX, maxX));
+            newY = Math.max(100, Math.min(newY, maxY)); // 100px from top for header
 
             draggedNote.style.left = newX + 'px';
             draggedNote.style.top = newY + 'px';
@@ -1499,19 +1969,106 @@
             if (!draggedNote) return;
 
             const noteId = draggedNote.dataset.noteId;
-            const newX = parseInt(draggedNote.style.left);
-            const newY = parseInt(draggedNote.style.top);
+            const noteAuthor = draggedNote.dataset.author;
 
-            // Update position in boards
-            const noteIndex = boards[selectedBoard].findIndex(n => n.id === noteId);
-            if (noteIndex !== -1) {
-                boards[selectedBoard][noteIndex].position = { x: newX, y: newY };
-                saveBoards();
+            // If it was a click (no movement), enable editing if it's the user's note
+            if (!hasMoved && noteAuthor === currentUser) {
+                const textElement = draggedNote.querySelector('.sticky-note-text');
+                if (textElement && !textElement.getAttribute('contenteditable')) {
+                    enableNoteEditing(draggedNote, textElement, noteId);
+                }
+            } else if (hasMoved) {
+                // Save position if dragged
+                const newX = parseInt(draggedNote.style.left);
+                const newY = parseInt(draggedNote.style.top);
+
+                // Update position in boards
+                const noteIndex = boards[selectedBoard].notes.findIndex(n => n.id === noteId);
+                if (noteIndex !== -1) {
+                    boards[selectedBoard].notes[noteIndex].position = { x: newX, y: newY };
+                    saveBoards();
+                }
             }
 
             document.removeEventListener('mousemove', drag);
+            document.removeEventListener('touchmove', drag);
             document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchend', stopDrag);
             draggedNote = null;
+        }
+
+        // Resize functionality
+        let resizingNote = null;
+        let resizeStartX = 0;
+        let resizeStartY = 0;
+        let resizeStartWidth = 0;
+        let resizeStartHeight = 0;
+
+        function startResize(e, noteElement) {
+            e.stopPropagation();
+
+            // Only prevent default for touch events
+            if (e.type === 'touchstart') {
+                e.preventDefault();
+            }
+
+            resizingNote = noteElement;
+
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            resizeStartX = clientX;
+            resizeStartY = clientY;
+            resizeStartWidth = noteElement.offsetWidth;
+            resizeStartHeight = noteElement.offsetHeight;
+
+            document.addEventListener('mousemove', resize);
+            document.addEventListener('touchmove', resize, { passive: false });
+            document.addEventListener('mouseup', stopResize);
+            document.addEventListener('touchend', stopResize);
+        }
+
+        function resize(e) {
+            if (!resizingNote) return;
+
+            // Prevent default for touch events
+            if (e.type === 'touchmove') {
+                e.preventDefault();
+            }
+
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            const deltaX = clientX - resizeStartX;
+            const deltaY = clientY - resizeStartY;
+
+            const newWidth = Math.max(120, resizeStartWidth + deltaX);
+            const newHeight = Math.max(80, resizeStartHeight + deltaY);
+
+            resizingNote.style.width = newWidth + 'px';
+            resizingNote.style.height = newHeight + 'px';
+        }
+
+        function stopResize(e) {
+            if (!resizingNote) return;
+
+            const noteId = resizingNote.dataset.noteId;
+            const newWidth = resizingNote.offsetWidth;
+            const newHeight = resizingNote.offsetHeight;
+
+            // Update size in boards
+            const noteIndex = boards[selectedBoard].notes.findIndex(n => n.id === noteId);
+            if (noteIndex !== -1) {
+                boards[selectedBoard].notes[noteIndex].width = newWidth;
+                boards[selectedBoard].notes[noteIndex].height = newHeight;
+                saveBoards();
+            }
+
+            document.removeEventListener('mousemove', resize);
+            document.removeEventListener('touchmove', resize);
+            document.removeEventListener('mouseup', stopResize);
+            document.removeEventListener('touchend', stopResize);
+            resizingNote = null;
         }
 
         // Add Note Modal
@@ -1529,7 +2086,15 @@
 
         function showAddNoteModal() {
             document.getElementById('addNoteModal').classList.remove('hidden');
-            document.getElementById('noteTextarea').focus();
+            const textarea = document.getElementById('noteTextarea');
+
+            // For iOS - scroll modal into view after keyboard opens
+            setTimeout(() => {
+                textarea.focus();
+                setTimeout(() => {
+                    textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }, 100);
         }
 
         function hideAddNoteModal() {
@@ -1597,7 +2162,7 @@
 
             boards[selectedBoard].schedule = {
                 date: today,
-                events: {}
+                events: []  // Changed to array instead of object
             };
 
             saveBoards();
@@ -1623,6 +2188,32 @@
                 return;
             }
 
+            // Migrate old format if needed
+            if (schedule.events && !Array.isArray(schedule.events)) {
+                const oldEvents = schedule.events;
+                schedule.events = [];
+                saveBoards();
+            }
+
+            // Build a map of time slots to events that occupy them
+            const slotEventMap = {};
+            timeSlots.forEach(slot => {
+                slotEventMap[slot] = [];
+            });
+
+            schedule.events.forEach((event, eventIndex) => {
+                const slots = getTimeSlotsForEvent(event);
+                slots.forEach((slot, slotIndex) => {
+                    slotEventMap[slot].push({
+                        event,
+                        eventIndex,
+                        isStart: slotIndex === 0,
+                        isEnd: slotIndex === slots.length - 1,
+                        isSingle: slots.length === 1
+                    });
+                });
+            });
+
             let html = '<div class="schedule-container">';
             html += '<div class="schedule-header">';
             html += `<div class="schedule-date">${schedule.date}</div>`;
@@ -1631,18 +2222,42 @@
             html += '<div class="schedule-content">';
 
             timeSlots.forEach(time => {
-                const events = schedule.events[time] || [];
+                const eventsInSlot = slotEventMap[time] || [];
                 html += '<div class="time-slot">';
                 html += `<div class="time-label">${time}</div>`;
                 html += '<div class="time-events">';
 
-                if (events.length === 0) {
+                if (eventsInSlot.length === 0) {
                     html += '<div class="empty-time">—</div>';
                 } else {
-                    events.forEach((event, index) => {
-                        html += '<div class="event-item">';
-                        html += `<span>${escapeHtml(event)}</span>`;
-                        html += `<button class="delete-event-button" onclick="deleteEvent('${time}', ${index})">×</button>`;
+                    eventsInSlot.forEach(({ event, eventIndex, isStart, isEnd, isSingle }) => {
+                        let classes = 'event-item event-block';
+                        if (isSingle) {
+                            classes += ' event-block-single';
+                        } else if (isStart) {
+                            classes += ' event-block-start';
+                        } else if (isEnd) {
+                            classes += ' event-block-end';
+                        }
+
+                        html += `<div class="${classes}" onclick="editEvent(${eventIndex})">`;
+                        html += '<div class="event-text">';
+
+                        if (isStart) {
+                            // Only show text on the first slot
+                            const timeStr = formatEventTime(event);
+                            html += `${escapeHtml(event.text)}<br><small>${timeStr}</small>`;
+                        } else {
+                            html += '&nbsp;';  // Empty content for continuation blocks
+                        }
+
+                        html += '</div>';
+
+                        // Only show delete button on start
+                        if (isStart) {
+                            html += `<button class="delete-event-button" onclick="event.stopPropagation(); deleteEvent(${eventIndex})">×</button>`;
+                        }
+
                         html += '</div>';
                     });
                 }
@@ -1657,47 +2272,323 @@
             scheduleContainer.innerHTML = html;
         }
 
+        function getTimeSlotsForEvent(event) {
+            const startSlotIndex = getTimeSlotIndex(event.startHour, event.startPeriod);
+            const endSlotIndex = getTimeSlotIndex(event.endHour, event.endPeriod);
+
+            const slots = [];
+            for (let i = startSlotIndex; i <= endSlotIndex; i++) {
+                slots.push(timeSlots[i]);
+            }
+            return slots;
+        }
+
+        function getTimeSlotIndex(hour, period) {
+            let h = parseInt(hour);
+
+            // Convert to 24-hour format
+            if (period === 'AM') {
+                if (h === 12) h = 0;  // 12 AM is midnight (0)
+            } else {  // PM
+                if (h !== 12) h += 12;  // 1 PM = 13, but 12 PM stays 12
+            }
+
+            return h;
+        }
+
+        function formatEventTime(event) {
+            const startH = event.startHour.toString().padStart(2, '0');
+            const startM = event.startMinute.toString().padStart(2, '0');
+            const endH = event.endHour.toString().padStart(2, '0');
+            const endM = event.endMinute.toString().padStart(2, '0');
+            return `${startH}:${startM} ${event.startPeriod} - ${endH}:${endM} ${event.endPeriod}`;
+        }
+
+        // Number Pad Functions
+        function updateTimeDisplay() {
+            const startTime = startTimeInput;
+            const endTime = endTimeInput;
+
+            // Update start time parts
+            const startHourEl = document.querySelector('[data-input="start"][data-part="hour"]');
+            const startMinEl = document.querySelector('[data-input="start"][data-part="minute"]');
+            const startPeriodEl = document.querySelector('[data-input="start"][data-part="period"]');
+
+            if (startHourEl) startHourEl.textContent = startTime.hour || '--';
+            if (startMinEl) startMinEl.textContent = startTime.minute || '--';
+            if (startPeriodEl) startPeriodEl.textContent = startTime.period || '--';
+
+            // Update end time parts
+            const endHourEl = document.querySelector('[data-input="end"][data-part="hour"]');
+            const endMinEl = document.querySelector('[data-input="end"][data-part="minute"]');
+            const endPeriodEl = document.querySelector('[data-input="end"][data-part="period"]');
+
+            if (endHourEl) endHourEl.textContent = endTime.hour || '--';
+            if (endMinEl) endMinEl.textContent = endTime.minute || '--';
+            if (endPeriodEl) endPeriodEl.textContent = endTime.period || '--';
+
+            // Update editing state (blinking)
+            document.querySelectorAll('.time-part').forEach(part => {
+                part.classList.remove('editing');
+            });
+
+            const editingPart = document.querySelector(
+                `[data-input="${activeTimeInput}"][data-part="${activeTimePart}"]`
+            );
+            if (editingPart) {
+                editingPart.classList.add('editing');
+            }
+        }
+
+        function numberPadInput(digit) {
+            const currentInput = activeTimeInput === 'start' ? startTimeInput : endTimeInput;
+
+            if (activeTimePart === 'hour') {
+                // Input hour (1-2 digits)
+                if (currentInput.hour.length === 0) {
+                    currentInput.hour = digit;
+                } else if (currentInput.hour.length === 1) {
+                    const potentialHour = currentInput.hour + digit;
+                    const hourNum = parseInt(potentialHour);
+                    if (hourNum >= 1 && hourNum <= 12) {
+                        currentInput.hour = potentialHour;
+                        // Auto-switch to minute after completing hour
+                        setTimeout(() => {
+                            activeTimePart = 'minute';
+                            updateTimeDisplay();
+                        }, 200);
+                    }
+                }
+            } else if (activeTimePart === 'minute') {
+                // Input minute (2 digits)
+                if (currentInput.minute.length === 0) {
+                    currentInput.minute = digit;
+                } else if (currentInput.minute.length === 1) {
+                    const potentialMin = currentInput.minute + digit;
+                    const minNum = parseInt(potentialMin);
+                    if (minNum >= 0 && minNum <= 59) {
+                        currentInput.minute = potentialMin;
+                        // Auto-switch to end time after completing start time
+                        if (activeTimeInput === 'start') {
+                            setTimeout(() => {
+                                activeTimeInput = 'end';
+                                activeTimePart = 'hour';
+                                updateTimeDisplay();
+                                updateDotIndicators();
+                            }, 200);
+                        }
+                    }
+                }
+            }
+
+            updateTimeDisplay();
+        }
+
+        function toggleAMPM() {
+            const currentInput = activeTimeInput === 'start' ? startTimeInput : endTimeInput;
+            currentInput.period = currentInput.period === 'AM' ? 'PM' : 'AM';
+            updateTimeDisplay();
+        }
+
+        function clearCurrentTime() {
+            const currentInput = activeTimeInput === 'start' ? startTimeInput : endTimeInput;
+
+            if (activeTimePart === 'hour') {
+                currentInput.hour = '';
+            } else if (activeTimePart === 'minute') {
+                currentInput.minute = '';
+            }
+
+            updateTimeDisplay();
+        }
+
+        function updateDotIndicators() {
+            document.getElementById('startDot').classList.toggle('active', activeTimeInput === 'start');
+            document.getElementById('endDot').classList.toggle('active', activeTimeInput === 'end');
+        }
+
+        function switchToEndTime() {
+            activeTimeInput = 'end';
+            activeTimePart = 'hour';
+            updateDotIndicators();
+            updateTimeDisplay();
+        }
+
+        function switchToStartTime() {
+            activeTimeInput = 'start';
+            activeTimePart = 'hour';
+            updateDotIndicators();
+            updateTimeDisplay();
+        }
+
+        function setActiveTimePart(input, part) {
+            activeTimeInput = input;
+            activeTimePart = part;
+            updateDotIndicators();
+            updateTimeDisplay();
+        }
+
+        // Click time displays to switch active input
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add click handlers to all time parts
+            document.querySelectorAll('.time-part').forEach(part => {
+                part.addEventListener('click', (e) => {
+                    const input = e.target.dataset.input;
+                    const partType = e.target.dataset.part;
+
+                    if (partType === 'period') {
+                        // Toggle AM/PM when clicking on period
+                        activeTimeInput = input;
+                        toggleAMPM();
+                    } else {
+                        // Set active part for hour/minute
+                        setActiveTimePart(input, partType);
+                    }
+                });
+            });
+        });
+
+        function formatTimeForSchedule(timeInput) {
+            const hour = parseInt(timeInput.hour) || 12;
+            const period = timeInput.period.toLowerCase();
+            return `${hour}${period}`;
+        }
+
         function showAddEventModal() {
+            // Reset number pad state
+            editingEventIndex = null;
+            activeTimeInput = 'start';
+            activeTimePart = 'hour';
+            startTimeInput = { hour: '', minute: '', period: 'AM' };
+            endTimeInput = { hour: '', minute: '', period: 'AM' };
+
+            updateDotIndicators();
+            updateTimeDisplay();
+
+            document.querySelector('#addEventModal .modal-title').textContent = 'add event';
+            document.querySelector('#addEventModal .modal-button-primary').textContent = 'add';
+            document.getElementById('eventText').value = '';
             document.getElementById('addEventModal').classList.remove('hidden');
-            document.getElementById('eventText').focus();
+
+            const eventText = document.getElementById('eventText');
+            // For iOS - scroll modal into view after keyboard opens
+            setTimeout(() => {
+                eventText.focus();
+                setTimeout(() => {
+                    eventText.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }, 100);
+        }
+
+        function editEvent(eventIndex) {
+            const schedule = boards[selectedBoard]?.schedule;
+            if (!schedule || !schedule.events[eventIndex]) return;
+
+            const event = schedule.events[eventIndex];
+            editingEventIndex = eventIndex;
+
+            // Populate the form with existing event data
+            document.getElementById('eventText').value = event.text;
+
+            startTimeInput = {
+                hour: event.startHour.toString(),
+                minute: event.startMinute.toString().padStart(2, '0'),
+                period: event.startPeriod
+            };
+
+            endTimeInput = {
+                hour: event.endHour.toString(),
+                minute: event.endMinute.toString().padStart(2, '0'),
+                period: event.endPeriod
+            };
+
+            activeTimeInput = 'start';
+            activeTimePart = 'hour';
+            updateDotIndicators();
+            updateTimeDisplay();
+
+            document.querySelector('#addEventModal .modal-title').textContent = 'edit event';
+            document.querySelector('#addEventModal .modal-button-primary').textContent = 'save';
+            document.getElementById('addEventModal').classList.remove('hidden');
+
+            const eventText = document.getElementById('eventText');
+            // For iOS - scroll modal into view after keyboard opens
+            setTimeout(() => {
+                eventText.focus();
+                setTimeout(() => {
+                    eventText.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }, 100);
         }
 
         function hideAddEventModal() {
             document.getElementById('addEventModal').classList.add('hidden');
             document.getElementById('eventText').value = '';
-            document.getElementById('eventTime').value = '12am';
+
+            // Reset number pad
+            startTimeInput = { hour: '', minute: '', period: 'AM' };
+            endTimeInput = { hour: '', minute: '', period: 'AM' };
+            activeTimeInput = 'start';
+            activeTimePart = 'hour';
+            editingEventIndex = null;
+            updateTimeDisplay();
         }
 
         function addEvent() {
-            const time = document.getElementById('eventTime').value;
             const text = document.getElementById('eventText').value.trim();
 
             if (!text) {
+                alert('Please enter what\'s happening!');
+                return;
+            }
+
+            // Validate times - check if they have values (not empty strings)
+            if (!startTimeInput.hour || !startTimeInput.minute) {
+                alert('Please enter a start time!');
+                return;
+            }
+
+            if (!endTimeInput.hour || !endTimeInput.minute) {
+                alert('Please enter an end time!');
                 return;
             }
 
             const schedule = boards[selectedBoard].schedule;
             if (!schedule) return;
 
-            if (!schedule.events[time]) {
-                schedule.events[time] = [];
+            const eventData = {
+                id: editingEventIndex !== null ? schedule.events[editingEventIndex].id : Date.now().toString(),
+                text: text,
+                startHour: parseInt(startTimeInput.hour),
+                startMinute: parseInt(startTimeInput.minute),
+                startPeriod: startTimeInput.period,
+                endHour: parseInt(endTimeInput.hour),
+                endMinute: parseInt(endTimeInput.minute),
+                endPeriod: endTimeInput.period
+            };
+
+            if (editingEventIndex !== null) {
+                // Update existing event
+                schedule.events[editingEventIndex] = eventData;
+            } else {
+                // Add new event
+                schedule.events.push(eventData);
             }
 
-            schedule.events[time].push(text);
             saveBoards();
             renderBoard();
             hideAddEventModal();
         }
 
-        function deleteEvent(time, index) {
+        function deleteEvent(eventIndex) {
             const schedule = boards[selectedBoard].schedule;
             if (!schedule) return;
 
-            schedule.events[time].splice(index, 1);
-            if (schedule.events[time].length === 0) {
-                delete schedule.events[time];
+            if (!confirm('Delete this event?')) {
+                return;
             }
 
+            schedule.events.splice(eventIndex, 1);
             saveBoards();
             renderBoard();
         }
