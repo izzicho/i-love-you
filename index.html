@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <title><3</title>
 
     <!-- PWA Manifest -->
@@ -42,6 +42,7 @@
             font-size: 16px;
             line-height: 1.5;
             background: #000;
+            touch-action: pan-x pan-y pinch-zoom;
         }
 
         /* Login Screen */
@@ -50,7 +51,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #000;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
             padding: 1.5rem;
             padding-top: max(1.5rem, env(safe-area-inset-top));
         }
@@ -62,58 +63,67 @@
         .login-container {
             width: 100%;
             max-width: 42rem;
+            animation: fadeIn 0.6s ease-out;
         }
 
         .login-title {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             color: white;
-            font-size: 1.5rem;
-            font-weight: 500;
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
         }
 
         @media (min-width: 768px) {
             .login-title {
                 margin-bottom: 3rem;
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
         }
 
         .users-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
+            gap: 1rem;
         }
 
         @media (min-width: 768px) {
             .users-grid {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
+                gap: 1.25rem;
             }
         }
 
         .user-button {
-            padding: 1.25rem 1rem;
-            border: 2px solid white;
-            background: transparent;
+            padding: 1.5rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
         }
 
         @media (min-width: 768px) {
             .user-button {
-                padding: 2rem;
+                padding: 2rem 1.5rem;
             }
         }
 
         .user-button:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         }
 
         .user-button:active {
-            transform: scale(0.98);
+            transform: translateY(-2px) scale(0.98);
         }
 
         .user-name {
@@ -121,14 +131,15 @@
             display: block;
             margin-top: 0.5rem;
             text-transform: capitalize;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.875rem;
+            letter-spacing: 0.02em;
         }
 
         @media (min-width: 768px) {
             .user-name {
                 margin-top: 1rem;
-                font-size: 1rem;
+                font-size: 1.125rem;
             }
         }
 
@@ -138,7 +149,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #000;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
             padding: 1.5rem;
             padding-top: max(1.5rem, env(safe-area-inset-top));
         }
@@ -150,27 +161,52 @@
         .security-container {
             width: 100%;
             max-width: 28rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (min-width: 768px) {
+            .security-container {
+                padding: 3rem 2.5rem;
+            }
         }
 
         .back-button {
             margin-bottom: 2rem;
-            color: #999;
+            color: rgba(255, 255, 255, 0.6);
             background: transparent;
             border: none;
             cursor: pointer;
             font-size: 1rem;
-            transition: color 0.2s;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .back-button:hover {
             color: #fff;
+            transform: translateX(-4px);
         }
 
         .security-title {
-            font-size: 1.5rem;
-            font-weight: 500;
+            font-size: 1.75rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
             color: #fff;
+            letter-spacing: -0.02em;
+        }
+
+        @media (min-width: 768px) {
+            .security-title {
+                font-size: 2rem;
+            }
         }
 
         .security-title .username {
@@ -178,7 +214,7 @@
         }
 
         .security-form {
-            margin-top: 1.5rem;
+            margin-top: 2rem;
         }
 
         .form-group {
@@ -189,51 +225,89 @@
             display: block;
             margin-bottom: 0.75rem;
             font-weight: 500;
-            color: #fff;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.875rem;
         }
 
         .form-input {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border: 2px solid #fff;
+            padding: 1rem 1.25rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
             font-size: 1rem;
             font-family: inherit;
-            background: transparent;
+            background: rgba(255, 255, 255, 0.1);
             color: #fff;
             line-height: normal;
             height: auto;
+            transition: all 0.2s;
         }
 
         .form-input:focus {
             outline: none;
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
         }
 
         .form-input::placeholder {
-            color: #666;
+            color: rgba(255, 255, 255, 0.4);
             line-height: normal;
         }
 
+        #addNoteModal .form-input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        #addNoteModal .form-input {
+            color: #000;
+        }
+
+        #addTodoModal .form-input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        #editTodoModal .form-input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        #addHabitModal .form-input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        #editHabitModal .form-input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
         .error-message {
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
             color: #ff6b6b;
             font-size: 0.875rem;
+            font-weight: 500;
         }
 
         .submit-button {
             width: 100%;
-            padding: 0.75rem;
+            padding: 1rem 1.5rem;
             background: #fff;
             color: #000;
             border: none;
+            border-radius: 12px;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
         }
 
         .submit-button:hover {
-            background: #e5e5e5;
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .submit-button:active {
+            transform: translateY(0) scale(0.98);
         }
 
         /* Board View */
@@ -329,33 +403,127 @@
 
         .add-note-button {
             flex: 1;
-            padding: 0.5rem 0.5rem;
-            background: #fff;
-            color: #000;
-            border: none;
+            padding: 0.625rem 0.75rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 500;
-            transition: background 0.2s;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
             white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         @media (min-width: 640px) {
             .add-note-button {
                 flex: none;
-                padding: 0.5rem 1rem;
+                padding: 0.625rem 1.25rem;
                 font-size: 1rem;
             }
         }
 
         .add-note-button:hover {
-            background: #e5e5e5;
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .add-note-button:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .emoji-button {
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .emoji-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .emoji-button:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        .board-emoji {
+            position: absolute;
+            font-size: 2rem;
+            cursor: move;
+            user-select: none;
+            z-index: 100;
+            transition: transform 0.2s;
+            touch-action: none;
+        }
+
+        .board-emoji:hover {
+            transform: scale(1.2);
+        }
+
+        .board-emoji:active {
+            cursor: grabbing;
+        }
+
+        /* Board Pages - Swipe Navigation */
+        .board-pages {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+            touch-action: pan-x pan-y pinch-zoom;
+        }
+
+        .board-pages.swiping {
+            transition: none;
+        }
+
+        .board-page {
+            min-width: 100%;
+            width: 100%;
+            height: 100%;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .board-page:not(.active) {
+            pointer-events: none;
+        }
+
+        .page-header-emoji {
+            text-align: center;
+            font-size: 3rem;
+            padding: 2rem 0 1rem;
+            position: relative;
+            z-index: 10;
         }
 
         .board-area {
-            padding-top: calc(7rem + env(safe-area-inset-top));
+            padding-top: calc(8rem + env(safe-area-inset-top));
             padding-bottom: env(safe-area-inset-bottom);
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
@@ -363,11 +531,17 @@
             overflow-y: auto;
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
+            background-color: #000;
+            background-image:
+                linear-gradient(rgba(50, 50, 50, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(50, 50, 50, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            touch-action: pan-y pinch-zoom;
         }
 
         @media (min-width: 640px) {
             .board-area {
-                padding-top: calc(5rem + env(safe-area-inset-top));
+                padding-top: calc(6rem + env(safe-area-inset-top));
             }
         }
 
@@ -376,7 +550,7 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            color: #666;
+            color: #888;
         }
 
         /* Sticky Note */
@@ -391,6 +565,7 @@
             overflow: hidden;
             touch-action: none;
             transition: transform 0.6s;
+            z-index: 50;
         }
 
         .sticky-note.flipping {
@@ -484,14 +659,17 @@
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
-            z-index: 50;
+            z-index: 1000;
             padding: 1rem;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            animation: fadeIn 0.2s ease-out;
         }
 
         .modal-overlay.hidden {
@@ -499,78 +677,81 @@
         }
 
         .modal-content {
-            background: #fff;
-            border: 2px solid #000;
-            padding: 1.5rem;
+            position: relative;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
             width: 100%;
             max-width: 28rem;
             margin: auto;
             max-height: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @media (min-width: 640px) {
             .modal-content {
-                padding: 2rem;
-            }
-
-            .modal-overlay {
-                align-items: center;
+                padding: 2.5rem;
             }
         }
 
         .modal-title {
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            font-weight: 500;
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
             color: #000;
-        }
-
-        @media (min-width: 640px) {
-            .modal-title {
-                font-size: 1.125rem;
-            }
         }
 
         .color-picker {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
 
         .color-option {
-            width: 40px;
-            height: 40px;
-            border: 2px solid #ccc;
-            border-radius: 0.25rem;
+            width: 48px;
+            height: 48px;
+            border: 3px solid transparent;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .color-option:hover {
             transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .color-option.selected {
             border: 3px solid #000;
-            transform: scale(1.1);
+            transform: scale(1.15);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
         }
 
         .modal-textarea {
             width: 100%;
             height: 8rem;
-            padding: 0.75rem 1rem;
-            border: 2px solid #000;
+            padding: 1rem 1.25rem;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
             font-size: 1rem;
             font-family: inherit;
             resize: none;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.8);
             color: #000;
+            transition: all 0.2s;
         }
 
         .modal-textarea:focus {
             outline: none;
-            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
+            border-color: #000;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
         }
 
         .modal-textarea::placeholder {
@@ -580,18 +761,19 @@
         .modal-buttons {
             display: flex;
             gap: 0.75rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             flex-wrap: wrap;
         }
 
         .modal-button {
             flex: 1;
             min-width: 100px;
-            padding: 0.75rem;
+            padding: 0.875rem 1.5rem;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            border-radius: 12px;
         }
 
         .modal-button-primary {
@@ -602,16 +784,26 @@
 
         .modal-button-primary:hover {
             background: #333;
+            transform: scale(1.02);
+        }
+
+        .modal-button-primary:active {
+            transform: scale(0.98);
         }
 
         .modal-button-secondary {
-            background: transparent;
-            border: 2px solid #000;
+            background: rgba(0, 0, 0, 0.06);
+            border: none;
             color: #000;
         }
 
         .modal-button-secondary:hover {
-            background: #f3f4f6;
+            background: rgba(0, 0, 0, 0.1);
+            transform: scale(1.02);
+        }
+
+        .modal-button-secondary:active {
+            transform: scale(0.98);
         }
 
         .modal-button-danger {
@@ -735,6 +927,120 @@
         }
 
         .install-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Delete Confirmation Modal */
+        .delete-confirm-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .delete-confirm-overlay.hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .delete-confirm-content {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 340px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .delete-confirm-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .delete-confirm-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .delete-confirm-text {
+            color: #666;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .delete-confirm-buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .delete-confirm-button {
+            flex: 1;
+            padding: 0.875rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .delete-button {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .delete-button:hover {
+            background: #b91c1c;
+            transform: scale(1.02);
+        }
+
+        .delete-button:active {
+            transform: scale(0.98);
+        }
+
+        .cancel-button {
+            background: rgba(0, 0, 0, 0.06);
+            color: #000;
+        }
+
+        .cancel-button:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: scale(1.02);
+        }
+
+        .cancel-button:active {
             transform: scale(0.98);
         }
 
@@ -885,7 +1191,7 @@
         }
 
         /* Schedule Component */
-        .schedule-container {
+        .todo-container {
             position: relative;
             width: calc(100% - 2rem);
             max-width: 350px;
@@ -896,7 +1202,7 @@
         }
 
         @media (min-width: 768px) {
-            .schedule-container {
+            .todo-container {
                 position: absolute;
                 top: 100px;
                 right: 50px;
@@ -1385,6 +1691,356 @@
             animation: user-name-fade 1s ease-in-out forwards;
         }
 
+        /* Todo Checklist Styles */
+        .todo-header {
+            padding: 1rem;
+            border-bottom: 2px solid #000;
+            background: #000;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .empty-state {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: background 0.2s;
+            position: relative;
+        }
+
+        .todo-item:hover {
+            background: #f9fafb;
+        }
+
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+
+        .todo-edit-button {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+            opacity: 0;
+        }
+
+        .todo-item:hover .todo-edit-button {
+            opacity: 1;
+        }
+
+        .todo-edit-button:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .todo-status {
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+            cursor: pointer;
+            user-select: none;
+            min-width: 1.5rem;
+        }
+
+        .todo-content {
+            flex: 1;
+        }
+
+        .todo-description {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .todo-time {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        /* Habit Tracker Styles */
+        .emoji-picker {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .emoji-option {
+            font-size: 1.5rem;
+            padding: 0.875rem;
+            background: rgba(0, 0, 0, 0.04);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .emoji-option:hover {
+            transform: scale(1.1);
+            background: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .emoji-option.selected {
+            background: #dbeafe;
+            border-color: #3b82f6;
+            transform: scale(1.1);
+            box-shadow: 0 2px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .unit-picker {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .unit-option {
+            flex: 1;
+            padding: 0.875rem;
+            background: rgba(0, 0, 0, 0.04);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .unit-option:hover {
+            background: rgba(0, 0, 0, 0.08);
+            transform: scale(1.02);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .unit-option.selected {
+            background: #dbeafe;
+            border-color: #3b82f6;
+            color: #1e40af;
+            transform: scale(1.02);
+            box-shadow: 0 2px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .goal-dial-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 12px;
+        }
+
+        .dial-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dial-button {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            color: #000;
+        }
+
+        .dial-button:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: scale(1.1);
+        }
+
+        .dial-button:active {
+            transform: scale(0.95);
+        }
+
+        .dial-display {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #000;
+            min-width: 60px;
+            text-align: center;
+            padding: 0.5rem;
+            background: #fff;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .dial-text {
+            color: #6b7280;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0 0.5rem;
+        }
+
+        .emoji-input {
+            text-align: center !important;
+        }
+
+        .habit-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: background 0.2s;
+            position: relative;
+        }
+
+        .habit-item:hover {
+            background: #f9fafb;
+        }
+
+        .habit-edit-button {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+            opacity: 0;
+        }
+
+        .habit-item:hover .habit-edit-button {
+            opacity: 1;
+        }
+
+        .habit-edit-button:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .habit-emoji {
+            font-size: 2rem;
+            margin-right: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .habit-emoji:hover {
+            transform: scale(1.2);
+        }
+
+        .habit-emoji:active {
+            transform: scale(0.9);
+        }
+
+        .habit-info {
+            flex: 1;
+        }
+
+        .habit-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .habit-counter {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .habit-wins {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        .habit-graph {
+            width: 100%;
+            height: 200px;
+            margin: 1rem 0;
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .graph-bar {
+            position: absolute;
+            bottom: 1rem;
+            background: #3b82f6;
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s;
+        }
+
+        .graph-bar:hover {
+            background: #2563eb;
+        }
+
+        .emoji-rain {
+            position: fixed;
+            font-size: 2rem;
+            pointer-events: none;
+            z-index: 9999;
+            animation: fall linear forwards;
+        }
+
+        .emoji-poof {
+            animation: poof 0.5s ease-out forwards;
+        }
+
+        @keyframes poof {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5) rotate(180deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
         /* Side Menu */
         .side-menu-overlay {
             position: fixed;
@@ -1676,14 +2332,37 @@
                 </div>
                 <div class="board-buttons">
                     <button class="add-note-button" onclick="showAddNoteModal()">+ note</button>
-                    <button id="addScheduleButton" class="add-note-button" onclick="createSchedule()" style="display: none;">+ schedule</button>
-                    <button id="addTodoButton" class="add-note-button" onclick="showAddEventModal()" style="display: none;">+ todo</button>
+                    <button class="emoji-button" onclick="dropEmojiCycling('pin')" title="Add Pin">📌</button>
+                    <button class="emoji-button" onclick="dropEmojiCycling('exclamation')" title="Add Important">❗</button>
+                    <button class="emoji-button" onclick="dropEmojiCycling('heart')" title="Add Heart">❤️</button>
+                    <button class="add-note-button" onclick="showAddTodoModal()" style="display: none;">+ todo</button>
+                    <button class="emoji-button" onclick="dropEmojiCycling('confetti')" title="Add Confetti" style="display: none;">🎉</button>
+                    <button class="add-note-button" onclick="showAddHabitModal()" style="display: none;">+ habit</button>
+                    <button class="emoji-button" onclick="dropEmojiCycling('carrot')" title="Add Carrot" style="display: none;">🥕</button>
+                    <button class="emoji-button" onclick="dropEmojiCycling('stick')" title="Add Stick" style="display: none;">🏒</button>
                 </div>
             </div>
         </header>
 
-        <div id="boardArea" class="board-area">
-            <div id="scheduleContainer"></div>
+        <div id="boardPages" class="board-pages">
+            <!-- Page 1: Sticky Notes -->
+            <div id="notesPage" class="board-page active">
+                <div id="boardArea" class="board-area"></div>
+            </div>
+
+            <!-- Page 2: TODO List -->
+            <div id="todosPage" class="board-page">
+                <div class="board-area">
+                    <div id="todoContainerPage"></div>
+                </div>
+            </div>
+
+            <!-- Page 3: Habit Tracker -->
+            <div id="habitsPage" class="board-page">
+                <div class="board-area">
+                    <div id="habitContainerPage"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1719,11 +2398,16 @@
                 <div class="color-option" data-color="#d9f99d" style="background-color: #d9f99d;" onclick="selectColor('#d9f99d')"></div>
                 <div class="color-option" data-color="#fbcfe8" style="background-color: #fbcfe8;" onclick="selectColor('#fbcfe8')"></div>
             </div>
-            <textarea
-                id="noteTextarea"
-                class="modal-textarea"
-                placeholder="write something..."
-            ></textarea>
+            <div class="event-form-group">
+                <label for="noteTextarea" class="form-label">what's on your mind?</label>
+                <input
+                    id="noteTextarea"
+                    type="text"
+                    class="form-input"
+                    placeholder="what are we doing today?"
+                    autocomplete="off"
+                />
+            </div>
             <div class="modal-buttons">
                 <button class="modal-button modal-button-primary" onclick="addNote()">add</button>
                 <button class="modal-button modal-button-secondary" onclick="hideAddNoteModal()">cancel</button>
@@ -1731,11 +2415,10 @@
         </div>
     </div>
 
-    <!-- Add Event Modal -->
-    <div id="addEventModal" class="modal-overlay hidden">
+    <!-- Add Todo Modal -->
+    <div id="addTodoModal" class="modal-overlay hidden">
         <div class="modal-content">
-            <h3 class="modal-title">add event</h3>
-
+            <h3 class="modal-title">add TODO</h3>
             <div class="time-input-container">
                 <div class="time-input-box">
                     <div class="time-input-label">start</div>
@@ -1790,8 +2473,250 @@
                 />
             </div>
             <div class="modal-buttons">
-                <button class="modal-button modal-button-primary" onclick="addEvent()">add</button>
-                <button class="modal-button modal-button-secondary" onclick="hideAddEventModal()">cancel</button>
+                <button class="modal-button modal-button-primary" onclick="addTodo()">add</button>
+                <button class="modal-button modal-button-secondary" onclick="hideAddTodoModal()">cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Habit Modal -->
+    <div id="addHabitModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 class="modal-title">add habit</h3>
+
+            <div class="form-group">
+                <label for="habitName" class="form-label">habit name</label>
+                <input
+                    id="habitName"
+                    type="text"
+                    class="form-input"
+                    placeholder="e.g., drink water, exercise..."
+                    style="color: #000;"
+                />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">choose emoji</label>
+                <div class="emoji-picker">
+                    <button class="emoji-option" onclick="selectHabitEmoji('💧')">💧</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('🏃')">🏃</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('📖')">📖</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('🧘')">🧘</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('💪')">💪</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('🎯')">🎯</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('☀️')">☀️</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('🌙')">🌙</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('🎨')">🎨</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('🎵')">🎵</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('🍎')">🍎</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('🥗')">🥗</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('🚴')">🚴</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('🏋️')">🏋️</button>
+                    <button class="emoji-option" onclick="selectHabitEmoji('🧠')">🧠</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">GOAL:</label>
+                <div class="goal-dial-container">
+                    <div class="dial-group">
+                        <button class="dial-button" onclick="adjustFrequency(-1)">▲</button>
+                        <div class="dial-display" id="frequencyDisplay">1</div>
+                        <button class="dial-button" onclick="adjustFrequency(1)">▼</button>
+                    </div>
+                    <div class="dial-text">times every</div>
+                    <div class="dial-group">
+                        <button class="dial-button" onclick="adjustPeriod(-1)">▲</button>
+                        <div class="dial-display" id="periodDisplay">day</div>
+                        <button class="dial-button" onclick="adjustPeriod(1)">▼</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="modal-button modal-button-primary" onclick="addHabit()">add</button>
+                <button class="modal-button modal-button-secondary" onclick="hideAddHabitModal()">cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Habit Detail Modal -->
+    <div id="habitDetailModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="ios-modal-close" onclick="hideHabitDetailModal()">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                </svg>
+            </button>
+            <h3 class="modal-title" id="habitDetailTitle"></h3>
+
+            <div id="habitGraph" class="habit-graph"></div>
+        </div>
+    </div>
+
+    <!-- Edit Habit Modal -->
+    <div id="editHabitModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 class="modal-title">edit habit</h3>
+
+            <div class="form-group">
+                <label for="editHabitName" class="form-label">habit name</label>
+                <input
+                    id="editHabitName"
+                    type="text"
+                    class="form-input"
+                    placeholder="e.g., drink water, exercise..."
+                    style="color: #000;"
+                />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">choose emoji</label>
+                <div class="emoji-picker" id="editEmojiPicker">
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('💧')">💧</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('🏃')">🏃</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('📖')">📖</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('🧘')">🧘</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('💪')">💪</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('🎯')">🎯</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('☀️')">☀️</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('🌙')">🌙</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('🎨')">🎨</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('🎵')">🎵</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('🍎')">🍎</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('🥗')">🥗</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('🚴')">🚴</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('🏋️')">🏋️</button>
+                    <button class="emoji-option" onclick="selectEditHabitEmoji('🧠')">🧠</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">GOAL:</label>
+                <div class="goal-dial-container">
+                    <div class="dial-group">
+                        <button class="dial-button" onclick="adjustEditFrequency(-1)">▲</button>
+                        <div class="dial-display" id="editFrequencyDisplay">1</div>
+                        <button class="dial-button" onclick="adjustEditFrequency(1)">▼</button>
+                    </div>
+                    <div class="dial-text">times every</div>
+                    <div class="dial-group">
+                        <button class="dial-button" onclick="adjustEditPeriod(-1)">▲</button>
+                        <div class="dial-display" id="editPeriodDisplay">day</div>
+                        <button class="dial-button" onclick="adjustEditPeriod(1)">▼</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="modal-button modal-button-primary" onclick="saveHabitEdit()">save</button>
+                <button class="modal-button modal-button-danger" onclick="deleteHabitFromModal()">delete</button>
+                <button class="modal-button modal-button-secondary" onclick="hideEditHabitModal()">cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Habit Delete Confirmation Modal -->
+    <div id="deleteHabitConfirmModal" class="delete-confirm-overlay hidden">
+        <div class="delete-confirm-content">
+            <div class="delete-confirm-icon">🗑️</div>
+            <h3 class="delete-confirm-title">delete this habit?</h3>
+            <p class="delete-confirm-text">this action cannot be undone</p>
+            <div class="delete-confirm-buttons">
+                <button class="delete-confirm-button delete-button" onclick="confirmDeleteHabit()">delete</button>
+                <button class="delete-confirm-button cancel-button" onclick="cancelDeleteHabit()">cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteConfirmModal" class="delete-confirm-overlay hidden">
+        <div class="delete-confirm-content">
+            <div class="delete-confirm-icon">🗑️</div>
+            <h3 class="delete-confirm-title">delete this note?</h3>
+            <p class="delete-confirm-text">this action cannot be undone</p>
+            <div class="delete-confirm-buttons">
+                <button class="delete-confirm-button delete-button" onclick="confirmDelete()">delete</button>
+                <button class="delete-confirm-button cancel-button" onclick="cancelDelete()">cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Todo Delete Confirmation Modal -->
+    <div id="deleteTodoConfirmModal" class="delete-confirm-overlay hidden">
+        <div class="delete-confirm-content">
+            <div class="delete-confirm-icon">🗑️</div>
+            <h3 class="delete-confirm-title">delete this TODO?</h3>
+            <p class="delete-confirm-text">this action cannot be undone</p>
+            <div class="delete-confirm-buttons">
+                <button class="delete-confirm-button delete-button" onclick="confirmDeleteTodo()">delete</button>
+                <button class="delete-confirm-button cancel-button" onclick="cancelDeleteTodo()">cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Todo Modal -->
+    <div id="editTodoModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 class="modal-title">edit TODO</h3>
+            <div class="time-input-container">
+                <div class="time-input-box">
+                    <div class="time-input-label">start</div>
+                    <div id="editStartTimeDisplay" class="time-display">
+                        <span class="time-part" data-input="editStart" data-part="hour">--</span>
+                        <span>:</span>
+                        <span class="time-part" data-input="editStart" data-part="minute">--</span>
+                        <span class="time-part" data-input="editStart" data-part="period">--</span>
+                    </div>
+                </div>
+                <div class="time-separator">→</div>
+                <div class="time-input-box">
+                    <div class="time-input-label">end</div>
+                    <div id="editEndTimeDisplay" class="time-display">
+                        <span class="time-part" data-input="editEnd" data-part="hour">--</span>
+                        <span>:</span>
+                        <span class="time-part" data-input="editEnd" data-part="minute">--</span>
+                        <span class="time-part" data-input="editEnd" data-part="period">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="active-input-indicator">
+                <div class="input-dot active" id="editStartDot"></div>
+                <div class="input-dot" id="editEndDot"></div>
+            </div>
+
+            <div class="number-pad">
+                <button class="number-pad-button" onclick="editNumberPadInput('1')">1</button>
+                <button class="number-pad-button" onclick="editNumberPadInput('2')">2</button>
+                <button class="number-pad-button" onclick="editNumberPadInput('3')">3</button>
+                <button class="number-pad-button" onclick="editNumberPadInput('4')">4</button>
+                <button class="number-pad-button" onclick="editNumberPadInput('5')">5</button>
+                <button class="number-pad-button" onclick="editNumberPadInput('6')">6</button>
+                <button class="number-pad-button" onclick="editNumberPadInput('7')">7</button>
+                <button class="number-pad-button" onclick="editNumberPadInput('8')">8</button>
+                <button class="number-pad-button" onclick="editNumberPadInput('9')">9</button>
+                <button class="number-pad-button ampm" onclick="editToggleAMPM()">AM/PM</button>
+                <button class="number-pad-button" onclick="editNumberPadInput('0')">0</button>
+                <button class="number-pad-button clear" onclick="editClearCurrentTime()">CLR</button>
+            </div>
+
+            <div class="event-form-group" style="margin-top: 1rem;">
+                <label for="editEventText" class="form-label">what's happening?</label>
+                <input
+                    id="editEventText"
+                    type="text"
+                    class="form-input"
+                    placeholder="e.g., team meeting, lunch..."
+                    autocomplete="off"
+                    style="color: #000;"
+                />
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-button modal-button-primary" onclick="saveTodoEdit()">save</button>
+                <button class="modal-button modal-button-danger" onclick="deleteTodoFromModal()">delete</button>
+                <button class="modal-button modal-button-secondary" onclick="hideEditTodoModal()">cancel</button>
             </div>
         </div>
     </div>
@@ -1825,6 +2750,19 @@
         let dragOffset = { x: 0, y: 0 };
         let selectedNoteColor = '#fef08a'; // Default to yellow
 
+        // Emoji cycling arrays
+        const heartEmojis = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎', '💗', '💖', '💕'];
+        const exclamationEmojis = ['❗', '‼️', '❓', '⁉️'];
+        const pinEmojis = ['📌', '📍', '🔴', '🟠', '🟡', '🟢', '🔵', '🟣', '⚫', '⚪', '🟤'];
+        const confettiEmojis = ['🎉', '🎊', '✨', '🎈', '🎆', '💫', '⭐', '🌟'];
+        let heartIndex = 0;
+        let exclamationIndex = 0;
+        let pinIndex = 0;
+        let confettiIndex = 0;
+
+        // Delete confirmation state
+        let noteToDelete = null;
+
         // Number pad state
         let activeTimeInput = 'start'; // 'start' or 'end'
         let activeTimePart = 'hour'; // 'hour' or 'minute'
@@ -1853,9 +2791,16 @@
                     if (!boards[user]) {
                         boards[user] = { notes: [], schedule: null };
                     } else if (!boards[user].notes) {
-                        // Migrate old format
-                        boards[user] = { notes: boards[user], schedule: null };
-                    } else if (!boards[user].schedule) {
+                        // Initialize notes as empty array if missing
+                        boards[user].notes = [];
+                    } else if (!Array.isArray(boards[user].notes)) {
+                        // Fix if notes is not an array (corrupted data)
+                        console.warn(`Fixing corrupted notes for ${user}`);
+                        boards[user].notes = [];
+                    }
+
+                    // Ensure schedule exists
+                    if (!boards[user].schedule) {
                         boards[user].schedule = null;
                     } else if (boards[user].schedule) {
                         // Migrate old schedule format from object to array
@@ -1936,6 +2881,7 @@
 
                 renderBoard();
                 updateMenuActiveState();
+                updateHeaderButtons(); // Ensure buttons are properly shown/hidden on first load
             } else {
                 document.getElementById('errorMessage').style.display = 'block';
                 document.getElementById('securityAnswer').value = '';
@@ -1958,8 +2904,27 @@
         function selectBoardFromMenu(boardName) {
             selectedBoard = boardName;
             document.getElementById('boardTitle').textContent = boardName;
+
+            // Reset to first page when switching boards
+            currentPage = 0;
+            const boardPages = document.getElementById('boardPages');
+            if (boardPages) {
+                boardPages.style.transform = `translateX(0%)`;
+            }
+
+            // Update page active states
+            const pages = document.querySelectorAll('.board-page');
+            pages.forEach((page, index) => {
+                if (index === 0) {
+                    page.classList.add('active');
+                } else {
+                    page.classList.remove('active');
+                }
+            });
+
             renderBoard();
             updateMenuActiveState();
+            updateHeaderButtons(); // Update button visibility
             closeSideMenu();
         }
 
@@ -1988,31 +2953,20 @@
         function renderBoard() {
             const boardData = boards[selectedBoard];
             const notes = boardData?.notes || [];
-            const schedule = boardData?.schedule;
 
-            // Show/hide schedule buttons based on if viewing own board
-            const isOwnBoard = selectedBoard === currentUser;
-            const addScheduleBtn = document.getElementById('addScheduleButton');
-            const addTodoBtn = document.getElementById('addTodoButton');
-
-            if (isOwnBoard) {
-                if (schedule) {
-                    addScheduleBtn.style.display = 'none';
-                    addTodoBtn.style.display = 'block';
-                } else {
-                    addScheduleBtn.style.display = 'block';
-                    addTodoBtn.style.display = 'none';
-                }
-            } else {
-                addScheduleBtn.style.display = 'none';
-                addTodoBtn.style.display = 'none';
-            }
+            console.log('renderBoard called for:', selectedBoard);
+            console.log('Notes count:', notes.length);
+            console.log('Emojis count:', boardData?.emojis?.length || 0);
 
             // Render notes
             const boardArea = document.getElementById('boardArea');
-            const scheduleContainer = document.getElementById('scheduleContainer');
 
-            // Clear only notes (keep schedule container)
+            if (!boardArea) {
+                console.error('boardArea not found!');
+                return;
+            }
+
+            // Clear only notes
             const existingNotes = boardArea.querySelectorAll('.sticky-note');
             existingNotes.forEach(note => note.remove());
 
@@ -2026,24 +2980,50 @@
                 const emptyDiv = document.createElement('div');
                 emptyDiv.className = 'empty-state';
                 emptyDiv.innerHTML = `<p>no notes yet. ${message}</p>`;
-                boardArea.insertBefore(emptyDiv, scheduleContainer);
+                boardArea.appendChild(emptyDiv);
             } else {
                 notes.forEach(note => {
                     const noteEl = createNoteElement(note);
-                    boardArea.insertBefore(noteEl, scheduleContainer);
+                    boardArea.appendChild(noteEl);
                 });
             }
 
-            // Render schedule
-            renderSchedule();
+            // Render todos
+            renderTodos();
+
+            // Render emojis for each page
+            renderEmojis();
+            renderTodoEmojis();
+            renderHabitEmojis();
+
+            // Update header buttons for current page
+            updateHeaderButtons();
+
+            // Render habits
+            renderHabits();
         }
 
         function createNoteElement(note) {
             const div = document.createElement('div');
             div.className = 'sticky-note';
             div.style.backgroundColor = note.color;
-            div.style.left = note.position.x + 'px';
-            div.style.top = note.position.y + 'px';
+
+            // Get current viewport dimensions to clamp positions
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            // Use stored dimensions or defaults
+            const noteWidth = note.width || 200;
+            const noteHeight = note.height || 150;
+
+            // Clamp position to current viewport to ensure visibility on all devices
+            // Account for header (8rem = ~128px) plus safe area
+            const headerOffset = 150;
+            const clampedX = Math.min(Math.max(10, note.position.x), viewportWidth - noteWidth - 10);
+            const clampedY = Math.min(Math.max(headerOffset, note.position.y), viewportHeight - noteHeight - 10);
+
+            div.style.left = clampedX + 'px';
+            div.style.top = clampedY + 'px';
 
             // Set size if stored, otherwise use defaults
             if (note.width) div.style.width = note.width + 'px';
@@ -2051,6 +3031,8 @@
 
             div.dataset.noteId = note.id;
             div.dataset.author = note.author;
+
+            console.log(`Note ${note.id} - Original: (${note.position.x}, ${note.position.y}), Clamped: (${clampedX}, ${clampedY})`);
 
             const canEdit = note.author === currentUser;
             const capitalizedAuthor = note.author.charAt(0).toUpperCase() + note.author.slice(1);
@@ -2183,14 +3165,38 @@
         }
 
         function deleteNoteFromModal(noteId) {
-            if (!confirm('Delete this note?')) {
-                return;
-            }
+            noteToDelete = noteId;
+            document.getElementById('deleteConfirmModal').classList.remove('hidden');
+        }
 
-            boards[selectedBoard].notes = boards[selectedBoard].notes.filter(note => note.id !== noteId);
-            saveBoards();
-            renderBoard();
-            cancelEditNote();
+        function confirmDelete() {
+            console.log('confirmDelete called');
+
+            // Store the noteId before clearing
+            const noteIdToDelete = noteToDelete;
+
+            // Hide BOTH modals immediately
+            document.getElementById('deleteConfirmModal').classList.add('hidden');
+            document.getElementById('addNoteModal').classList.add('hidden');
+
+            // Use setTimeout to ensure DOM updates before proceeding
+            setTimeout(() => {
+                if (noteIdToDelete) {
+                    console.log('Deleting note:', noteIdToDelete);
+                    boards[selectedBoard].notes = boards[selectedBoard].notes.filter(note => note.id !== noteIdToDelete);
+                    saveBoards();
+                    console.log('Rendering board after delete');
+                    renderBoard();
+                    console.log('confirmDelete completed');
+                }
+                // Clear the state
+                noteToDelete = null;
+            }, 100);
+        }
+
+        function cancelDelete() {
+            noteToDelete = null;
+            document.getElementById('deleteConfirmModal').classList.add('hidden');
         }
 
         function cancelEditNote() {
@@ -2429,9 +3435,12 @@
         }
 
         function addNote() {
+            console.log('addNote function called');
             const text = document.getElementById('noteTextarea').value.trim();
+            console.log('Note text:', text);
 
             if (!text) {
+                alert('Please enter some text for your note!');
                 return;
             }
 
@@ -2457,7 +3466,17 @@
                 }
             };
 
+            // Ensure notes array exists and is actually an array
+            if (!boards[selectedBoard].notes || !Array.isArray(boards[selectedBoard].notes)) {
+                console.warn('Fixing notes array for board:', selectedBoard);
+                boards[selectedBoard].notes = [];
+            }
+
             boards[selectedBoard].notes.push(newNote);
+
+            console.log('Note created:', newNote);
+            console.log('Total notes on board:', boards[selectedBoard].notes.length);
+
             saveBoards();
             renderBoard();
             hideAddNoteModal();
@@ -2764,6 +3783,19 @@
                     }
                 });
             });
+
+            // Add click handlers for edit modal time displays
+            document.getElementById('editStartTimeDisplay').addEventListener('click', () => {
+                editActiveInput = 'start';
+                document.getElementById('editStartDot').classList.add('active');
+                document.getElementById('editEndDot').classList.remove('active');
+            });
+
+            document.getElementById('editEndTimeDisplay').addEventListener('click', () => {
+                editActiveInput = 'end';
+                document.getElementById('editStartDot').classList.remove('active');
+                document.getElementById('editEndDot').classList.add('active');
+            });
         });
 
         function formatTimeForSchedule(timeInput) {
@@ -2772,9 +3804,9 @@
             return `${hour}${period}`;
         }
 
-        function showAddEventModal() {
+        function showAddTodoModal() {
             // Reset number pad state
-            editingEventIndex = null;
+            editingTodoIndex = null;
             activeTimeInput = 'start';
             activeTimePart = 'hour';
             startTimeInput = { hour: '', minute: '', period: 'AM' };
@@ -2783,10 +3815,8 @@
             updateDotIndicators();
             updateTimeDisplay();
 
-            document.querySelector('#addEventModal .modal-title').textContent = 'add event';
-            document.querySelector('#addEventModal .modal-button-primary').textContent = 'add';
             document.getElementById('eventText').value = '';
-            document.getElementById('addEventModal').classList.remove('hidden');
+            document.getElementById('addTodoModal').classList.remove('hidden');
 
             const eventText = document.getElementById('eventText');
             // For iOS - scroll modal into view after keyboard opens
@@ -2798,49 +3828,8 @@
             }, 100);
         }
 
-        function editEvent(eventIndex) {
-            const schedule = boards[selectedBoard]?.schedule;
-            if (!schedule || !schedule.events[eventIndex]) return;
-
-            const event = schedule.events[eventIndex];
-            editingEventIndex = eventIndex;
-
-            // Populate the form with existing event data
-            document.getElementById('eventText').value = event.text;
-
-            startTimeInput = {
-                hour: event.startHour.toString(),
-                minute: event.startMinute.toString().padStart(2, '0'),
-                period: event.startPeriod
-            };
-
-            endTimeInput = {
-                hour: event.endHour.toString(),
-                minute: event.endMinute.toString().padStart(2, '0'),
-                period: event.endPeriod
-            };
-
-            activeTimeInput = 'start';
-            activeTimePart = 'hour';
-            updateDotIndicators();
-            updateTimeDisplay();
-
-            document.querySelector('#addEventModal .modal-title').textContent = 'edit event';
-            document.querySelector('#addEventModal .modal-button-primary').textContent = 'save';
-            document.getElementById('addEventModal').classList.remove('hidden');
-
-            const eventText = document.getElementById('eventText');
-            // For iOS - scroll modal into view after keyboard opens
-            setTimeout(() => {
-                eventText.focus();
-                setTimeout(() => {
-                    eventText.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
-            }, 100);
-        }
-
-        function hideAddEventModal() {
-            document.getElementById('addEventModal').classList.add('hidden');
+        function hideAddTodoModal() {
+            document.getElementById('addTodoModal').classList.add('hidden');
             document.getElementById('eventText').value = '';
 
             // Reset number pad
@@ -2848,15 +3837,15 @@
             endTimeInput = { hour: '', minute: '', period: 'AM' };
             activeTimeInput = 'start';
             activeTimePart = 'hour';
-            editingEventIndex = null;
+            editingTodoIndex = null;
             updateTimeDisplay();
         }
 
-        function addEvent() {
+        function addTodo() {
             const text = document.getElementById('eventText').value.trim();
 
             if (!text) {
-                alert('Please enter what\'s happening!');
+                alert('Please enter what needs to be done!');
                 return;
             }
 
@@ -2871,45 +3860,1544 @@
                 return;
             }
 
-            const schedule = boards[selectedBoard].schedule;
-            if (!schedule) return;
+            // Initialize todos array if it doesn't exist
+            if (!boards[selectedBoard].todos) {
+                boards[selectedBoard].todos = [];
+            }
 
-            const eventData = {
-                id: editingEventIndex !== null ? schedule.events[editingEventIndex].id : Date.now().toString(),
-                text: text,
+            const todoData = {
+                id: editingTodoIndex !== null ? boards[selectedBoard].todos[editingTodoIndex].id : Date.now().toString(),
+                description: text,
                 startHour: parseInt(startTimeInput.hour),
                 startMinute: parseInt(startTimeInput.minute),
                 startPeriod: startTimeInput.period,
                 endHour: parseInt(endTimeInput.hour),
                 endMinute: parseInt(endTimeInput.minute),
-                endPeriod: endTimeInput.period
+                endPeriod: endTimeInput.period,
+                status: 'pending' // Default status
             };
 
-            if (editingEventIndex !== null) {
-                // Update existing event
-                schedule.events[editingEventIndex] = eventData;
+            if (editingTodoIndex !== null) {
+                // Update existing todo
+                boards[selectedBoard].todos[editingTodoIndex] = todoData;
             } else {
-                // Add new event
-                schedule.events.push(eventData);
+                // Add new todo
+                boards[selectedBoard].todos.push(todoData);
             }
 
             saveBoards();
-            renderBoard();
-            hideAddEventModal();
+            renderTodos();
+            hideAddTodoModal();
         }
 
-        function deleteEvent(eventIndex) {
-            const schedule = boards[selectedBoard].schedule;
-            if (!schedule) return;
+        // Add editingTodoIndex variable at the top with other variables
+        let editingTodoIndex = null;
 
-            if (!confirm('Delete this event?')) {
+        function renderTodos() {
+            const todoContainer = document.getElementById('todoContainerPage');
+            const todos = boards[selectedBoard]?.todos || [];
+
+            if (!todoContainer) return;
+
+            if (todos.length === 0) {
+                todoContainer.innerHTML = '<div class="empty-state">no TODOs yet! what are you doing today?</div>';
                 return;
             }
 
-            schedule.events.splice(eventIndex, 1);
-            saveBoards();
-            renderBoard();
+            // Status emoji mapping
+            const statusEmojis = {
+                'pending': '⏳',
+                'in_progress': '🚧',
+                'done': '✅',
+                'delayed': '⏰',
+                'not_done': '❌'
+            };
+
+            let html = '<div class="todo-container">';
+            html += '<div class="todo-header">To-Do List</div>';
+
+            todos.forEach((todo, index) => {
+                const startTime = formatTodoTime(todo);
+                const endTime = formatTodoEndTime(todo);
+                const timeRange = `${startTime} - ${endTime}`;
+                const emoji = statusEmojis[todo.status] || '⏳';
+
+                // Only show edit button if viewing own board
+                const canEdit = currentUser === selectedBoard;
+
+                html += `
+                    <div class="todo-item">
+                        <span class="todo-status" onclick="toggleTodoStatus(${index})">${emoji}</span>
+                        <div class="todo-content" onclick="toggleTodoStatus(${index})">
+                            <div class="todo-description">${escapeHtml(todo.description)}</div>
+                            <div class="todo-time">${timeRange}</div>
+                        </div>
+                        ${canEdit ? `<button class="todo-edit-button" onclick="event.stopPropagation(); editTodo(${index})">✏️</button>` : ''}
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            todoContainer.innerHTML = html;
         }
+
+        function formatTodoTime(todo) {
+            let hour = todo.startHour;
+            if (hour === 12) {
+                return `${hour}:${todo.startMinute.toString().padStart(2, '0')}${todo.startPeriod.toLowerCase()}`;
+            } else if (hour > 12) {
+                hour = hour - 12;
+            } else if (hour === 0) {
+                hour = 12;
+            }
+            return `${hour}:${todo.startMinute.toString().padStart(2, '0')}${todo.startPeriod.toLowerCase()}`;
+        }
+
+        function formatTodoEndTime(todo) {
+            let hour = todo.endHour;
+            if (hour === 12) {
+                return `${hour}:${todo.endMinute.toString().padStart(2, '0')}${todo.endPeriod.toLowerCase()}`;
+            } else if (hour > 12) {
+                hour = hour - 12;
+            } else if (hour === 0) {
+                hour = 12;
+            }
+            return `${hour}:${todo.endMinute.toString().padStart(2, '0')}${todo.endPeriod.toLowerCase()}`;
+        }
+
+        function toggleTodoStatus(todoIndex) {
+            const todos = boards[selectedBoard].todos;
+            if (!todos || !todos[todoIndex]) return;
+
+            // Cycle through statuses: pending -> in_progress -> done -> delayed -> not_done -> pending
+            const statusCycle = ['pending', 'in_progress', 'done', 'delayed', 'not_done'];
+            const currentStatus = todos[todoIndex].status || 'pending';
+            const currentIndex = statusCycle.indexOf(currentStatus);
+            const nextIndex = (currentIndex + 1) % statusCycle.length;
+
+            todos[todoIndex].status = statusCycle[nextIndex];
+
+            saveBoards();
+            renderTodos();
+        }
+
+        // Edit and Delete Todo Functions
+        let todoToEdit = null;
+        let todoToDelete = null;
+        let editActiveInput = 'start';
+        let editStartHour = null;
+        let editStartMinute = null;
+        let editStartPeriod = null;
+        let editEndHour = null;
+        let editEndMinute = null;
+        let editEndPeriod = null;
+
+        function editTodo(todoIndex) {
+            // Only allow editing own board
+            if (currentUser !== selectedBoard) {
+                alert('You can only edit your own TODOs!');
+                return;
+            }
+
+            const todos = boards[selectedBoard].todos;
+            if (!todos || !todos[todoIndex]) return;
+
+            todoToEdit = todoIndex;
+            const todo = todos[todoIndex];
+
+            // Reset to start input
+            editActiveInput = 'start';
+
+            // Set the time values
+            editStartHour = todo.startHour;
+            editStartMinute = todo.startMinute;
+            editStartPeriod = todo.startPeriod;
+            editEndHour = todo.endHour;
+            editEndMinute = todo.endMinute;
+            editEndPeriod = todo.endPeriod;
+
+            // Update the display
+            updateEditTimeDisplay();
+
+            // Update dots
+            document.getElementById('editStartDot').classList.add('active');
+            document.getElementById('editEndDot').classList.remove('active');
+
+            // Set the description
+            document.getElementById('editEventText').value = todo.description;
+
+            // Show the modal
+            document.getElementById('editTodoModal').classList.remove('hidden');
+        }
+
+        function updateEditTimeDisplay() {
+            // Update start time
+            const startHour = editStartHour !== null ? editStartHour.toString() : '--';
+            const startMin = editStartMinute !== null ? editStartMinute.toString().padStart(2, '0') : '--';
+            const startPer = editStartPeriod || '--';
+
+            document.querySelector('#editStartTimeDisplay [data-part="hour"]').textContent = startHour;
+            document.querySelector('#editStartTimeDisplay [data-part="minute"]').textContent = startMin;
+            document.querySelector('#editStartTimeDisplay [data-part="period"]').textContent = startPer;
+
+            // Update end time
+            const endHour = editEndHour !== null ? editEndHour.toString() : '--';
+            const endMin = editEndMinute !== null ? editEndMinute.toString().padStart(2, '0') : '--';
+            const endPer = editEndPeriod || '--';
+
+            document.querySelector('#editEndTimeDisplay [data-part="hour"]').textContent = endHour;
+            document.querySelector('#editEndTimeDisplay [data-part="minute"]').textContent = endMin;
+            document.querySelector('#editEndTimeDisplay [data-part="period"]').textContent = endPer;
+        }
+
+        function editNumberPadInput(digit) {
+            if (editActiveInput === 'start') {
+                // Handle hour (1-12)
+                if (editStartHour === null) {
+                    const hourNum = parseInt(digit);
+                    if (hourNum >= 1 && hourNum <= 9) {
+                        editStartHour = hourNum;
+                    }
+                } else if (editStartMinute === null) {
+                    // Try to complete 2-digit hour if current hour is 1
+                    if (editStartHour === 1) {
+                        const twoDigitHour = parseInt(editStartHour.toString() + digit);
+                        if (twoDigitHour >= 10 && twoDigitHour <= 12) {
+                            editStartHour = twoDigitHour;
+                        } else {
+                            // Start minute instead
+                            editStartMinute = parseInt(digit) * 10;
+                        }
+                    } else {
+                        // Start minute
+                        editStartMinute = parseInt(digit) * 10;
+                    }
+                } else if (editStartMinute < 10) {
+                    // Complete minute (second digit)
+                    const newMin = editStartMinute + parseInt(digit);
+                    if (newMin >= 0 && newMin <= 59) {
+                        editStartMinute = newMin;
+                    }
+                } else if (editStartPeriod === null) {
+                    editStartPeriod = 'AM';
+                }
+            } else {
+                // Handle end time
+                if (editEndHour === null) {
+                    const hourNum = parseInt(digit);
+                    if (hourNum >= 1 && hourNum <= 9) {
+                        editEndHour = hourNum;
+                    }
+                } else if (editEndMinute === null) {
+                    if (editEndHour === 1) {
+                        const twoDigitHour = parseInt(editEndHour.toString() + digit);
+                        if (twoDigitHour >= 10 && twoDigitHour <= 12) {
+                            editEndHour = twoDigitHour;
+                        } else {
+                            editEndMinute = parseInt(digit) * 10;
+                        }
+                    } else {
+                        editEndMinute = parseInt(digit) * 10;
+                    }
+                } else if (editEndMinute < 10) {
+                    const newMin = editEndMinute + parseInt(digit);
+                    if (newMin >= 0 && newMin <= 59) {
+                        editEndMinute = newMin;
+                    }
+                } else if (editEndPeriod === null) {
+                    editEndPeriod = 'AM';
+                }
+            }
+            updateEditTimeDisplay();
+        }
+
+        function editToggleAMPM() {
+            if (editActiveInput === 'start') {
+                if (editStartPeriod === 'AM') {
+                    editStartPeriod = 'PM';
+                } else if (editStartPeriod === 'PM') {
+                    editStartPeriod = 'AM';
+                } else {
+                    editStartPeriod = 'AM';
+                }
+            } else {
+                if (editEndPeriod === 'AM') {
+                    editEndPeriod = 'PM';
+                } else if (editEndPeriod === 'PM') {
+                    editEndPeriod = 'AM';
+                } else {
+                    editEndPeriod = 'AM';
+                }
+            }
+            updateEditTimeDisplay();
+        }
+
+        function editClearCurrentTime() {
+            if (editActiveInput === 'start') {
+                editStartHour = null;
+                editStartMinute = null;
+                editStartPeriod = null;
+            } else {
+                editEndHour = null;
+                editEndMinute = null;
+                editEndPeriod = null;
+            }
+            updateEditTimeDisplay();
+        }
+
+        function saveTodoEdit() {
+            // Only allow editing own board
+            if (currentUser !== selectedBoard) {
+                alert('You can only edit your own TODOs!');
+                return;
+            }
+
+            const todos = boards[selectedBoard].todos;
+            if (todoToEdit === null || !todos || !todos[todoToEdit]) return;
+
+            const description = document.getElementById('editEventText').value.trim();
+            if (!description) {
+                alert('Please enter a description!');
+                return;
+            }
+
+            if (editStartHour === null || editStartMinute === null || editStartPeriod === null ||
+                editEndHour === null || editEndMinute === null || editEndPeriod === null) {
+                alert('Please set both start and end times!');
+                return;
+            }
+
+            // Update the todo
+            todos[todoToEdit].description = description;
+            todos[todoToEdit].startHour = editStartHour;
+            todos[todoToEdit].startMinute = editStartMinute;
+            todos[todoToEdit].startPeriod = editStartPeriod;
+            todos[todoToEdit].endHour = editEndHour;
+            todos[todoToEdit].endMinute = editEndMinute;
+            todos[todoToEdit].endPeriod = editEndPeriod;
+
+            saveBoards();
+            renderTodos();
+            hideEditTodoModal();
+        }
+
+        function deleteTodoFromModal() {
+            // Only allow deleting own TODOs
+            if (currentUser !== selectedBoard) {
+                alert('You can only delete your own TODOs!');
+                return;
+            }
+            document.getElementById('deleteTodoConfirmModal').classList.remove('hidden');
+        }
+
+        function confirmDeleteTodo() {
+            const todos = boards[selectedBoard].todos;
+            const indexToDelete = todoToDelete !== null ? todoToDelete : todoToEdit;
+
+            // Hide BOTH modals immediately
+            document.getElementById('deleteTodoConfirmModal').classList.add('hidden');
+            document.getElementById('editTodoModal').classList.add('hidden');
+
+            setTimeout(() => {
+                if (indexToDelete !== null && todos && todos[indexToDelete]) {
+                    todos.splice(indexToDelete, 1);
+                    saveBoards();
+                    renderTodos();
+                }
+                todoToDelete = null;
+                todoToEdit = null;
+            }, 100);
+        }
+
+        function cancelDeleteTodo() {
+            todoToDelete = null;
+            document.getElementById('deleteTodoConfirmModal').classList.add('hidden');
+        }
+
+        function hideEditTodoModal() {
+            document.getElementById('editTodoModal').classList.add('hidden');
+            todoToEdit = null;
+            editActiveInput = 'start';
+            editStartHour = null;
+            editStartMinute = null;
+            editStartPeriod = null;
+            editEndHour = null;
+            editEndMinute = null;
+            editEndPeriod = null;
+
+            // Reset dots
+            document.getElementById('editStartDot').classList.add('active');
+            document.getElementById('editEndDot').classList.remove('active');
+        }
+
+        // Emoji Functions
+        function dropEmojiCycling(type) {
+            let emoji;
+
+            // Cycle through emoji variants based on type
+            if (type === 'heart') {
+                emoji = heartEmojis[heartIndex];
+                heartIndex = (heartIndex + 1) % heartEmojis.length;
+            } else if (type === 'exclamation') {
+                emoji = exclamationEmojis[exclamationIndex];
+                exclamationIndex = (exclamationIndex + 1) % exclamationEmojis.length;
+            } else if (type === 'pin') {
+                emoji = pinEmojis[pinIndex];
+                pinIndex = (pinIndex + 1) % pinEmojis.length;
+            } else if (type === 'confetti') {
+                emoji = confettiEmojis[confettiIndex];
+                confettiIndex = (confettiIndex + 1) % confettiEmojis.length;
+            } else if (type === 'carrot') {
+                emoji = '🥕';
+            } else if (type === 'stick') {
+                emoji = '🏒';
+            }
+
+            dropEmoji(emoji);
+        }
+
+        function dropEmoji(emoji) {
+            // Determine which page we're on and store emojis accordingly
+            if (emoji === '🎉' || emoji === '🎊' || emoji === '✨' || emoji === '🎈' ||
+                emoji === '🎆' || emoji === '💫' || emoji === '⭐' || emoji === '🌟') {
+                // Confetti emojis - only on TODO page
+                if (currentPage !== 1) return; // Only allow on TODO page
+
+                if (!boards[selectedBoard].todoEmojis) {
+                    boards[selectedBoard].todoEmojis = [];
+                }
+
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const headerHeight = 150;
+                const x = Math.random() * (viewportWidth * 0.6) + (viewportWidth * 0.2);
+                const y = Math.random() * (viewportHeight * 0.5) + headerHeight + 50;
+
+                const emojiData = {
+                    id: Date.now().toString() + Math.random(),
+                    emoji: emoji,
+                    position: {
+                        x: Math.min(x, viewportWidth - 100),
+                        y: Math.min(y, viewportHeight - 100)
+                    }
+                };
+
+                boards[selectedBoard].todoEmojis.push(emojiData);
+                saveBoards();
+                renderTodoEmojis();
+
+            } else if (emoji === '🥕' || emoji === '🏒') {
+                // Carrot and stick emojis - only on Habits page
+                if (currentPage !== 2) return; // Only allow on Habits page
+
+                if (!boards[selectedBoard].habitEmojis) {
+                    boards[selectedBoard].habitEmojis = [];
+                }
+
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const headerHeight = 150;
+                const x = Math.random() * (viewportWidth * 0.6) + (viewportWidth * 0.2);
+                const y = Math.random() * (viewportHeight * 0.5) + headerHeight + 50;
+
+                const emojiData = {
+                    id: Date.now().toString() + Math.random(),
+                    emoji: emoji,
+                    position: {
+                        x: Math.min(x, viewportWidth - 100),
+                        y: Math.min(y, viewportHeight - 100)
+                    }
+                };
+
+                boards[selectedBoard].habitEmojis.push(emojiData);
+                saveBoards();
+                renderHabitEmojis();
+
+            } else {
+                // All other emojis - notes page
+                if (!boards[selectedBoard].emojis) {
+                    boards[selectedBoard].emojis = [];
+                }
+
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const headerHeight = 150;
+                const x = Math.random() * (viewportWidth * 0.6) + (viewportWidth * 0.2);
+                const y = Math.random() * (viewportHeight * 0.5) + headerHeight + 50;
+
+                const emojiData = {
+                    id: Date.now().toString(),
+                    emoji: emoji,
+                    position: {
+                        x: Math.min(x, viewportWidth - 100),
+                        y: Math.min(y, viewportHeight - 100)
+                    }
+                };
+
+                boards[selectedBoard].emojis.push(emojiData);
+                console.log('Emoji dropped:', emojiData);
+                saveBoards();
+                renderEmojis();
+            }
+        }
+
+        function renderEmojis() {
+            const boardArea = document.getElementById('boardArea');
+            if (!boardArea) {
+                console.log('boardArea not found for emojis');
+                return;
+            }
+
+            const emojis = boards[selectedBoard]?.emojis || [];
+            console.log('Rendering emojis:', emojis.length);
+
+            // Remove existing emojis
+            const existingEmojis = boardArea.querySelectorAll('.board-emoji');
+            existingEmojis.forEach(emoji => emoji.remove());
+
+            // Get current viewport dimensions to clamp positions
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const emojiSize = 60; // Approximate emoji element size
+            const headerOffset = 150; // Account for header height
+
+            // Render each emoji
+            emojis.forEach(emojiData => {
+                const emojiEl = document.createElement('div');
+                emojiEl.className = 'board-emoji';
+                emojiEl.textContent = emojiData.emoji;
+
+                // Clamp position to current viewport to ensure visibility on all devices
+                const clampedX = Math.min(Math.max(20, emojiData.position.x), viewportWidth - emojiSize - 20);
+                const clampedY = Math.min(Math.max(headerOffset, emojiData.position.y), viewportHeight - emojiSize - 20);
+
+                emojiEl.style.left = clampedX + 'px';
+                emojiEl.style.top = clampedY + 'px';
+                emojiEl.dataset.emojiId = emojiData.id;
+
+                console.log(`Emoji ${emojiData.emoji} - Original: (${emojiData.position.x}, ${emojiData.position.y}), Clamped: (${clampedX}, ${clampedY})`);
+
+                // Add drag/tap functionality
+                emojiEl.addEventListener('mousedown', startEmojiDrag);
+                emojiEl.addEventListener('touchstart', startEmojiDrag, { passive: false });
+
+                boardArea.appendChild(emojiEl);
+                console.log('Emoji rendered:', emojiData.emoji, 'at', emojiData.position);
+            });
+        }
+
+        function renderTodoEmojis() {
+            const todoPage = document.getElementById('todosPage');
+            if (!todoPage) {
+                console.log('todosPage not found for emojis');
+                return;
+            }
+
+            const emojis = boards[selectedBoard]?.todoEmojis || [];
+
+            // Remove existing emojis
+            const existingEmojis = todoPage.querySelectorAll('.board-emoji');
+            existingEmojis.forEach(emoji => emoji.remove());
+
+            // Get current viewport dimensions to clamp positions
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const emojiSize = 60;
+            const headerOffset = 150;
+
+            // Render each emoji
+            emojis.forEach(emojiData => {
+                const emojiEl = document.createElement('div');
+                emojiEl.className = 'board-emoji';
+                emojiEl.textContent = emojiData.emoji;
+
+                const clampedX = Math.min(Math.max(20, emojiData.position.x), viewportWidth - emojiSize - 20);
+                const clampedY = Math.min(Math.max(headerOffset, emojiData.position.y), viewportHeight - emojiSize - 20);
+
+                emojiEl.style.left = clampedX + 'px';
+                emojiEl.style.top = clampedY + 'px';
+                emojiEl.dataset.emojiId = emojiData.id;
+
+                // Add drag/tap functionality
+                emojiEl.addEventListener('mousedown', startTodoEmojiDrag);
+                emojiEl.addEventListener('touchstart', startTodoEmojiDrag, { passive: false });
+
+                todoPage.appendChild(emojiEl);
+            });
+        }
+
+        function renderHabitEmojis() {
+            const habitsPage = document.getElementById('habitsPage');
+            if (!habitsPage) {
+                console.log('habitsPage not found for emojis');
+                return;
+            }
+
+            const emojis = boards[selectedBoard]?.habitEmojis || [];
+
+            // Remove existing emojis
+            const existingEmojis = habitsPage.querySelectorAll('.board-emoji');
+            existingEmojis.forEach(emoji => emoji.remove());
+
+            // Get current viewport dimensions to clamp positions
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const emojiSize = 60;
+            const headerOffset = 150;
+
+            // Render each emoji
+            emojis.forEach(emojiData => {
+                const emojiEl = document.createElement('div');
+                emojiEl.className = 'board-emoji';
+                emojiEl.textContent = emojiData.emoji;
+
+                const clampedX = Math.min(Math.max(20, emojiData.position.x), viewportWidth - emojiSize - 20);
+                const clampedY = Math.min(Math.max(headerOffset, emojiData.position.y), viewportHeight - emojiSize - 20);
+
+                emojiEl.style.left = clampedX + 'px';
+                emojiEl.style.top = clampedY + 'px';
+                emojiEl.dataset.emojiId = emojiData.id;
+
+                // Add drag/tap functionality
+                emojiEl.addEventListener('mousedown', startHabitEmojiDrag);
+                emojiEl.addEventListener('touchstart', startHabitEmojiDrag, { passive: false });
+
+                habitsPage.appendChild(emojiEl);
+            });
+        }
+
+        let isDraggingEmoji = false;
+        let emojiDragMoved = false;
+        let currentEmojiEl = null;
+        let emojiOffsetX = 0;
+        let emojiOffsetY = 0;
+        let emojiStartX = 0;
+        let emojiStartY = 0;
+        let emojiTouchStartTime = 0;
+        const DRAG_THRESHOLD = 5; // pixels
+        const TAP_TIME_THRESHOLD = 300; // milliseconds
+
+        function startEmojiDrag(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            console.log('startEmojiDrag called, event type:', e.type);
+
+            isDraggingEmoji = true;
+            emojiDragMoved = false; // Reset movement flag
+            emojiTouchStartTime = Date.now();
+            currentEmojiEl = e.currentTarget;
+
+            const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+            emojiStartX = clientX;
+            emojiStartY = clientY;
+
+            console.log('Start position:', emojiStartX, emojiStartY);
+
+            const rect = currentEmojiEl.getBoundingClientRect();
+            emojiOffsetX = clientX - rect.left;
+            emojiOffsetY = clientY - rect.top;
+
+            document.addEventListener('mousemove', moveEmoji);
+            document.addEventListener('mouseup', stopEmojiDrag);
+            document.addEventListener('touchmove', moveEmoji, { passive: false });
+            document.addEventListener('touchend', stopEmojiDrag);
+        }
+
+        function moveEmoji(e) {
+            if (!isDraggingEmoji || !currentEmojiEl) return;
+
+            e.preventDefault();
+
+            const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+            // Check if movement exceeds threshold
+            const deltaX = Math.abs(clientX - emojiStartX);
+            const deltaY = Math.abs(clientY - emojiStartY);
+
+            console.log('moveEmoji - delta:', deltaX, deltaY, 'threshold:', DRAG_THRESHOLD);
+
+            if (deltaX > DRAG_THRESHOLD || deltaY > DRAG_THRESHOLD) {
+                emojiDragMoved = true; // Mark that actual drag movement occurred
+                console.log('Movement exceeds threshold, marking as drag');
+            }
+
+            currentEmojiEl.style.left = (clientX - emojiOffsetX) + 'px';
+            currentEmojiEl.style.top = (clientY - emojiOffsetY) + 'px';
+        }
+
+        function stopEmojiDrag(e) {
+            if (!isDraggingEmoji || !currentEmojiEl) return;
+
+            const touchDuration = Date.now() - emojiTouchStartTime;
+            console.log('stopEmojiDrag - emojiDragMoved:', emojiDragMoved, 'duration:', touchDuration);
+
+            // Check if this was a tap (quick touch with minimal movement) or a drag
+            const isTap = !emojiDragMoved && touchDuration < TAP_TIME_THRESHOLD;
+
+            if (isTap) {
+                // This was a tap - poof the emoji!
+                console.log('Detected as TAP - Poofing emoji!');
+                const emojiId = currentEmojiEl.dataset.emojiId;
+                poofEmoji(emojiId, currentEmojiEl);
+            } else {
+                // This was a drag or long press - save the new position
+                console.log('Detected as DRAG - Saving dragged emoji position');
+                const emojiId = currentEmojiEl.dataset.emojiId;
+                const emojis = boards[selectedBoard].emojis;
+                const emojiIndex = emojis.findIndex(e => e.id === emojiId);
+
+                if (emojiIndex !== -1) {
+                    emojis[emojiIndex].position = {
+                        x: parseInt(currentEmojiEl.style.left),
+                        y: parseInt(currentEmojiEl.style.top)
+                    };
+                    saveBoards();
+                }
+            }
+
+            isDraggingEmoji = false;
+            currentEmojiEl = null;
+
+            document.removeEventListener('mousemove', moveEmoji);
+            document.removeEventListener('mouseup', stopEmojiDrag);
+            document.removeEventListener('touchmove', moveEmoji);
+            document.removeEventListener('touchend', stopEmojiDrag);
+        }
+
+        // TODO emoji drag handlers
+        function startTodoEmojiDrag(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            isDraggingEmoji = true;
+            emojiDragMoved = false;
+            emojiTouchStartTime = Date.now();
+            currentEmojiEl = e.currentTarget;
+
+            const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+            emojiStartX = clientX;
+            emojiStartY = clientY;
+
+            const rect = currentEmojiEl.getBoundingClientRect();
+            emojiOffsetX = clientX - rect.left;
+            emojiOffsetY = clientY - rect.top;
+
+            document.addEventListener('mousemove', moveEmoji);
+            document.addEventListener('mouseup', stopTodoEmojiDrag);
+            document.addEventListener('touchmove', moveEmoji, { passive: false });
+            document.addEventListener('touchend', stopTodoEmojiDrag);
+        }
+
+        function stopTodoEmojiDrag(e) {
+            if (!isDraggingEmoji || !currentEmojiEl) return;
+
+            const touchDuration = Date.now() - emojiTouchStartTime;
+            const isTap = !emojiDragMoved && touchDuration < TAP_TIME_THRESHOLD;
+
+            if (isTap) {
+                const emojiId = currentEmojiEl.dataset.emojiId;
+                poofTodoEmoji(emojiId, currentEmojiEl);
+            } else {
+                const emojiId = currentEmojiEl.dataset.emojiId;
+                const emojis = boards[selectedBoard].todoEmojis;
+                const emojiIndex = emojis.findIndex(e => e.id === emojiId);
+
+                if (emojiIndex !== -1) {
+                    emojis[emojiIndex].position = {
+                        x: parseInt(currentEmojiEl.style.left),
+                        y: parseInt(currentEmojiEl.style.top)
+                    };
+                    saveBoards();
+                }
+            }
+
+            isDraggingEmoji = false;
+            currentEmojiEl = null;
+
+            document.removeEventListener('mousemove', moveEmoji);
+            document.removeEventListener('mouseup', stopTodoEmojiDrag);
+            document.removeEventListener('touchmove', moveEmoji);
+            document.removeEventListener('touchend', stopTodoEmojiDrag);
+        }
+
+        // Habit emoji drag handlers
+        function startHabitEmojiDrag(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            isDraggingEmoji = true;
+            emojiDragMoved = false;
+            emojiTouchStartTime = Date.now();
+            currentEmojiEl = e.currentTarget;
+
+            const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+            emojiStartX = clientX;
+            emojiStartY = clientY;
+
+            const rect = currentEmojiEl.getBoundingClientRect();
+            emojiOffsetX = clientX - rect.left;
+            emojiOffsetY = clientY - rect.top;
+
+            document.addEventListener('mousemove', moveEmoji);
+            document.addEventListener('mouseup', stopHabitEmojiDrag);
+            document.addEventListener('touchmove', moveEmoji, { passive: false });
+            document.addEventListener('touchend', stopHabitEmojiDrag);
+        }
+
+        function stopHabitEmojiDrag(e) {
+            if (!isDraggingEmoji || !currentEmojiEl) return;
+
+            const touchDuration = Date.now() - emojiTouchStartTime;
+            const isTap = !emojiDragMoved && touchDuration < TAP_TIME_THRESHOLD;
+
+            if (isTap) {
+                const emojiId = currentEmojiEl.dataset.emojiId;
+                poofHabitEmoji(emojiId, currentEmojiEl);
+            } else {
+                const emojiId = currentEmojiEl.dataset.emojiId;
+                const emojis = boards[selectedBoard].habitEmojis;
+                const emojiIndex = emojis.findIndex(e => e.id === emojiId);
+
+                if (emojiIndex !== -1) {
+                    emojis[emojiIndex].position = {
+                        x: parseInt(currentEmojiEl.style.left),
+                        y: parseInt(currentEmojiEl.style.top)
+                    };
+                    saveBoards();
+                }
+            }
+
+            isDraggingEmoji = false;
+            currentEmojiEl = null;
+
+            document.removeEventListener('mousemove', moveEmoji);
+            document.removeEventListener('mouseup', stopHabitEmojiDrag);
+            document.removeEventListener('touchmove', moveEmoji);
+            document.removeEventListener('touchend', stopHabitEmojiDrag);
+        }
+
+        function poofEmoji(emojiId, emojiEl) {
+            console.log('poofEmoji called for:', emojiId);
+            // Add poof animation
+            emojiEl.classList.add('emoji-poof');
+
+            // Wait for animation to complete, then delete
+            setTimeout(() => {
+                console.log('Deleting emoji after poof animation');
+                const emojis = boards[selectedBoard].emojis;
+                const index = emojis.findIndex(e => e.id === emojiId);
+
+                if (index !== -1) {
+                    emojis.splice(index, 1);
+                    saveBoards();
+                    renderEmojis();
+                }
+            }, 500); // Match the animation duration
+        }
+
+        function poofTodoEmoji(emojiId, emojiEl) {
+            emojiEl.classList.add('emoji-poof');
+
+            setTimeout(() => {
+                const emojis = boards[selectedBoard].todoEmojis;
+                const index = emojis.findIndex(e => e.id === emojiId);
+
+                if (index !== -1) {
+                    emojis.splice(index, 1);
+                    saveBoards();
+                    renderTodoEmojis();
+                }
+            }, 500);
+        }
+
+        function poofHabitEmoji(emojiId, emojiEl) {
+            emojiEl.classList.add('emoji-poof');
+
+            setTimeout(() => {
+                const emojis = boards[selectedBoard].habitEmojis;
+                const index = emojis.findIndex(e => e.id === emojiId);
+
+                if (index !== -1) {
+                    emojis.splice(index, 1);
+                    saveBoards();
+                    renderHabitEmojis();
+                }
+            }, 500);
+        }
+
+        function deleteEmoji(emojiId) {
+            if (!confirm('Delete this emoji?')) return;
+
+            const emojis = boards[selectedBoard].emojis;
+            const index = emojis.findIndex(e => e.id === emojiId);
+
+            if (index !== -1) {
+                emojis.splice(index, 1);
+                saveBoards();
+                renderEmojis();
+            }
+        }
+
+        // Habit Tracker Functions
+        let selectedHabitEmoji = '';
+        let habitFrequency = 1;
+        let habitPeriod = 'day';
+        const periodOptions = ['day', 'week', 'month', 'year'];
+        let currentHabitIndex = null;
+        let editSelectedHabitEmoji = '';
+        let editHabitFrequency = 1;
+        let editHabitPeriod = 'day';
+        let habitToEdit = null;
+        let habitToDelete = null;
+
+        function adjustFrequency(delta) {
+            habitFrequency = Math.max(1, Math.min(10, habitFrequency - delta));
+            document.getElementById('frequencyDisplay').textContent = habitFrequency;
+        }
+
+        function adjustPeriod(delta) {
+            const currentIndex = periodOptions.indexOf(habitPeriod);
+            let newIndex = currentIndex - delta;
+            if (newIndex < 0) newIndex = periodOptions.length - 1;
+            if (newIndex >= periodOptions.length) newIndex = 0;
+            habitPeriod = periodOptions[newIndex];
+            document.getElementById('periodDisplay').textContent = habitPeriod;
+        }
+
+        function adjustEditFrequency(delta) {
+            editHabitFrequency = Math.max(1, Math.min(10, editHabitFrequency - delta));
+            document.getElementById('editFrequencyDisplay').textContent = editHabitFrequency;
+        }
+
+        function adjustEditPeriod(delta) {
+            const currentIndex = periodOptions.indexOf(editHabitPeriod);
+            let newIndex = currentIndex - delta;
+            if (newIndex < 0) newIndex = periodOptions.length - 1;
+            if (newIndex >= periodOptions.length) newIndex = 0;
+            editHabitPeriod = periodOptions[newIndex];
+            document.getElementById('editPeriodDisplay').textContent = editHabitPeriod;
+        }
+
+        function selectHabitEmoji(emoji) {
+            selectedHabitEmoji = emoji;
+
+            // Update button selection
+            document.querySelectorAll('#addHabitModal .emoji-option').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        function selectEditHabitEmoji(emoji) {
+            editSelectedHabitEmoji = emoji;
+
+            // Update button selection
+            document.querySelectorAll('#editEmojiPicker .emoji-option').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        function showAddHabitModal() {
+            selectedHabitEmoji = '';
+            habitFrequency = 1;
+            habitPeriod = 'day';
+
+            document.getElementById('habitName').value = '';
+            document.getElementById('frequencyDisplay').textContent = '1';
+            document.getElementById('periodDisplay').textContent = 'day';
+
+            // Clear emoji picker selection
+            document.querySelectorAll('#addHabitModal .emoji-option').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+
+            document.getElementById('addHabitModal').classList.remove('hidden');
+        }
+
+        function hideAddHabitModal() {
+            document.getElementById('addHabitModal').classList.add('hidden');
+        }
+
+        function addHabit() {
+            const name = document.getElementById('habitName').value.trim();
+            const emoji = selectedHabitEmoji;
+
+            if (!name) {
+                alert('Please enter a habit name!');
+                return;
+            }
+
+            if (!emoji) {
+                alert('Please select an emoji!');
+                return;
+            }
+
+            // Initialize habits array if it doesn't exist
+            if (!boards[selectedBoard].habits) {
+                boards[selectedBoard].habits = [];
+            }
+
+            const habitData = {
+                id: Date.now().toString(),
+                name: name,
+                emoji: emoji,
+                frequency: habitFrequency,
+                period: habitPeriod,
+                count: 0,
+                timestamps: []
+            };
+
+            boards[selectedBoard].habits.push(habitData);
+            saveBoards();
+            renderHabits();
+            hideAddHabitModal();
+        }
+
+        function renderHabits() {
+            const habitContainer = document.getElementById('habitContainerPage');
+            const habits = boards[selectedBoard]?.habits || [];
+
+            if (!habitContainer) return;
+
+            if (habits.length === 0) {
+                habitContainer.innerHTML = '<div class="empty-state">no habits yet! let\'s set a goal!</div>';
+                return;
+            }
+
+            let html = '<div class="todo-container">';
+
+            habits.forEach((habit, index) => {
+                // Support both old and new habit formats
+                let goalText;
+                if (habit.frequency && habit.period) {
+                    // New format: "GOAL: X times every period"
+                    goalText = `GOAL: ${habit.frequency} time${habit.frequency > 1 ? 's' : ''} every ${habit.period}`;
+                } else {
+                    // Old format fallback
+                    goalText = `${habit.count} ${habit.unit || 'days'} and counting!`;
+                }
+
+                // Count display
+                const count = habit.count || 0;
+                const winsText = `${count} win${count !== 1 ? 's' : ''} and counting!`;
+
+                // Only show edit button if viewing own board
+                const canEdit = currentUser === selectedBoard;
+
+                html += `
+                    <div class="habit-item">
+                        <span class="habit-emoji" data-habit-index="${index}">${habit.emoji}</span>
+                        <div class="habit-info" data-habit-detail-index="${index}">
+                            <div class="habit-name">${escapeHtml(habit.name)}</div>
+                            <div class="habit-counter">${goalText}</div>
+                            <div class="habit-wins">${winsText}</div>
+                        </div>
+                        ${canEdit ? `<button class="habit-edit-button" data-edit-habit-index="${index}">✏️</button>` : ''}
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            habitContainer.innerHTML = html;
+        }
+
+        function setupHabitEventListeners() {
+            const habitContainer = document.getElementById('habitContainerPage');
+            if (!habitContainer) return;
+
+            // Use event delegation for habit emoji clicks
+            habitContainer.addEventListener('click', (e) => {
+                // Check if clicked on edit button
+                const editButton = e.target.closest('.habit-edit-button');
+                if (editButton) {
+                    e.stopPropagation();
+                    const index = parseInt(editButton.dataset.editHabitIndex);
+                    if (!isNaN(index)) {
+                        editHabit(index);
+                    }
+                    return;
+                }
+
+                // Check if clicked on habit emoji
+                const emojiEl = e.target.closest('.habit-emoji');
+                if (emojiEl) {
+                    const index = parseInt(emojiEl.dataset.habitIndex);
+                    if (!isNaN(index)) {
+                        incrementHabit(index);
+                    }
+                    return;
+                }
+
+                // Check if clicked on habit info
+                const infoEl = e.target.closest('.habit-info');
+                if (infoEl) {
+                    const index = parseInt(infoEl.dataset.habitDetailIndex);
+                    if (!isNaN(index)) {
+                        showHabitDetail(index);
+                    }
+                }
+            });
+        }
+
+        function incrementHabit(habitIndex) {
+            const habits = boards[selectedBoard].habits;
+            if (!habits || !habits[habitIndex]) return;
+
+            // Ensure timestamps array exists
+            if (!habits[habitIndex].timestamps) {
+                habits[habitIndex].timestamps = [];
+            }
+
+            // Increment counter
+            habits[habitIndex].count++;
+
+            // Add timestamp
+            habits[habitIndex].timestamps.push(Date.now());
+
+            saveBoards();
+            renderHabits();
+
+            // Create emoji rain
+            createEmojiRain(habits[habitIndex].emoji);
+        }
+
+        // Edit Habit Functions
+        function editHabit(habitIndex) {
+            // Only allow editing own board
+            if (currentUser !== selectedBoard) {
+                alert('You can only edit your own habits!');
+                return;
+            }
+
+            const habits = boards[selectedBoard].habits;
+            if (!habits || !habits[habitIndex]) return;
+
+            habitToEdit = habitIndex;
+            const habit = habits[habitIndex];
+
+            // Set the form values
+            document.getElementById('editHabitName').value = habit.name;
+            editSelectedHabitEmoji = habit.emoji;
+
+            // Set frequency and period (with backward compatibility for old habits)
+            editHabitFrequency = habit.frequency || 1;
+            editHabitPeriod = habit.period || 'day';
+
+            // Update the dial displays
+            document.getElementById('editFrequencyDisplay').textContent = editHabitFrequency;
+            document.getElementById('editPeriodDisplay').textContent = editHabitPeriod;
+
+            // Highlight emoji button if it's in the picker
+            document.querySelectorAll('#editEmojiPicker .emoji-option').forEach(btn => {
+                btn.classList.remove('selected');
+                if (btn.textContent.trim() === habit.emoji) {
+                    btn.classList.add('selected');
+                }
+            });
+
+            // Show the modal
+            document.getElementById('editHabitModal').classList.remove('hidden');
+        }
+
+        function saveHabitEdit() {
+            // Only allow editing own board
+            if (currentUser !== selectedBoard) {
+                alert('You can only edit your own habits!');
+                return;
+            }
+
+            const habits = boards[selectedBoard].habits;
+            if (habitToEdit === null || !habits || !habits[habitToEdit]) return;
+
+            const name = document.getElementById('editHabitName').value.trim();
+            const emoji = editSelectedHabitEmoji;
+
+            if (!name) {
+                alert('Please enter a habit name!');
+                return;
+            }
+
+            if (!emoji) {
+                alert('Please select an emoji!');
+                return;
+            }
+
+            // Update the habit
+            habits[habitToEdit].name = name;
+            habits[habitToEdit].emoji = emoji;
+            habits[habitToEdit].frequency = editHabitFrequency;
+            habits[habitToEdit].period = editHabitPeriod;
+
+            saveBoards();
+            renderHabits();
+            hideEditHabitModal();
+        }
+
+        function deleteHabitFromModal() {
+            // Only allow deleting own habits
+            if (currentUser !== selectedBoard) {
+                alert('You can only delete your own habits!');
+                return;
+            }
+            document.getElementById('deleteHabitConfirmModal').classList.remove('hidden');
+        }
+
+        function confirmDeleteHabit() {
+            const habits = boards[selectedBoard].habits;
+            const indexToDelete = habitToDelete !== null ? habitToDelete : habitToEdit;
+
+            // Hide BOTH modals immediately
+            document.getElementById('deleteHabitConfirmModal').classList.add('hidden');
+            document.getElementById('editHabitModal').classList.add('hidden');
+
+            setTimeout(() => {
+                if (indexToDelete !== null && habits && habits[indexToDelete]) {
+                    habits.splice(indexToDelete, 1);
+                    saveBoards();
+                    renderHabits();
+                }
+                habitToDelete = null;
+                habitToEdit = null;
+            }, 100);
+        }
+
+        function cancelDeleteHabit() {
+            habitToDelete = null;
+            document.getElementById('deleteHabitConfirmModal').classList.add('hidden');
+        }
+
+        function hideEditHabitModal() {
+            document.getElementById('editHabitModal').classList.add('hidden');
+            habitToEdit = null;
+            editSelectedHabitEmoji = '';
+            editHabitFrequency = 1;
+            editHabitPeriod = 'day';
+
+            // Clear emoji picker selection
+            document.querySelectorAll('#editEmojiPicker .emoji-option').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+        }
+
+        function createEmojiRain(emoji) {
+            const count = 30; // Number of emojis to rain
+
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const emojiEl = document.createElement('div');
+                    emojiEl.className = 'emoji-rain';
+                    emojiEl.textContent = emoji;
+
+                    // Random horizontal position
+                    emojiEl.style.left = Math.random() * 100 + '%';
+
+                    // Random animation duration (1.5s to 3s)
+                    const duration = 1.5 + Math.random() * 1.5;
+                    emojiEl.style.animationDuration = duration + 's';
+
+                    document.body.appendChild(emojiEl);
+
+                    // Remove after animation
+                    setTimeout(() => {
+                        emojiEl.remove();
+                    }, duration * 1000);
+                }, i * 50); // Stagger the emojis
+            }
+        }
+
+        function showHabitDetail(habitIndex) {
+            currentHabitIndex = habitIndex;
+            const habit = boards[selectedBoard].habits[habitIndex];
+
+            document.getElementById('habitDetailTitle').textContent = habit.name;
+
+            // Generate graph
+            generateHabitGraph(habit);
+
+            document.getElementById('habitDetailModal').classList.remove('hidden');
+        }
+
+        function hideHabitDetailModal() {
+            document.getElementById('habitDetailModal').classList.add('hidden');
+            currentHabitIndex = null;
+        }
+
+        function deleteHabit() {
+            if (currentHabitIndex === null) return;
+
+            if (!confirm('Delete this habit? All progress will be lost.')) {
+                return;
+            }
+
+            boards[selectedBoard].habits.splice(currentHabitIndex, 1);
+            saveBoards();
+            renderHabits();
+            hideHabitDetailModal();
+        }
+
+        function generateHabitGraph(habit) {
+            const graphContainer = document.getElementById('habitGraph');
+
+            if (habit.timestamps.length === 0) {
+                graphContainer.innerHTML = '<p style="text-align: center; padding: 2rem; color: #6b7280;">No activity yet. Start tracking!</p>';
+                return;
+            }
+
+            // Group timestamps by day
+            const dayGroups = {};
+            habit.timestamps.forEach(timestamp => {
+                const date = new Date(timestamp);
+                const dayKey = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+                if (!dayGroups[dayKey]) {
+                    dayGroups[dayKey] = 0;
+                }
+                dayGroups[dayKey]++;
+            });
+
+            // Get last 7 days or all days if less
+            const days = Object.keys(dayGroups).slice(-7);
+            const counts = days.map(day => dayGroups[day]);
+            const maxCount = Math.max(...counts, 1);
+
+            // Create simple bar graph
+            let html = '<div style="display: flex; align-items: flex-end; justify-content: space-around; height: 100%; gap: 0.5rem;">';
+
+            days.forEach((day, index) => {
+                const count = counts[index];
+                const heightPercent = (count / maxCount) * 80; // 80% max height
+
+                html += `
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                        <div style="font-size: 0.75rem; margin-bottom: 0.25rem;">${count}</div>
+                        <div style="width: 100%; height: ${heightPercent}%; background: #3b82f6; border-radius: 4px 4px 0 0; min-height: 10px;"></div>
+                        <div style="font-size: 0.625rem; margin-top: 0.5rem; color: #6b7280;">${day}</div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            graphContainer.innerHTML = html;
+        }
+
+        // Page Swipe Navigation
+        let currentPage = 0;
+        const totalPages = 3;
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+        let isSwiping = false;
+        let isMouseDown = false;
+        let currentTranslateX = 0;
+
+        function initializePageSwipe() {
+            const boardView = document.getElementById('boardView');
+            const boardPages = document.getElementById('boardPages');
+
+            if (!boardView || !boardPages) return;
+
+            // Touch events (mobile)
+            boardView.addEventListener('touchstart', (e) => {
+                // Only start tracking if not touching a draggable element
+                const target = e.target;
+                if (target.closest('.sticky-note') || target.closest('.board-emoji')) {
+                    return;
+                }
+
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                isSwiping = true;
+                boardPages.classList.add('swiping');
+            }, { passive: true });
+
+            boardView.addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+
+                const currentX = e.touches[0].clientX;
+                const currentY = e.touches[0].clientY;
+                const deltaX = currentX - touchStartX;
+                const deltaY = currentY - touchStartY;
+
+                // If vertical movement is dominant, cancel swipe
+                if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                    isSwiping = false;
+                    boardPages.classList.remove('swiping');
+                    return;
+                }
+
+                // Update visual position while swiping
+                const baseTranslate = -currentPage * 100;
+                const swipePercent = (deltaX / window.innerWidth) * 100;
+                boardPages.style.transform = `translateX(${baseTranslate + swipePercent}%)`;
+            }, { passive: true });
+
+            boardView.addEventListener('touchend', (e) => {
+                if (!isSwiping) return;
+
+                touchEndX = e.changedTouches[0].clientX;
+                touchEndY = e.changedTouches[0].clientY;
+                boardPages.classList.remove('swiping');
+                handleSwipe();
+                isSwiping = false;
+            }, { passive: true });
+
+            // Mouse events (desktop)
+            boardView.addEventListener('mousedown', (e) => {
+                // Only start tracking if not clicking on interactive elements
+                const target = e.target;
+                if (target.closest('.sticky-note') ||
+                    target.closest('.board-emoji') ||
+                    target.closest('button') ||
+                    target.closest('input') ||
+                    target.closest('.todo-item') ||
+                    target.closest('.habit-item')) {
+                    return;
+                }
+
+                touchStartX = e.clientX;
+                touchStartY = e.clientY;
+                isMouseDown = true;
+                boardPages.classList.add('swiping');
+                e.preventDefault();
+            });
+
+            boardView.addEventListener('mousemove', (e) => {
+                if (!isMouseDown) return;
+
+                const currentX = e.clientX;
+                const currentY = e.clientY;
+                const deltaX = currentX - touchStartX;
+                const deltaY = currentY - touchStartY;
+
+                // If vertical movement is dominant, cancel swipe
+                if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                    isMouseDown = false;
+                    boardPages.classList.remove('swiping');
+                    return;
+                }
+
+                // Update visual position while swiping
+                const baseTranslate = -currentPage * 100;
+                const swipePercent = (deltaX / window.innerWidth) * 100;
+                boardPages.style.transform = `translateX(${baseTranslate + swipePercent}%)`;
+            });
+
+            boardView.addEventListener('mouseup', (e) => {
+                if (!isMouseDown) return;
+
+                touchEndX = e.clientX;
+                touchEndY = e.clientY;
+                boardPages.classList.remove('swiping');
+                handleSwipe();
+                isMouseDown = false;
+            });
+
+            // Cancel on mouse leave
+            boardView.addEventListener('mouseleave', () => {
+                if (isMouseDown) {
+                    boardPages.classList.remove('swiping');
+                    updatePage(); // Snap back to current page
+                }
+                isMouseDown = false;
+            });
+        }
+
+        function handleSwipe() {
+            const swipeThreshold = 75;
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+
+            // Only process horizontal swipes (where horizontal movement > vertical)
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > swipeThreshold) {
+                if (deltaX > 0) {
+                    // Swipe right - go to previous page
+                    if (currentPage > 0) {
+                        currentPage--;
+                        updatePage();
+                    }
+                } else {
+                    // Swipe left - go to next page
+                    if (currentPage < totalPages - 1) {
+                        currentPage++;
+                        updatePage();
+                    }
+                }
+            }
+        }
+
+        function updatePage() {
+            const boardPages = document.getElementById('boardPages');
+            const pages = document.querySelectorAll('.board-page');
+
+            // Update transform to slide pages
+            boardPages.style.transform = `translateX(-${currentPage * 100}%)`;
+
+            // Update active page
+            pages.forEach((page, index) => {
+                if (index === currentPage) {
+                    page.classList.add('active');
+                } else {
+                    page.classList.remove('active');
+                }
+            });
+
+            // Update header buttons based on current page
+            updateHeaderButtons();
+        }
+
+        function updateHeaderButtons() {
+            const noteButton = document.querySelector('.add-note-button');
+            const todoButton = document.querySelector('[onclick="showAddTodoModal()"]');
+            const habitButton = document.querySelector('[onclick="showAddHabitModal()"]');
+            const emojiButtons = document.querySelectorAll('.emoji-button');
+
+            // Get specific emoji buttons
+            const pinButton = document.querySelector('[onclick="dropEmojiCycling(\'pin\')"]');
+            const exclamationButton = document.querySelector('[onclick="dropEmojiCycling(\'exclamation\')"]');
+            const heartButton = document.querySelector('[onclick="dropEmojiCycling(\'heart\')"]');
+            const confettiButton = document.querySelector('[onclick="dropEmojiCycling(\'confetti\')"]');
+            const carrotButton = document.querySelector('[onclick="dropEmojiCycling(\'carrot\')"]');
+            const stickButton = document.querySelector('[onclick="dropEmojiCycling(\'stick\')"]');
+
+            // Hide all first
+            if (noteButton) noteButton.style.display = 'none';
+            if (todoButton) todoButton.style.display = 'none';
+            if (habitButton) habitButton.style.display = 'none';
+            emojiButtons.forEach(btn => btn.style.display = 'none');
+
+            if (currentPage === 0) {
+                // Notes page - show note button and note emoji buttons
+                if (noteButton) noteButton.style.display = 'block';
+                if (pinButton) pinButton.style.display = 'flex';
+                if (exclamationButton) exclamationButton.style.display = 'flex';
+                if (heartButton) heartButton.style.display = 'flex';
+            } else if (currentPage === 1) {
+                // TODO page - show todo button and confetti button
+                if (todoButton) todoButton.style.display = 'block';
+                if (confettiButton) confettiButton.style.display = 'flex';
+            } else if (currentPage === 2) {
+                // Habit page - show habit button, carrot, and stick buttons
+                if (habitButton) habitButton.style.display = 'block';
+                if (carrotButton) carrotButton.style.display = 'flex';
+                if (stickButton) stickButton.style.display = 'flex';
+            }
+        }
+
+        // Initialize page swipe when board view loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializePageSwipe();
+            setupHabitEventListeners();
+        });
 
         // PWA Install Prompt
         let deferredPrompt;
@@ -3003,6 +5491,41 @@
                     });
             });
         }
+
+        // Close delete confirmation modal when clicking outside
+        document.getElementById('deleteConfirmModal').addEventListener('click', (e) => {
+            if (e.target.id === 'deleteConfirmModal') {
+                cancelDelete();
+            }
+        });
+
+        // Close todo delete confirmation modal when clicking outside
+        document.getElementById('deleteTodoConfirmModal').addEventListener('click', (e) => {
+            if (e.target.id === 'deleteTodoConfirmModal') {
+                cancelDeleteTodo();
+            }
+        });
+
+        // Close edit todo modal when clicking outside
+        document.getElementById('editTodoModal').addEventListener('click', (e) => {
+            if (e.target.id === 'editTodoModal') {
+                hideEditTodoModal();
+            }
+        });
+
+        // Close habit delete confirmation modal when clicking outside
+        document.getElementById('deleteHabitConfirmModal').addEventListener('click', (e) => {
+            if (e.target.id === 'deleteHabitConfirmModal') {
+                cancelDeleteHabit();
+            }
+        });
+
+        // Close edit habit modal when clicking outside
+        document.getElementById('editHabitModal').addEventListener('click', (e) => {
+            if (e.target.id === 'editHabitModal') {
+                hideEditHabitModal();
+            }
+        });
 
         // Initialize app
         initBoards();
