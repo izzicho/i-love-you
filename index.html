@@ -472,32 +472,69 @@
         /* Install Banner */
         .install-banner {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #000;
-            border-top: 2px solid #fff;
-            padding: 1.25rem;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             display: none;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
             z-index: 1000;
-            animation: slideUp 0.3s ease;
+            animation: slideUpBanner 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes slideUp {
+        @keyframes slideUpBanner {
             from {
-                transform: translateY(100%);
+                transform: translateX(-50%) translateY(100px);
+                opacity: 0;
             }
             to {
-                transform: translateY(0);
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
             }
         }
 
         .install-banner.show {
+            display: block;
+        }
+
+        .install-banner-header {
             display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .install-close-button {
+            background: rgba(0, 0, 0, 0.06);
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .install-close-button:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: scale(1.1);
+        }
+
+        .install-close-button svg {
+            width: 14px;
+            height: 14px;
+            stroke: #000;
+            stroke-width: 2.5;
         }
 
         .install-banner-content {
@@ -505,48 +542,322 @@
         }
 
         .install-banner-title {
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 0.25rem;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 0.5rem;
+            font-size: 1.125rem;
         }
 
         .install-banner-text {
-            color: #999;
+            color: #666;
             font-size: 0.875rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
         }
 
         .install-banner-buttons {
             display: flex;
-            gap: 0.625rem;
+            gap: 0.75rem;
         }
 
         .install-button {
-            background: #fff;
-            color: #000;
+            flex: 1;
+            background: #000;
+            color: #fff;
             border: none;
-            border-radius: 0.5rem;
-            padding: 0.625rem 1.25rem;
-            font-weight: bold;
+            border-radius: 12px;
+            padding: 0.875rem 1.5rem;
+            font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
+            transition: all 0.2s;
         }
 
         .install-button:hover {
-            background: #e5e5e5;
+            background: #333;
+            transform: scale(1.02);
         }
 
-        .dismiss-button {
-            background: transparent;
-            color: #999;
-            border: 2px solid #fff;
-            border-radius: 0.5rem;
-            padding: 0.625rem 1.25rem;
+        .install-button:active {
+            transform: scale(0.98);
+        }
+
+        /* iOS Install Instructions Modal */
+        .ios-install-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .ios-install-overlay.show {
+            display: flex;
+        }
+
+        .ios-install-modal {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border-radius: 28px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 380px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: scale(0.9) translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .ios-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.06);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .dismiss-button:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .ios-modal-close:hover {
+            background: rgba(0, 0, 0, 0.12);
+            transform: scale(1.1);
+        }
+
+        .ios-modal-close:active {
+            transform: scale(0.95);
+        }
+
+        .ios-modal-close svg {
+            width: 16px;
+            height: 16px;
+            stroke: #000;
+            stroke-width: 2.5;
+        }
+
+        .ios-modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1.5rem;
+            padding-right: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .ios-modal-steps {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ios-modal-step {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .ios-modal-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .ios-step-number {
+            background: linear-gradient(135deg, #000 0%, #333 100%);
             color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .ios-step-text {
+            flex: 1;
+            color: #333;
+            line-height: 1.6;
+            font-size: 1rem;
+            padding-top: 0.375rem;
+        }
+
+        .ios-step-emoji {
+            font-size: 1.25rem;
+            margin: 0 0.25rem;
+        }
+
+        .ios-modal-footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            text-align: center;
+            color: #666;
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+
+        /* Schedule Component */
+        .schedule-container {
+            position: absolute;
+            top: 100px;
+            right: 50px;
+            width: 350px;
+            background: #fff;
+            border: 2px solid #000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .schedule-header {
+            padding: 1rem;
+            border-bottom: 2px solid #000;
+            background: #000;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .schedule-date {
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .delete-schedule-button {
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: background 0.2s;
+        }
+
+        .delete-schedule-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .schedule-content {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .time-slot {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .time-slot:last-child {
+            border-bottom: none;
+        }
+
+        .time-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #666;
+            min-width: 60px;
+        }
+
+        .time-events {
+            flex: 1;
+        }
+
+        .event-item {
+            background: #f3f4f6;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .event-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .delete-event-button {
+            background: transparent;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.875rem;
+            padding: 0 0.25rem;
+        }
+
+        .delete-event-button:hover {
+            color: #000;
+        }
+
+        .empty-time {
+            color: #ccc;
+            font-size: 0.75rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .schedule-container {
+                position: relative;
+                top: auto;
+                right: auto;
+                width: 100%;
+                margin: 1rem auto;
+                max-width: 350px;
+            }
+        }
+
+        /* Add Event Modal */
+        .event-form-group {
+            margin-bottom: 1rem;
+        }
+
+        .event-time-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #000;
+            font-size: 1rem;
+            font-family: inherit;
+            background: #fff;
+            color: #000;
+        }
+
+        .event-time-select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
         }
 
         /* Stick figure animation */
@@ -685,13 +996,57 @@
 <body>
     <!-- Install Banner -->
     <div id="installBanner" class="install-banner">
+        <div class="install-banner-header">
+            <div style="flex: 1;"></div>
+            <button class="install-close-button" id="dismissButton">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                </svg>
+            </button>
+        </div>
         <div class="install-banner-content">
             <div class="install-banner-title">Install App</div>
             <div class="install-banner-text">Add to your home screen for quick access</div>
         </div>
         <div class="install-banner-buttons">
             <button class="install-button" id="installButton">Install</button>
-            <button class="dismiss-button" id="dismissButton">Not Now</button>
+        </div>
+    </div>
+
+    <!-- iOS Install Instructions Modal -->
+    <div id="iosInstallModal" class="ios-install-overlay">
+        <div class="ios-install-modal">
+            <button class="ios-modal-close" onclick="closeIOSModal()">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                </svg>
+            </button>
+            <h2 class="ios-modal-title">How to Install</h2>
+            <ul class="ios-modal-steps">
+                <li class="ios-modal-step">
+                    <div class="ios-step-number">1</div>
+                    <div class="ios-step-text">
+                        Tap the Share button <span class="ios-step-emoji">⬆️</span> at the bottom of Safari
+                    </div>
+                </li>
+                <li class="ios-modal-step">
+                    <div class="ios-step-number">2</div>
+                    <div class="ios-step-text">
+                        Scroll down and tap <strong>"Add to Home Screen"</strong>
+                    </div>
+                </li>
+                <li class="ios-modal-step">
+                    <div class="ios-step-number">3</div>
+                    <div class="ios-step-text">
+                        Tap <strong>"Add"</strong> in the top right corner
+                    </div>
+                </li>
+            </ul>
+            <div class="ios-modal-footer">
+                The app icon will appear on your home screen!
+            </div>
         </div>
     </div>
 
@@ -810,11 +1165,17 @@
                     </button>
                     <h3 class="board-title"><span id="boardTitle"></span>'s board</h3>
                 </div>
-                <button class="add-note-button" onclick="showAddNoteModal()">+ add note</button>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="add-note-button" onclick="showAddNoteModal()">+ add note</button>
+                    <button id="addScheduleButton" class="add-note-button" onclick="createSchedule()" style="display: none;">+ add schedule</button>
+                    <button id="addTodoButton" class="add-note-button" onclick="showAddEventModal()" style="display: none;">+ add todo</button>
+                </div>
             </div>
         </header>
 
-        <div id="boardArea" class="board-area"></div>
+        <div id="boardArea" class="board-area">
+            <div id="scheduleContainer"></div>
+        </div>
     </div>
 
     <!-- Side Menu -->
@@ -861,10 +1222,62 @@
         </div>
     </div>
 
+    <!-- Add Event Modal -->
+    <div id="addEventModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 class="modal-title">add event</h3>
+            <div class="event-form-group">
+                <label for="eventTime" class="form-label">time</label>
+                <select id="eventTime" class="event-time-select">
+                    <option value="12am">12am</option>
+                    <option value="1am">1am</option>
+                    <option value="2am">2am</option>
+                    <option value="3am">3am</option>
+                    <option value="4am">4am</option>
+                    <option value="5am">5am</option>
+                    <option value="6am">6am</option>
+                    <option value="7am">7am</option>
+                    <option value="8am">8am</option>
+                    <option value="9am">9am</option>
+                    <option value="10am">10am</option>
+                    <option value="11am">11am</option>
+                    <option value="12pm">12pm</option>
+                    <option value="1pm">1pm</option>
+                    <option value="2pm">2pm</option>
+                    <option value="3pm">3pm</option>
+                    <option value="4pm">4pm</option>
+                    <option value="5pm">5pm</option>
+                    <option value="6pm">6pm</option>
+                    <option value="7pm">7pm</option>
+                    <option value="8pm">8pm</option>
+                    <option value="9pm">9pm</option>
+                    <option value="10pm">10pm</option>
+                    <option value="11pm">11pm</option>
+                </select>
+            </div>
+            <div class="event-form-group">
+                <label for="eventText" class="form-label">event</label>
+                <input
+                    id="eventText"
+                    type="text"
+                    class="form-input"
+                    placeholder="what's happening?"
+                    autocomplete="off"
+                />
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-button modal-button-primary" onclick="addEvent()">add</button>
+                <button class="modal-button modal-button-secondary" onclick="hideAddEventModal()">cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const STORAGE_KEY = 'sticky-notes-boards';
         const users = ['isabella', 'sophia', 'peter', 'donghee', 'haerie', 'leah'];
         const noteColors = ['#fef08a', '#bfdbfe', '#fecaca', '#d9f99d', '#fbcfe8'];
+        const timeSlots = ['12am', '1am', '2am', '3am', '4am', '5am', '6am', '7am', '8am', '9am', '10am', '11am',
+                           '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm', '10pm', '11pm'];
 
         let currentUser = null;
         let selectedBoard = null;
@@ -885,10 +1298,15 @@
                 }
             }
 
-            // Ensure all user boards exist
+            // Ensure all user boards exist with notes and schedule
             users.forEach(user => {
                 if (!boards[user]) {
-                    boards[user] = [];
+                    boards[user] = { notes: [], schedule: null };
+                } else if (!boards[user].notes) {
+                    // Migrate old format
+                    boards[user] = { notes: boards[user], schedule: null };
+                } else if (!boards[user].schedule) {
+                    boards[user].schedule = null;
                 }
             });
         }
@@ -978,21 +1396,56 @@
         }
 
         function renderBoard() {
+            const boardData = boards[selectedBoard];
+            const notes = boardData?.notes || [];
+            const schedule = boardData?.schedule;
+
+            // Show/hide schedule buttons based on if viewing own board
+            const isOwnBoard = selectedBoard === currentUser;
+            const addScheduleBtn = document.getElementById('addScheduleButton');
+            const addTodoBtn = document.getElementById('addTodoButton');
+
+            if (isOwnBoard) {
+                if (schedule) {
+                    addScheduleBtn.style.display = 'none';
+                    addTodoBtn.style.display = 'block';
+                } else {
+                    addScheduleBtn.style.display = 'block';
+                    addTodoBtn.style.display = 'none';
+                }
+            } else {
+                addScheduleBtn.style.display = 'none';
+                addTodoBtn.style.display = 'none';
+            }
+
+            // Render notes
             const boardArea = document.getElementById('boardArea');
-            const notes = boards[selectedBoard] || [];
+            const scheduleContainer = document.getElementById('scheduleContainer');
+
+            // Clear only notes (keep schedule container)
+            const existingNotes = boardArea.querySelectorAll('.sticky-note');
+            existingNotes.forEach(note => note.remove());
+
+            const emptyState = boardArea.querySelector('.empty-state');
+            if (emptyState) emptyState.remove();
 
             if (notes.length === 0) {
                 const message = selectedBoard === currentUser
                     ? 'add your first note!'
                     : 'be the first to write on this board!';
-                boardArea.innerHTML = `<div class="empty-state"><p>no notes yet. ${message}</p></div>`;
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'empty-state';
+                emptyDiv.innerHTML = `<p>no notes yet. ${message}</p>`;
+                boardArea.insertBefore(emptyDiv, scheduleContainer);
             } else {
-                boardArea.innerHTML = '';
                 notes.forEach(note => {
                     const noteEl = createNoteElement(note);
-                    boardArea.appendChild(noteEl);
+                    boardArea.insertBefore(noteEl, scheduleContainer);
                 });
             }
+
+            // Render schedule
+            renderSchedule();
         }
 
         function createNoteElement(note) {
@@ -1111,7 +1564,7 @@
                 }
             };
 
-            boards[selectedBoard].push(newNote);
+            boards[selectedBoard].notes.push(newNote);
             saveBoards();
             renderBoard();
             hideAddNoteModal();
@@ -1122,7 +1575,7 @@
                 return;
             }
 
-            boards[selectedBoard] = boards[selectedBoard].filter(note => note.id !== noteId);
+            boards[selectedBoard].notes = boards[selectedBoard].notes.filter(note => note.id !== noteId);
             saveBoards();
             renderBoard();
         }
@@ -1131,6 +1584,122 @@
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
+        }
+
+        // Schedule Functions
+        function createSchedule() {
+            const today = new Date().toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            boards[selectedBoard].schedule = {
+                date: today,
+                events: {}
+            };
+
+            saveBoards();
+            renderBoard();
+        }
+
+        function deleteSchedule() {
+            if (!confirm('Delete this schedule? All events will be lost.')) {
+                return;
+            }
+
+            boards[selectedBoard].schedule = null;
+            saveBoards();
+            renderBoard();
+        }
+
+        function renderSchedule() {
+            const scheduleContainer = document.getElementById('scheduleContainer');
+            const schedule = boards[selectedBoard]?.schedule;
+
+            if (!schedule) {
+                scheduleContainer.innerHTML = '';
+                return;
+            }
+
+            let html = '<div class="schedule-container">';
+            html += '<div class="schedule-header">';
+            html += `<div class="schedule-date">${schedule.date}</div>`;
+            html += '<button class="delete-schedule-button" onclick="deleteSchedule()">delete</button>';
+            html += '</div>';
+            html += '<div class="schedule-content">';
+
+            timeSlots.forEach(time => {
+                const events = schedule.events[time] || [];
+                html += '<div class="time-slot">';
+                html += `<div class="time-label">${time}</div>`;
+                html += '<div class="time-events">';
+
+                if (events.length === 0) {
+                    html += '<div class="empty-time">—</div>';
+                } else {
+                    events.forEach((event, index) => {
+                        html += '<div class="event-item">';
+                        html += `<span>${escapeHtml(event)}</span>`;
+                        html += `<button class="delete-event-button" onclick="deleteEvent('${time}', ${index})">×</button>`;
+                        html += '</div>';
+                    });
+                }
+
+                html += '</div>';
+                html += '</div>';
+            });
+
+            html += '</div>';
+            html += '</div>';
+
+            scheduleContainer.innerHTML = html;
+        }
+
+        function showAddEventModal() {
+            document.getElementById('addEventModal').classList.remove('hidden');
+            document.getElementById('eventText').focus();
+        }
+
+        function hideAddEventModal() {
+            document.getElementById('addEventModal').classList.add('hidden');
+            document.getElementById('eventText').value = '';
+            document.getElementById('eventTime').value = '12am';
+        }
+
+        function addEvent() {
+            const time = document.getElementById('eventTime').value;
+            const text = document.getElementById('eventText').value.trim();
+
+            if (!text) {
+                return;
+            }
+
+            const schedule = boards[selectedBoard].schedule;
+            if (!schedule) return;
+
+            if (!schedule.events[time]) {
+                schedule.events[time] = [];
+            }
+
+            schedule.events[time].push(text);
+            saveBoards();
+            renderBoard();
+            hideAddEventModal();
+        }
+
+        function deleteEvent(time, index) {
+            const schedule = boards[selectedBoard].schedule;
+            if (!schedule) return;
+
+            schedule.events[time].splice(index, 1);
+            if (schedule.events[time].length === 0) {
+                delete schedule.events[time];
+            }
+
+            saveBoards();
+            renderBoard();
         }
 
         // PWA Install Prompt
@@ -1181,6 +1750,21 @@
             return window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
         }
 
+        function showIOSModal() {
+            document.getElementById('iosInstallModal').classList.add('show');
+        }
+
+        function closeIOSModal() {
+            document.getElementById('iosInstallModal').classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('iosInstallModal').addEventListener('click', (e) => {
+            if (e.target.id === 'iosInstallModal') {
+                closeIOSModal();
+            }
+        });
+
         if (isIOS() && !isInStandaloneMode()) {
             const dismissed = localStorage.getItem('installBannerDismissed');
             if (!dismissed) {
@@ -1189,7 +1773,7 @@
 
                 installButton.textContent = 'Show Me';
                 installButton.addEventListener('click', () => {
-                    alert('To install:\n\n1. Tap the Share button (⬆️) at the bottom of Safari\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add"\n\nThe app icon will appear on your home screen!');
+                    showIOSModal();
                 });
 
                 setTimeout(() => {
