@@ -605,6 +605,36 @@
             installBanner.classList.remove('show');
         });
 
+        // iOS-specific install prompt
+        function isIOS() {
+            return /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+        }
+
+        function isInStandaloneMode() {
+            return window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+        }
+
+        // Show install banner for iOS users
+        if (isIOS() && !isInStandaloneMode()) {
+            const dismissed = localStorage.getItem('installBannerDismissed');
+            if (!dismissed) {
+                // Update banner text for iOS
+                document.querySelector('.install-banner-title').textContent = 'Install App';
+                document.querySelector('.install-banner-text').textContent = 'Tap the Share button, then "Add to Home Screen"';
+
+                // Change Install button to "Got It" for iOS
+                installButton.textContent = 'Show Me';
+                installButton.addEventListener('click', () => {
+                    alert('To install:\n\n1. Tap the Share button (⬆️) at the bottom of Safari\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add"\n\nThe app icon will appear on your home screen!');
+                });
+
+                // Show banner after a short delay
+                setTimeout(() => {
+                    installBanner.classList.add('show');
+                }, 1000);
+            }
+        }
+
         // Register Service Worker for PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
